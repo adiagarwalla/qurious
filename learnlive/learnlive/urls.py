@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.views import login
+from learnlive.auth.views import LogoutView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', login, name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
