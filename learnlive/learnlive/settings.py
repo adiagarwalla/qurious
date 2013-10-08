@@ -1,5 +1,6 @@
 # Django settings for learnlive project.
 import os.path
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -111,11 +112,13 @@ ROOT_URLCONF = 'learnlive.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'learnlive.wsgi.application'
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -129,10 +132,15 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'learnlive.bid_platform',
+    'learnlive.auth',
 )
 
 # LOGIN URL DEFAULT
 LOGIN_URL = '/login/'
+
+# REDIRECT URL DEFAULT
+LOGIN_REDIRECT_URL = '/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
