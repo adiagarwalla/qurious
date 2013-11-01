@@ -1,0 +1,40 @@
+digraph graphname {
+;
+Cuisine;
+"\n";
+Cooking_stubs;
+Cooking_schools;
+Cooking_weights_and_measures;
+Chefs;
+Cooking;
+Food_services_occupations;
+Cooking_appliances;
+Works_about_cooking;
+Cooking_competitions;
+Cooking_techniques;
+Wikipedia_books_on_cooking;
+";";
+Kitchen;
+Kitchenware;
+Cooking_utensils;
+Cookware_and_bakeware;
+Cooking -> ;
+Cooking -> Chefs;
+Cooking -> Cooking_appliances;
+Cooking -> Cooking_competitions;
+Cooking -> Cooking_schools;
+Cooking -> Cooking_techniques;
+Cooking -> Cooking_utensils;
+Cooking -> Cooking_weights_and_measures;
+Cooking -> Cookware_and_bakeware;
+Cooking -> Cuisine;
+Cooking -> Food_services_occupations;
+Cooking -> Kitchen;
+Cooking -> Kitchenware;
+Cooking -> Works_about_cooking;
+Cooking -> Wikipedia_books_on_cooking;
+Cooking -> Cooking_stubs;
+Cooking -> ";";
+Cooking -> "\n";
+}
+
