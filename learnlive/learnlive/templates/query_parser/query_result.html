@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div>
+    <span>Query:</span>
+    {{ form.query }}
+  </div>
+   <input type="submit" value="login" />
+   <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %};
