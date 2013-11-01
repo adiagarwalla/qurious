@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.views import login
 from learnlive.auth.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from learnlive.auth.views import CreateUserView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -19,6 +20,12 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', login, {'template_name': 'auth/basic_login.html'}, name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
+    url(r'^register/$', CreateUserView.as_view(), name='register'),
+
+    # WARNING: the following URL has to be the last url otherwise
+    # the rejex will break and all the following entries will
+    # not be looked at.
+    #url(r'^/$', AskQuestionView.as_view(), name='ask-question'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
