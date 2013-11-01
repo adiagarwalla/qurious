@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>{{ form.errors }}</p>
+
+<form method="post" action="{% url 'register' %}">
+  {% csrf_token %}
+  <div>
+    <span>Email:</span>
+    {{ form.email }}
+  </div>
+  <div>
+    <span>Password:</span>
+    {{ form.password }}
+  </div>
+  <div>
+    <span>Are you a tutor?</span>
+    {{ form.is_tutor }}
+  </div>
+  <div>
+    <span>Profile Name (This is how your name will appear publicly):</span>
+    {{ form.profile_name }}
+  </div>
+   <input type="submit" value="login" />
+   <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %};
