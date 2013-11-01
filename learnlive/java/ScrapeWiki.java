@@ -6,16 +6,24 @@ import java.io.*;
 import java.net.*;
 
 public class ScrapeWiki {
+    private PrintWriter writer; // this is the writer that writes to the file
 
-    public void scrape() {
+    public void scrape(String startingUrl, String filename) throws FileNotFoundException {
+        writer = new PrintWriter(filename);
         Queue<String> urls = new LinkedList<String>();
-        String startingUrl = "http://en.wikipedia.org/wiki/Category:Cooking";
         urls.add(startingUrl);
         while (!urls.isEmpty()) {
             // read in the url and parse out the relevant links
             // print current node
             String url = urls.remove();
-            System.out.println(url);
+
+            int indexOfName = url.indexOf("Category:");
+            if (indexOfName == -1) indexOfName = url.indexOf("wiki/") + 5;
+            else {
+                indexOfName += 9;
+            }
+            String name = url.substring(indexOfName);
+            writer.print("" + name + ": ");
 
             String page;
             try {
@@ -56,7 +64,7 @@ public class ScrapeWiki {
             endIndex = page.indexOf("printfooter");
         }
 
-        if (endIndex == -1 || startIndex == -1) return;
+        if (endIndex == -1 || startIndex == -1) return; // safety check
 
         String relevantSubstring = page.substring(startIndex, endIndex);
 
@@ -65,22 +73,40 @@ public class ScrapeWiki {
             location += 7;
             int locationOfQuotation = relevantSubstring.indexOf("\"", location);
             String link = relevantSubstring.substring(location, locationOfQuotation);
+
+            int indexOfName = link.indexOf("Category:");
+            if (indexOfName == -1) indexOfName = link.indexOf("wiki/") + 5;
+            else {
+                indexOfName += 9;
+            }
+            String name = link.substring(indexOfName);
+
             String url = "http://en.wikipedia.org" + link;
-            if (addToQueue)
+            if (addToQueue) {
                 queue.add(url);
+                writer.print("" + name + " ");
+            }
             else
             {
                 if(url.indexOf("Wikipedia:FAQ") == -1)
-                    System.out.println(url);
+                    writer.print("" + name + " ");
             }
             location = relevantSubstring.indexOf(" href=\"", locationOfQuotation);
         }
+        writer.print("; \n");
+
     }
 
 
     public static void main(String[] args) {
         // main function to execute the scraping
         ScrapeWiki sc = new ScrapeWiki();
-        sc.scrape();
+        String startingUrl = "http://en.wikipedia.org/wiki/Category:Cooking";
+        String category = "category_cooking.txt";
+        try {
+            sc.scrape(startingUrl, category);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
