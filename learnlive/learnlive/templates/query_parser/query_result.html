@@ -6,4 +6,9 @@
     <span>Query:</span>
     {{ query }}
   </div>
+  <div>
+    {% for c in category %}
+      <span>{{ c.name }}, </span>
+    {% endfor %}
+  </div>
 {% endblock %};

@@ -11,12 +11,16 @@ class QueryRequestForm(forms.Form):
         # remove all unnecessary words and phrases
         # all words under or at 2 chars of length will be removed
         query = self.cleaned_data.get('query')
+        query = query.lower()
         textblob = TextBlob(query)
-        words = textblob.words
+        wordlist_words = textblob.words
+        words = []
+        for word in wordlist_words:
+            words.append(word)
         length = len(words)
         x = 0
         while x < length:
-            if len(words[x]) < 3:
+            if len(words[x]) < 3 and words[x] != 'to':
                 words[x] = ""
             x = x + 1
 
