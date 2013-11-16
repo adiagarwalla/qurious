@@ -40,3 +40,11 @@ class AskQueryView(View):
 
             # Temporarily just return the simple query cleaned
             return render(request, 'query_parser/query_result.html', data)
+
+class AskSearchView(View):
+    """
+    This is the testing view to test search page
+    """
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/Learnlive.html')
