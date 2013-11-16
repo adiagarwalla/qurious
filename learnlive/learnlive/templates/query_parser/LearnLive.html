@@ -1,0 +1,105 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LearnLive Version 1">
+    <meta name="author" content="Abhinav Khanna Aditya Agarwalla">
+
+    <title>Qurious - One Stop Learning Portal</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+
+  </head>
+
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+            </button>
+        
+            <a class="navbar-brand">Qurious</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="LearnLive.html">Home</a></li>
+                <li><a href="#team">Support</a></li>
+                <li><a href="LearnLive.html">Contact Us</a></li>
+                <li><a href="LearnLive.html">About Us</a></li>
+                <li><a href="LearnLive.html">Logout</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- START THE FEATURETTES -->
+    <div class="container marketing">
+
+      <div class="featurette">
+        <h5 class="featurette-heading" align="center">Ask any Question. <span class="text-muted">Get an answer within 10 minutes.</span></h2>
+        <center><input class="form-control input-lg" id="focusedInput" type="text">
+        <button type="button" class="btn btn-primary btn-lg">Ask</button></center>
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+      <!-- FOOTER -->
+      <footer>
+        <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p><center>Copyright &copy; 2013, LearnLive. All Rights Reserved.</center></p>
+      </footer>
+
+   </div>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+       <!-- JavaScript plugins (requires jQuery) -->
+          <script src="http://code.jquery.com/jquery.js"></script>
+          <script src="{% static 'bootstrap/holder.js' %}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{%static 'bootstrap/js/bootstrap.min.js' %}"></script>
+            <script>
+            $(document).ready(function(){
+               $('.carousel').carousel();
+             });
+</script>
+  </body>
+</html>
