@@ -1,0 +1,9 @@
+Django==1.5.1
+PyYAML==3.10
+django-treebeard==1.61
+pydot==1.0.28
+pyparsing==2.0.1
+python-graph-core==1.8.2
+python-graph-dot==1.8.2
+textblob==0.8.0
+wsgiref==0.1.2
