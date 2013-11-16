@@ -73,7 +73,7 @@ def load_scraped_info(filename):
     while len(line) != 0:
         category = line.split(':')
         children = category[1]
-        category = category[0]
+        category = category[0].lower()
         childarray = children.split(' ')
         entity = Entity.objects.filter(name=category)
         if len(entity) == 0:
@@ -87,6 +87,7 @@ def load_scraped_info(filename):
                 # i.e the child hadn't been added yet
                 root = Entity.objects.get(pk=e.id)
                 url = 'http://en.wikipedia.org/wiki/' + child
+                child = child.lower()
                 root.add_child(name=child, wiki_page=url)
 
         line = f.readline()
@@ -95,6 +96,7 @@ def get_entity_list(query):
     """
     This function's only job is to get the list of relevant entries given a query
     """
+    import pdb; pdb.set_trace()
     final_list = []
     pos_list = TextBlob(query).tags
     query = TextBlob(query).noun_phrases
@@ -102,24 +104,32 @@ def get_entity_list(query):
     # the longest prefix matching process!!!
     # for now just do the direct matching program....
     # and if that returns null, just do the noun and see if that comes up
-    for item in query:
-        entity_list = Entity.objects.filter(name=item)
-        if len(entity_list) == 0:
-            # the full prefix didn't match, try permutations.
-            # but for now just return the entities that match the nouns.
-            noun_list = [n for i, n in enumerate(pos_list) if n[1] == 'NN' or n[1] == 'NNP'] # searches for that VERB bitches
-            if len(noun_list) == 0:
-                # no nouns return not recognized;
-                return;
+    if len(query) != 0:
+        for item in query:
+            entity_list = Entity.objects.filter(name=item)
+            if len(entity_list) == 0:
+                get_entities_with_nouns(pos_list, query)
             else:
-                for noun in noun_list:
-                    # check if the noun is in our db
-                    db_noun = Entity.objects.filter(name=noun)
-                    if len(db_noun) == 1:
-                        db_noun = db_noun[0]
-                        final_list.append(db_noun)
-                        db_noun.add_child(name=item)
-        else:
-            final_list.append(entity_list)
+                final_list.append(entity_list)
+    else:
+        final_list = get_entities_with_nouns(pos_list, final_list)
 
     return final_list
+
+def get_entities_with_nouns(pos_list, final_list):
+        # the full prefix didn't match, try permutations.
+        # but for now just return the entities that match the nouns.
+        noun_list = [n for i, n in enumerate(pos_list) if n[1] == 'NN' or n[1] == 'NNP' or n[1] == 'NNS'] # searches for that VERB bitches
+        if len(noun_list) == 0:
+            # no nouns return not recognized;
+            return;
+        else:
+            for noun in noun_list:
+                # check if the noun is in our db
+                db_noun = Entity.objects.filter(name=noun)
+                if len(db_noun) == 1:
+                    db_noun = db_noun[0]
+                    final_list.append(db_noun)
+                    db_noun.add_child(name=item)
+
+        return final_list

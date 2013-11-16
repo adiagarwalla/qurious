@@ -5,6 +5,7 @@
 from django.views.generic import View
 from django.shortcuts import render
 from learnlive.query_parser.query_utils import get_category_for_verb
+from learnlive.query_parser.query_utils import get_entity_list
 
 from learnlive.query_parser.forms import QueryRequestForm
 
@@ -33,7 +34,8 @@ class AskQueryView(View):
             entity_list = get_entity_list(query)
             data = {
                      'query': query,
-                     'category': category
+                     'category': category,
+                     'entity_list': entity_list,
             }
 
             # Temporarily just return the simple query cleaned
