@@ -1,4 +1,5 @@
 from django.db import models
+from treebeard.mp_tree import MP_Node
 
 # Create your models here.
 class Category(models.Model):
@@ -15,3 +16,17 @@ class Verb(models.Model):
 
     name = models.CharField(max_length=256)
     categories = models.ManyToManyField(Category)
+
+class Entity(MP_Node):
+    """
+    This is the entity class. It holds the name of the entity, the wiki
+    page attached to the entity, and the children that spring from this entity
+    """
+
+    name = models.CharField(max_length=512)
+    wiki_page = models.URLField(max_length=512)
+
+    node_order_by = ['name']
+
+    def __unicode__(self):
+        return 'Entity: %s' % self.name

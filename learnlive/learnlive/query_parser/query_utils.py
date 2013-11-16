@@ -7,6 +7,7 @@ from textblob.wordnet import VERB
 from text.wordnet import Synset
 
 from learnlive.query_parser.models import Verb
+from learnlive.query_parser.models import Entity
 
 def get_category_for_verb(query):
     """
@@ -64,3 +65,61 @@ def get_category_for_verb(query):
         return kb_list[index].categories.values()
     else:
         return kb_list[0].categories.values()
+
+def load_scraped_info(filename):
+    f = open(filename)
+    line = f.readline()
+
+    while len(line) != 0:
+        category = line.split(':')
+        children = category[1]
+        category = category[0]
+        childarray = children.split(' ')
+        entity = Entity.objects.filter(name=category)
+        if len(entity) == 0:
+            # no entity currently exists add a new one.
+            url = 'http://en.wikipedia.org/wiki/' + category
+            entity = [Entity.add_root(name=category, wiki_page=url)]
+
+        for e in entity:
+            # now add the children
+            for child in childarray:
+                # i.e the child hadn't been added yet
+                root = Entity.objects.get(pk=e.id)
+                url = 'http://en.wikipedia.org/wiki/' + child
+                root.add_child(name=child, wiki_page=url)
+
+        line = f.readline()
+
+def get_entity_list(query):
+    """
+    This function's only job is to get the list of relevant entries given a query
+    """
+    final_list = []
+    pos_list = TextBlob(query).tags
+    query = TextBlob(query).noun_phrases
+    # we now have a valid query object that does not have a verb in it :D begin
+    # the longest prefix matching process!!!
+    # for now just do the direct matching program....
+    # and if that returns null, just do the noun and see if that comes up
+    for item in query:
+        entity_list = Entity.objects.filter(name=item)
+        if len(entity_list) == 0:
+            # the full prefix didn't match, try permutations.
+            # but for now just return the entities that match the nouns.
+            noun_list = [n for i, n in enumerate(pos_list) if n[1] == 'NN' or n[1] == 'NNP'] # searches for that VERB bitches
+            if len(noun_list) == 0:
+                # no nouns return not recognized;
+                return;
+            else:
+                for noun in noun_list:
+                    # check if the noun is in our db
+                    db_noun = Entity.objects.filter(name=noun)
+                    if len(db_noun) == 1:
+                        db_noun = db_noun[0]
+                        final_list.append(db_noun)
+                        db_noun.add_child(name=item)
+        else:
+            final_list.append(entity_list)
+
+    return final_list

@@ -30,6 +30,7 @@ class AskQueryView(View):
             # I.E the query without any short unnecessary words
             query = form.cleaned_data.get('query')
             category = get_category_for_verb(query)
+            entity_list = get_entity_list(query)
             data = {
                      'query': query,
                      'category': category
