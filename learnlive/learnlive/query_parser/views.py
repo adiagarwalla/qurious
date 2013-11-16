@@ -4,6 +4,7 @@
 
 from django.views.generic import View
 from django.shortcuts import render
+from learnlive.query_parser.query_utils import get_category_for_verb
 
 from learnlive.query_parser.forms import QueryRequestForm
 
@@ -28,7 +29,12 @@ class AskQueryView(View):
             # now you can extract the cleaned query
             # I.E the query without any short unnecessary words
             query = form.cleaned_data.get('query')
-            data = { 'query': query }
+            category = get_category_for_verb(query)
+            entity_list = get_entity_list(query)
+            data = {
+                     'query': query,
+                     'category': category
+            }
 
             # Temporarily just return the simple query cleaned
             return render(request, 'query_parser/query_result.html', data)

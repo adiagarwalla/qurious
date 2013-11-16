@@ -134,6 +134,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'learnlive.bid_platform',
     'learnlive.auth',
+    'learnlive.query_parser',
+    'treebeard',
 )
 
 # LOGIN URL DEFAULT
