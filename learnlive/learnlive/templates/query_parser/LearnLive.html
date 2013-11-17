@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,12 +10,12 @@
     <title>Qurious - One Stop Learning Portal</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../dist/css/bootstrap.css" rel="stylesheet">
-    <link href="home.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
 
   </head>
 
@@ -93,14 +93,9 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
        <!-- JavaScript plugins (requires jQuery) -->
-          <script src="http://code.jquery.com/jquery.js"></script>
-          <script src="dist/holder.js"></script>
+       <script src="{% static 'jquery/jquery.js' %}"></script>
+          <script src="{% static 'bootstrap/holder.js' %}"></script>
           <!-- Include all compiled plugins (below), or include individual files as needed -->
-          <script src="../dist/js/bootstrap.min.js"></script>
-            <script>
-            $(document).ready(function(){
-               $('.carousel').carousel();
-             });
-</script>
+          <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
