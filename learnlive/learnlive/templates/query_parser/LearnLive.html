@@ -1,5 +1,4 @@
 
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,12 +10,12 @@
     <title>Qurious - One Stop Learning Portal</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="../dist/css/bootstrap.css" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    <link href="starter-template.css" rel="stylesheet">
 
   </head>
 
@@ -25,36 +24,38 @@
   <body>
     <div class="navbar-wrapper">
       <div class="container">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-          <div class="container">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-            </button>
-        
-            <a class="navbar-brand">Qurious</a>
-            <div class="nav-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="LearnLive.html">Home</a></li>
-                <li><a href="#team">Support</a></li>
-                <li><a href="LearnLive.html">Contact Us</a></li>
-                <li><a href="LearnLive.html">About Us</a></li>
-                <li><a href="LearnLive.html">Logout</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
-        </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">Qurious</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="LearnLive.html">Home</a></li>
+            <li><a href="#team">Support</a></li>
+            <li><a href="LearnLive.html">Contact Us</a></li>
+            <li><a href="LearnLive.html">About Us</a></li>
+            <li><a href="LearnLive.html">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
+</div>
 
     <!-- START THE FEATURETTES -->
     <div class="container marketing">
 
       <div class="featurette">
         <h5 class="featurette-heading" align="center">Ask any Question. <span class="text-muted">Get an answer within 10 minutes.</span></h2>
+
         <center><input class="form-control input-lg" id="focusedInput" type="text">
         <button type="button" class="btn btn-primary btn-lg">Ask</button></center>
+        
       </div>
 
       <br>
@@ -93,9 +94,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
        <!-- JavaScript plugins (requires jQuery) -->
           <script src="http://code.jquery.com/jquery.js"></script>
-          <script src="{% static 'bootstrap/holder.js' %}"></script>
+          <script src="dist/holder.js"></script>
           <!-- Include all compiled plugins (below), or include individual files as needed -->
-          <script src="{%static 'bootstrap/js/bootstrap.min.js' %}"></script>
+          <script src="../dist/js/bootstrap.min.js"></script>
             <script>
             $(document).ready(function(){
                $('.carousel').carousel();
