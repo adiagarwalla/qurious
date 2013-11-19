@@ -30,11 +30,11 @@ class AskQueryView(View):
             # now you can extract the cleaned query
             # I.E the query without any short unnecessary words
             query = form.cleaned_data.get('query')
-            category = get_category_for_verb(query)
+            #category = get_category_for_verb(query)
             entity_list = get_entity_list(query)
             data = {
                      'query': query,
-                     'category': category,
+                     #'category': category,
                      'entity_list': entity_list,
             }
 

@@ -33,7 +33,7 @@ class QueryRequestForm(forms.Form):
                 analysis = text_analyzer.tags
                 pairs = analysis[0]
                 value = pairs[1]
-                if value != 'WRB':
+                if value != 'WRB' and value != 'WDT' and value != 'WP' and value != 'WP$':
                     stripped_string += words[x]
                     stripped_string += " "
 
