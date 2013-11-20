@@ -1,11 +1,16 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
   <head>
     <title>BidProfile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="home.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,6 +68,87 @@
           <img class = "img-responsive img-circle" data-src="../dis/holder.js/180x150" alt="..." align = "left"/>
           <div class="caption">
             <h3>Thumbnail label</h3>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <p><a href="#" class="btn btn-primary" role="button">Select Bid</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Reviews for XYZ</h4>
+          </div>
+          <div class="modal-body">
+            <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <br>
+             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <br>
+             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <br>
+             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <br>
+             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">More Reviews</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class = "row">
+      <div class ="col-md-6 col-md-offset-3">
+        <div class="thumbnail">
+          <img class = "img-responsive img-circle" data-src="../dis/holder.js/180x150" alt="..." align = "left"/>
+          <div class="caption">
+            <h3>Thumbnail label</h3>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a href="#" class="btn btn-primary" role="button">Select Bid</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
           </div>
@@ -76,6 +162,11 @@
           <img class = "img-responsive img-circle" data-src="../dis/holder.js/180x150" alt="..." align = "left"/>
           <div class="caption">
             <h3>Thumbnail label</h3>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a href="#" class="btn btn-primary" role="button">Select Bid</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
           </div>
@@ -89,19 +180,11 @@
           <img class = "img-responsive img-circle" data-src="../dis/holder.js/180x150" alt="..." align = "left"/>
           <div class="caption">
             <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a href="#" class="btn btn-primary" role="button">Select Bid</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "row">
-      <div class ="col-md-6 col-md-offset-3">
-        <div class="thumbnail">
-          <img class = "img-responsive img-circle" data-src="../dis/holder.js/180x150" alt="..." align = "left"/>
-          <div class="caption">
-            <h3>Thumbnail label</h3>
+            <span class="modaltest" data-toggle="modal" data-target="#myModal">
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-ok"></span>
+            </span>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
             <p><a href="#" class="btn btn-primary" role="button">Select Bid</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
           </div>
@@ -112,10 +195,13 @@
     </div>
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../dist/js/bootstrap.min.js"></script>
-    <script src="../dist/holder.js"></script>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+       <!-- JavaScript plugins (requires jQuery) -->
+       <script src="{% static 'jquery/jquery.js' %}"></script>
+          <script src="{% static 'bootstrap/holder.js' %}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
