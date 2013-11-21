@@ -47,4 +47,4 @@ class AskSearchView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/instructorprofile.html')
+        return render(request, 'query_parser/bidprofile.html')
