@@ -47,4 +47,14 @@ class AskSearchView(View):
     """
 
     def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/LearnLive.html')
+
+class ProfileView(View):
+
+    def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/instructorprofile.html')
+
+class SearchResults(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/bidprofile.html')
