@@ -22,57 +22,57 @@
 <!-- NAVBAR
 ================================================== -->
   <body>
+
     <div class="navbar-wrapper">
       <div class="container">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand">Qurious</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="LearnLive.html">Home</a></li>
-            <li><a href="#team">Support</a></li>
-            <li><a href="LearnLive.html">Contact Us</a></li>
-            <li><a href="LearnLive.html">About Us</a></li>
-            <li><a href="LearnLive.html">Logout</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Qurious</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">Support</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Mission</a></li>
+                    <li><a href="#">The Team</a></li>
+                    <li><a href="#">Join Us</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="navbar-wrapper">
+      <div class="container">
 
     <!-- START THE FEATURETTES -->
     <div class="container marketing">
 
       <div class="featurette">
-        <h5 class="featurette-heading" align="center">Ask any Question. <span class="text-muted">Get an answer within 10 minutes.</span></h2>
 
-        <center><input class="form-control input-lg" id="focusedInput" type="text">
-        <button type="button" class="btn btn-primary btn-lg">Ask</button></center>
+        <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center>
+        <h5 class="featurette-heading text-danger" align="center">Qurious</h2>
+
+        <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question"></div></div>
+        <button type="button" class="btn btn-danger btn-lg">Ask</button></center>
         
       </div>
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
 
       <hr class="featurette-divider">
 
@@ -81,8 +81,7 @@
       <!-- FOOTER -->
       <footer>
         <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p><center>Copyright &copy; 2013, LearnLive. All Rights Reserved.</center></p>
+        <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
       </footer>
 
    </div>
