@@ -9,6 +9,7 @@ from learnlive.query_parser.query_utils import get_entity_list
 
 from learnlive.query_parser.forms import QueryRequestForm
 
+
 class AskQueryView(View):
     """
     This is the view for the main landing page
@@ -17,8 +18,46 @@ class AskQueryView(View):
     """
 
     def get(self, request, *args, **kwargs):
+        warn('You are hitting a testing page')
         form = QueryRequestForm()
         return render(request, 'query_parser/query.html', {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        warn('this endpoint is no longer valid')
+        # The post function has to do a few things
+        # It needs to execute the basic query handling
+        # This includes: Preprocessing, verb extraction
+        # Tree traversal, and search result posting
+        form = QueryRequestForm(request.POST)
+        if form.is_valid():
+            # now you can extract the cleaned query
+            # I.E the query without any short unnecessary words
+            query = form.cleaned_data.get('query')
+            #category = get_category_for_verb(query)
+            entity_list = get_entity_list(query)
+            # we are going to return the top ten profiles for the given entities in this list
+            i = 0
+            profiles = []
+            while (len(profiles) < page_limit):
+                profiles = get_profile_for_entity(entity_list[i], page_limit)
+                i = i + 1
+            data = {
+                     'query': query,
+                     #'category': category,
+                     'entity_list': entity_list,
+                     'profiles': profiles,
+            }
+
+            # Temporarily just return the simple query cleaned
+            return render(request, 'query_parser/query_result.html', data)
+
+class AskSearchView(View):
+    """
+    This is the Main google like search view
+    """
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/LearnLive.html')
 
     def post(self, request, *args, **kwargs):
         # The post function has to do a few things
@@ -40,14 +79,6 @@ class AskQueryView(View):
 
             # Temporarily just return the simple query cleaned
             return render(request, 'query_parser/query_result.html', data)
-
-class AskSearchView(View):
-    """
-    This is the testing view to test search page
-    """
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/LearnLive.html')
 
 class ProfileView(View):
 
