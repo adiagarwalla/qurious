@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Qurious</title>
+
+    <!-- Bootstrap core CSS -->
+ 	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
+
+  </head>
+
+  <body>
+
+  	<script type="text/javascript">
+	  var apiKey    = "44485952";
+	  var sessionId = "2_MX40NDQ4NTk1Mn5-VGh1IE5vdiAyOCAxNjoyNTozMyBQU1QgMjAxM34wLjI2MDA4MTE3fg";
+	  var token     = "T1==cGFydG5lcl9pZD00NDQ4NTk1MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mZDRjYWYxNjhjM2M0OGRlNTJjYmRlZjA1YzY1ZmRjZjk0MTM1Mzc2OnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDQwTkRRNE5UazFNbjUtVkdoMUlFNXZkaUF5T0NBeE5qb3lOVG96TXlCUVUxUWdNakF4TTM0d0xqSTJNREE0TVRFM2ZnJmNyZWF0ZV90aW1lPTEzODU2ODQ3ODYmbm9uY2U9MC4xODQ4MTM0MjQzOTYyNTgyNSZleHBpcmVfdGltZT0xMzg1NzcxMTg1JmNvbm5lY3Rpb25fZGF0YT0=";
+	 
+	  function sessionConnectedHandler (event) {
+	     session.publish( publisher );
+	     subscribeToStreams(event.streams);
+	  }
+	  function subscribeToStreams(streams) {
+	    for (var i = 0; i < streams.length; i++) {
+	        var stream = streams[i];
+	        if (stream.connection.connectionId 
+	               != session.connection.connectionId) {
+	            session.subscribe(stream);
+	        }
+	    }
+	  }
+	  function streamCreatedHandler(event) {
+	    subscribeToStreams(event.streams);
+	  }
+	 
+	  var publisher = TB.initPublisher(apiKey);
+	  var session   = TB.initSession(sessionId);
+	 
+	  session.connect(apiKey, token);
+	  session.addEventListener("sessionConnected", 
+	                           sessionConnectedHandler);
+	 
+	  session.addEventListener("streamCreated", 
+	                           streamCreatedHandler);
+	</script>
+
+  </body>
+</html>
