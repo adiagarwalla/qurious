@@ -116,14 +116,43 @@ def get_entity_list(query):
             item = item.replace(' ', '_')
             entity_list = Entity.objects.filter(name=item)
             if len(entity_list) == 0:
-                final_list = get_entities_with_nouns(search_query, pos_list, final_list)
+                final_list = get_entities_by_permute(item, pos_list, final_list)
             else:
                 for e in entity_list:
                     final_list.append(e)
     else:
-        final_list = get_entities_with_nouns(search_query, pos_list, final_list)
+        final_list = get_entities_by_permute(search_query, pos_list, final_list)
 
     return final_list
+
+def get_entities_by_permute(search_query, pos_list, final_list):
+    """
+    Gets the entities that match to any given permutation of the words
+    """
+    # we need to remove the verb from the query
+    words = []
+    for (word, pos) in pos_list:
+        if 'JJ' in pos or 'FW' in pos or 'JJ' in pos or 'NN' in pos or 'PS' in pos or 'RB' in pos or 'VBG' in pos:
+            words.append(word)
+
+    # now that we have removed the verb :D.
+    # we want to basically take the longest matching prefix check if thats in the db, and try again
+    for j in range(0, len(words)):
+        string = ''
+        for i in range(j, len(words)):
+            if i != len(words) - 1:
+                string += words[i] + "_"
+            else:
+                string += words[i]
+        # check the db for this string
+        e = Entity.objects.filter(name=string)
+        if len(e) > 0:
+            for entity in e:
+                final_list.append(entity)
+            return final_list
+
+    # signifies no matches were found
+    return [];
 
 def get_entities_with_nouns(search_query, pos_list, final_list):
         # the full prefix didn't match, try permutations.
@@ -143,7 +172,6 @@ def get_entities_with_nouns(search_query, pos_list, final_list):
             for noun in noun_list:
                 # check if the noun is in our db
                 # normalize the noun
-                import pdb; pdb.set_trace()
                 noun = noun[0].replace(' ', '_')
                 db_noun = Entity.objects.filter(name=noun)
                 for db_n in db_noun:

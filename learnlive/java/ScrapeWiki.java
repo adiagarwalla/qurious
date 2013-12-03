@@ -101,8 +101,8 @@ public class ScrapeWiki {
     public static void main(String[] args) {
         // main function to execute the scraping
         ScrapeWiki sc = new ScrapeWiki();
-        String startingUrl = "http://en.wikipedia.org/wiki/Category:Home";
-        String category = "category_home.txt";
+        String startingUrl = "http://en.wikipedia.org/wiki/Category:Articles";
+        String category = "wiki.txt";
         try {
             sc.scrape(startingUrl, category);
         } catch(FileNotFoundException e) {

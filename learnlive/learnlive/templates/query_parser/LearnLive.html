@@ -16,16 +16,10 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
-
   </head>
-
-<!-- NAVBAR
-================================================== -->
   <body>
-
     <div class="navbar-wrapper">
       <div class="container">
-
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -35,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Qurious</a>
+              <a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -54,40 +48,29 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
     <div class="navbar-wrapper">
       <div class="container">
-
     <!-- START THE FEATURETTES -->
     <div class="container marketing">
-
       <div class="featurette">
-
-        <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center>
-        <h5 class="featurette-heading text-danger" align="center">Qurious</h2>
-
-        <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question"></div></div>
-        <button type="button" class="btn btn-danger btn-lg">Ask</button></center>
-        
+        <form action="{% url 'search' %}" method="POST" >
+          {% csrf_token %}
+          <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center>
+          <h5 class="featurette-heading text-danger" align="center">Qurious</h2>
+          <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question" name="query"></div></div>
+          <button type="submit" class="btn btn-danger btn-lg">Ask</button></center>
+        </form>
       </div>
-
       <hr class="featurette-divider">
-
       <!-- /END THE FEATURETTES -->
-
       <!-- FOOTER -->
       <footer>
         <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
         <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
       </footer>
-
    </div>
-
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -13,5 +13,10 @@
     {% for e in entity_list %}
       <span>{{ e.name }}</span>
     {% endfor %}
+    {% for profile_list in profiles %}
+      {% for profile in profile_list %}
+        <span>{{ profile.profile_name }}</span>
+      {% endfor %}
+    {% endfor %}
   </div>
 {% endblock %};
