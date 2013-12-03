@@ -98,3 +98,8 @@ class SearchResults(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/bidprofile.html')
+
+class InClassView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/inclass.html')
