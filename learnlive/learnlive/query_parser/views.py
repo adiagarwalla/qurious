@@ -59,7 +59,7 @@ class AskSearchView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/LearnLive.html')
+        return render(request, 'query_parser/instructorprofile.html')
 
     def post(self, request, *args, **kwargs):
         # The post function has to do a few things
