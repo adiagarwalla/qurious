@@ -4,8 +4,10 @@
 
 from django.views.generic import View
 from django.shortcuts import render
+from warnings import warn
 from learnlive.query_parser.query_utils import get_category_for_verb
 from learnlive.query_parser.query_utils import get_entity_list
+from learnlive.bid_platform.skill_utils import get_profile_for_entity
 
 from learnlive.query_parser.forms import QueryRequestForm
 
@@ -71,14 +73,21 @@ class AskSearchView(View):
             query = form.cleaned_data.get('query')
             #category = get_category_for_verb(query)
             entity_list = get_entity_list(query)
+            profile_list = []
+            if len(entity_list) > 0:
+                profile_list = get_profile_for_entity(entity_list[0], 0, 10)
+
             data = {
                      'query': query,
+                     'profiles': profile_list,
                      #'category': category,
                      'entity_list': entity_list,
             }
 
             # Temporarily just return the simple query cleaned
-            return render(request, 'query_parser/query_result.html', data)
+            return render(request, 'query_parser/bidprofile.html', data)
+
+        return render(request, 'query_parser/LearnLive.html')
 
 class ProfileView(View):
 

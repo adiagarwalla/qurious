@@ -136,7 +136,6 @@ INSTALLED_APPS = (
     'learnlive.auth',
     'learnlive.query_parser',
     'treebeard',
-    'south',
 )
 
 # LOGIN URL DEFAULT

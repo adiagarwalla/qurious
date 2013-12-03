@@ -130,7 +130,6 @@ def get_entities_by_permute(search_query, pos_list, final_list):
     Gets the entities that match to any given permutation of the words
     """
     # we need to remove the verb from the query
-    import pdb; pdb.set_trace()
     words = []
     for (word, pos) in pos_list:
         if 'JJ' in pos or 'FW' in pos or 'JJ' in pos or 'NN' in pos or 'PS' in pos or 'RB' in pos or 'VBG' in pos:
@@ -153,7 +152,7 @@ def get_entities_by_permute(search_query, pos_list, final_list):
             return final_list
 
     # signifies no matches were found
-    return;
+    return [];
 
 def get_entities_with_nouns(search_query, pos_list, final_list):
         # the full prefix didn't match, try permutations.

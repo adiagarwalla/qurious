@@ -7,5 +7,5 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
     profile_name = models.CharField(max_length=256)
-    skills = models.ForeignKey(Skill)
+    skills = models.ForeignKey(Skill, null=True)
 

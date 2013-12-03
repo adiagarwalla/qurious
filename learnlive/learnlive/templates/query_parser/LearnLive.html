@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Qurious</a>
+              <a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -57,16 +57,10 @@
       <div class="featurette">
         <form action="{% url 'search' %}" method="POST" >
           {% csrf_token %}
-          <h5 class="featurette-heading" align="center">Ask any Question. <span class="text-muted">Get an answer within 10 minutes.</span></h2>
-          <center><input class="form-control input-lg" id="focusedInput" name="query" type="text">
-          <input type="submit" class="btn btn-primary btn-lg" value="Ask" /></center>
-        </form>
-        <form action="{% url 'search' %}" method="POST" >
-          {% csrf_token %}
           <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center>
           <h5 class="featurette-heading text-danger" align="center">Qurious</h2>
-          <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question"></div></div>
-          <button type="button" class="btn btn-danger btn-lg">Ask</button></center>
+          <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question" name="query"></div></div>
+          <button type="submit" class="btn btn-danger btn-lg">Ask</button></center>
         </form>
       </div>
       <hr class="featurette-divider">
