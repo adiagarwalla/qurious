@@ -59,7 +59,7 @@ class AskSearchView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/instructorprofile.html')
+        return render(request, 'query_parser/LearnLive.html')
 
     def post(self, request, *args, **kwargs):
         # The post function has to do a few things
@@ -74,9 +74,15 @@ class AskSearchView(View):
             #category = get_category_for_verb(query)
             entity_list = get_entity_list(query)
             profile_list = []
+            page_limit = 10
             if len(entity_list) > 0:
-                profile_list = get_profile_for_entity(entity_list[0], 0, 10)
-
+                i = 0
+                while (len(profile_list) < page_limit and i < len(entity_list)):
+                    tmp_profile_list = get_profile_for_entity(entity_list[i], 0, page_limit - len(profile_list))
+                    for item in tmp_profile_list:
+                        if item not in profile_list:
+                            profile_list.append(item)
+                    i = i + 1
             data = {
                      'query': query,
                      'profiles': profile_list,
@@ -97,6 +103,7 @@ class ProfileView(View):
 class SearchResults(View):
 
     def get(self, request, *args, **kwargs):
+        warn("TESTING PURPOSE ONLY")
         return render(request, 'query_parser/bidprofile.html')
 
 class InClassView(View):

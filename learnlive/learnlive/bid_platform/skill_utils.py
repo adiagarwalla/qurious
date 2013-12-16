@@ -33,11 +33,12 @@ def get_profile_for_entity(entity, start, limit):
         parent_entity = entity.get_parent()
         parent_skill = Skill.objects.filter(name=parent_entity.name)
         if len(parent_skill) > 0:
-            parent_skill = parent_skill[0]
-            parent_profs = parent_skill.userprofile_set.all()
-            # now append as many as you need to make this work.
-            for i in range(0, limit - len(retlist)):
-                retlist.append(parent_profs[i])
+            for p_skill in parent_skill:
+                parent_profs = p_skill.userprofile_set.all()
+                # now append as many as you need to make this work.
+                for i in range(0, min(limit - len(retlist), len(parent_profs))):
+                    if parent_profs[i] not in retlist:
+                        retlist.append(parent_profs[i])
 
     return retlist
 

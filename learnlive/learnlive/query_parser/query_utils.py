@@ -146,6 +146,14 @@ def get_entities_by_permute(search_query, pos_list, final_list):
                 string += words[i]
         # check the db for this string
         e = Entity.objects.filter(name=string)
+        if len(e) == 0:
+            # try switching the plurality of the word
+            if string[-1] == 's':
+                string = string.replace(string[-1], '')
+            else:
+                string += 's'
+
+        e = Entity.objects.filter(name=string)
         if len(e) > 0:
             for entity in e:
                 final_list.append(entity)
