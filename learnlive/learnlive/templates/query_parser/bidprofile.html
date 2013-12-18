@@ -58,7 +58,7 @@
                   </ul>
                 </li>
               </ul>
-              
+
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Log In</a></li>
               </ul>
@@ -141,6 +141,58 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <!-- Modal for bid confirmation (and in the future - payment) -->
+    <div class="modal fade" id="myModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
+          </div>
+          <div class="modal-body">
+          <form>
+          <fieldset>
+            <h4 class="text-muted">Enter into live one-on-one chat session</h4>
+            <br>
+            <div class="form-group">
+              <label for="exampleInputEmail">PAYMENT</label>
+              <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
+            </div>
+
+            <div class = "row">
+              <div class="form-group col-lg-4">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="01">
+              </div>
+              <div class="form-group col-lg-4">
+                <input type="text" class="form-control" id="exampleInputPassword" placeholder="2014">
+              </div>
+              <div class="form-group col-lg-4">
+                <input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail">CONTACT</label>
+              <input type="text" class="form-control" id="exampleInputPassword" placeholder="EMAIL ADDRESS">
+            </div>
+          </fieldset>
+      </form>
+          </div>
+          <div class="modal-footer">
+          <center>
+            <button type="button" class="btn btn-danger">Start Live Session</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </center>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     {% for profile in profiles %}
       <div class = "row">
         <div class ="col-md-6 col-md-offset-3">
@@ -159,7 +211,7 @@
                   <span class="glyphicon glyphicon-star"></span>
                 </span>
                 <p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a href="#" class="btn btn-danger" role="button">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+                <p><a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
               </div>
             </div>
           </div>
@@ -184,7 +236,7 @@
               <span class="glyphicon glyphicon-star"></span>
             </span>
             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a href="#" class="btn btn-danger" role="button">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+            <p><a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
           </div>
         </div>
         </div>
