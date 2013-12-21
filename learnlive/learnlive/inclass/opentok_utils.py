@@ -1,6 +1,7 @@
 # This is a utility file to handle the basics
 # of the opentok server side initialization and
 # management.
+import OpenTokSDK
 
 API_KEY='44586332'
 API_SECRET='9233963d604d4d8a944468b1e135aaf213db1285'
