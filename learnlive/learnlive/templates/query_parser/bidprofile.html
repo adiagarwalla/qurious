@@ -150,21 +150,47 @@
             <h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
           </div>
           <div class="modal-body">
-          <form>
-          <fieldset>
-            <h4 class="text-muted">Enter into live one-on-one chat session</h4>
+            <h4 class="text-muted">Sign In Please</h4>
+            <input onClick="yes()" type="radio" name="options" id="option1">    I don't have an account
             <br>
+            <br>
+            
+            <form>
+              <fieldset>
+
+              <div class="form-group">
+                <label for="exampleInputEmail">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassoword">PASSWORD</label>
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
+              </div>
+
+              <div class="form-group" id="confirmPassword" style="visibility:hidden;">
+                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
+                <input type="password" class="form-control" id="confirmPassword1" placeholder="">
+              </div>
+              
+              </fieldset>
+            </form>
+
+            <br>
+            <h4 >Enter Payment Information</h4>
+
+            <form>
+            <fieldset>
             <div class="form-group">
-              <label for="exampleInputEmail">PAYMENT</label>
               <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
             </div>
 
             <div class = "row">
               <div class="form-group col-lg-4">
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="01">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="MM">
               </div>
               <div class="form-group col-lg-4">
-                <input type="text" class="form-control" id="exampleInputPassword" placeholder="2014">
+                <input type="text" class="form-control" id="exampleInputPassword" placeholder="YYYY">
               </div>
               <div class="form-group col-lg-4">
                 <input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
@@ -173,11 +199,6 @@
 
             <div class="form-group">
               <input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
-            </div>
-
-            <div class="form-group">
-              <label for="exampleInputEmail">CONTACT</label>
-              <input type="text" class="form-control" id="exampleInputPassword" placeholder="EMAIL ADDRESS">
             </div>
           </fieldset>
       </form>
@@ -255,6 +276,14 @@
         <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
       </footer>
     </div>
+
+    <script type="text/javascript">
+      function yes()
+      {
+        var show = document.getElementById("confirmPassword");
+        show.style.visibility = "visible";
+      }
+    </script>
 
 
 <!-- Bootstrap core JavaScript
