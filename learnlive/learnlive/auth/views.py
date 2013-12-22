@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from learnlive.auth.models import UserProfile
 from learnlive.auth.forms import UserProfileForm
+from learnlive.bid_platform.models import Skill
 from django.shortcuts import render
 
 class LogoutView(View):
@@ -40,15 +41,21 @@ class CreateUserView(View):
             # valid form entry, proceed to create the objects
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            is_tutor = form.cleaned_data.get('is_tutor')
             profile_name = form.cleaned_data.get('profile_name')
-            username = email.split('@')[0]
+            username = email
 
             # create the User object
             # we will leave it to the form logic to ensure that no
             # other user has this username
             user = User.objects.create_user(username, email, password)
-            user_profile = UserProfile.objects.create(user=user, is_tutor=is_tutor, profile_name=profile_name)
+            skill = Skill.objects.filter(name='learning')
+            if len(skill) > 0:
+                skill = skill[0]
+            else:
+                skill = Skill(name='learning')
+                skill.save()
+
+            user_profile = UserProfile(user=user, profile_name=profile_name, skills=skill)
             return HttpResponseRedirect(reverse('login'))
         else:
             return render(request, 'auth/register_user.html', {'form': form})
