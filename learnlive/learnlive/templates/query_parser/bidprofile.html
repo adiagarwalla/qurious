@@ -155,7 +155,7 @@
             <br>
             <br>
             
-            <form>
+            <form id="signin">
               <fieldset>
 
               <div class="form-group">
@@ -179,7 +179,7 @@
             <br>
             <h4 >Enter Payment Information</h4>
 
-            <form>
+            <form id="paymentinfo">
             <fieldset>
             <div class="form-group">
               <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
@@ -288,6 +288,13 @@
         else
           show.style.visibility = "hidden";
       }
+    </script>
+
+    <script type="text/javascript">
+      $('.myModalConfirm').on('hidden.bs.modal', function() { 
+        $('.exampleInputEmail').val("");
+        $('.signin').reset(); 
+        $('.paymentinfo').reset(); })
     </script>
 
 
