@@ -151,7 +151,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-muted">Sign In Please</h4>
-            <input onClick="yes()" type="radio" name="options" id="option1">    I don't have an account
+            <input onClick="showOrHide()" type="checkbox" name="options" id="option1">    I don't have an account
             <br>
             <br>
             
@@ -278,10 +278,15 @@
     </div>
 
     <script type="text/javascript">
-      function yes()
+      function showOrHide()
       {
         var show = document.getElementById("confirmPassword");
-        show.style.visibility = "visible";
+
+        if (option1.checked)
+          show.style.visibility = "visible";
+
+        else
+          show.style.visibility = "hidden";
       }
     </script>
 
