@@ -16,9 +16,31 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+
+    <script type="text/javascript">
+      function showOrHide()
+      {
+        var show = document.getElementById("confirmPassword");
+
+        if (option1.checked)
+          show.style.visibility = "visible";
+
+        else
+          show.style.visibility = "hidden";
+      }
+    </script>
   </head>
 
   <body>
+    <!-- <div class="panel panel-primary">
+      <div class="panel-heading"><span class = "text">Computer and Electronics Help <span class = "text-muted">by David Su</span></span></div>
+      <div class="panel-body">
+        <img class="img-responsive" alt="Responsive" data-src="../dist/holder.js/240x240" />
+      </div>
+    </div> -->
+
+    <!-- NAVBAR
+    ================================================== -->
       <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -99,96 +121,80 @@
           </div>
         </div>
         </div>
-
+        
     <!--end of navbar-->
-    <!-- START THE FEATURETTES -->
     <div class="container marketing">
       <div class="featurette1">
-      <h2>About Us <small class="text-muted"> The Team behind Qurious</small></h2>
 
-      <div class="jumbotron">
-        <h1>What we stand for</h1>
-        <p class = "text-primary">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-      </div>
+      <h2><strong>Confirmation Page</strong></h2>
+            
+            <h4 class="text-muted">Sign In Please</h4>
+            <input onClick="showOrHide()" type="checkbox" name="options" id="option1">    I don't have an account
+            <br>
+            <br>
+            
+            <form id="signin">
+              <fieldset>
 
-      <div class="row">
-      <div class="col-lg-8">
-        <h3><strong>Who</strong> We Are</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Nullam convallis, arcu vel pellentesque sodales, nisi est varius diam, ac ultrices sem ante quis sem. Proin ultricies volutpat sapien, nec scelerisque ligula mollis lobortis.</p>
-        <p>Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc vehicula lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing <span class="alternative-font">metus</span> sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula. Fusce eget metus lorem, ac viverra leo.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In eu libero ligula.</p>
-      </div>
+              <div class="form-group">
+                <label for="exampleInputEmail">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+              </div>
 
-      <div class = "col-lg-4">
-        <center>
-          <img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." />
-        </center>
-      </div>
-      </div>
+              <div class="form-group">
+                <label for="exampleInputPassoword">PASSWORD</label>
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
+              </div>
 
-      <hr class="featurette-divider">
+              <div class="form-group" id="confirmPassword" style="visibility:hidden;">
+                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
+                <input type="password" class="form-control" id="confirmPassword1" placeholder="">
+              </div>
+              
+              </fieldset>
+            </form>
 
-      <h3>Meet the <strong>Team</strong></h3>
+            <br>
+            <h4 >Enter Payment Information</h4>
 
-      <div class="row">
-        <div class="col-lg-6">
-          <center>
-          <img class="img-thumbnail" src="{% static 'query_parser/team1.jpg' %}" />
-          <h4>Aditya Agarwalla<br><small>Co-Founder</small></h4>
-          <p><a href = "https://www.facebook.com/aditya.agarwalla" target="_blank"><i class="icon-facebook"></i></a> | <a href = "http://www.linkedin.com/pub/aditya-agarwalla/43/421/850" target="_blank"><i class="icon-linkedin"></i></a></p></center>
-        </div><!-- /.col-lg-6 -->
-        <div class="col-lg-6">
-          <center>
-          <img class="img-thumbnail" src="{% static 'query_parser/team2.jpg' %}">
-          <h4>Abhinav Khanna<br><small>Co-Founder</small></h4>
-          <p><a href = "https://www.facebook.com/aditya.agarwalla" target="_blank"><i class="icon-facebook"></i></a> | <a href = "www.linkedin.com/pub/abhinav-khanna/61/4b0/193" target="_blank"><i class="icon-linkedin"></i></a></p>
-          </center>
-        </div><!-- /.col-lg-6 -->
-      </div><!-- /.row -->
-
-      <hr class="featurette-divider">
-
-      <form>
-          <fieldset>
-            <legend><h2><strong>Leave us a message</strong></h2></legend>
-            <h4 class="text-muted">We'd love to know more about you. Please do not hesitate to contact us.</h4>
+            <form id="paymentinfo">
+            <fieldset>
             <div class="form-group">
-              <label for="exampleInputEmail">Name *</label>
-              <input type="text" class="form-control" id="exampleInputEmail" placeholder="Enter name">
+              <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
             </div>
 
             <div class = "row">
-              <div class="form-group col-lg-6">
-                <label for="exampleInputPassword">Email address *</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="Enter email address">
+              <div class="form-group col-lg-4">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="MM">
               </div>
-              <div class="form-group col-lg-6">
-                <label for="exampleInputPassword">Contact Number *</label>
-                <input type="text" class="form-control" id="exampleInputPassword" placeholder="Enter contact number">
+              <div class="form-group col-lg-4">
+                <input type="text" class="form-control" id="exampleInputPassword" placeholder="YYYY">
+              </div>
+              <div class="form-group col-lg-4">
+                <input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="exampleInputEmail">Message *</label>
-              <textarea maxlength="5000" rows="10" class = "form-control" name="message" id="message"></textarea>
-            </div>
-
-            <div class="btn-toolbar">
-              <input type="submit" value="Send Message" class="btn btn-primary btn-large" data-loading-text="Loading...">
+              <input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
             </div>
           </fieldset>
       </form>
 
+                  <button type="button" class="btn btn-danger">Start Live Session</button>
 
       </div>
-      <hr class="featurette-divider">
-      <!-- /END THE FEATURETTES -->
-      <!-- FOOTER -->
+
+            <hr class="featurette-divider">
+
       <footer>
         <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
         <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
       </footer>
    </div>
-    <!-- Bootstrap core JavaScript
+
+
+<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
        <!-- JavaScript plugins (requires jQuery) -->
@@ -198,4 +204,3 @@
           <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
-

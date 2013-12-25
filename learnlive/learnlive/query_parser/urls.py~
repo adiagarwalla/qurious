@@ -8,6 +8,5 @@ urlpatterns = patterns('',
         url(r'^results/$', views.SearchResults.as_view(), name='search-results'),
         url(r'^inclass/$', views.InClassView.as_view(), name='in-class'),
         url(r'^aboutus/$', views.AboutUs.as_view(), name='about-us'),
-        url(r'^confirmation/$', views.Confirm.as_view(), name='confirm'),               
         url(r'^$', views.AskQueryView.as_view(), name='query'),
    )

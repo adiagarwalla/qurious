@@ -114,7 +114,3 @@ class InClassView(View):
 class AboutUs(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/aboutus.html')
-
-class Confirm(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/confirmation.html')
