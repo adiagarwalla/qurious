@@ -51,7 +51,7 @@
                 <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
               </div>
 
-              <div class="form-group" id="confirmPassword">
+              <div class="form-group" id="confirmPasswordnew">
                 <label for="confirmPassword1">RE-ENTER PASSWORD</label>
                 <input type="password" class="form-control" id="confirmPassword1" placeholder="">
               </div>
@@ -193,7 +193,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-muted">Sign In Please</h4>
-            <input onClick="showOrHide()" type="checkbox" name="options" id="option1">    I don't have an account
+            <input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
             <br>
             <br>
             
@@ -324,7 +324,7 @@
       {
         var show = document.getElementById("confirmPassword");
 
-        if (option1.checked)
+        if (option1check.checked)
           show.style.visibility = "visible";
 
         else
