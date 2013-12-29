@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^login/$', login, {'template_name': 'auth/basic_login.html'}, name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', CreateUserView.as_view(), name='register'),
-    url(r'^query/', include('learnlive.query_parser.urls')),
+    url(r'^', include('learnlive.query_parser.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
