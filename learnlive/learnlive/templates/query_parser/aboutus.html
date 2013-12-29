@@ -74,8 +74,8 @@
               <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="{% url 'search' %}">Home</a></li>
+                    <li class="active"><a href="#">About Us</a></li>
                 </ul>
 
                 <form class="navbar-form navbar-right" role="form">
@@ -87,7 +87,7 @@
                     <input type="password" placeholder="Password" class="form-control">
                   </div>
                   <span> </span>
-                  <button type="submit" class="btn btn-success">Sign in</button>
+                  <button type="submit" class="btn btn-danger">Sign in</button>
                 </form>
 
                 <ul class="nav navbar-nav navbar-right">

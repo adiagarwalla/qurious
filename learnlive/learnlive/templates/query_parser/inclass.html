@@ -20,14 +20,15 @@
   <body>
 
   	<script type="text/javascript">
-	  var apiKey    = "44485952";
-	  var sessionId = "2_MX40NDQ4NTk1Mn5-VGh1IE5vdiAyOCAxNjoyNTozMyBQU1QgMjAxM34wLjI2MDA4MTE3fg";
-	  var token     = "T1==cGFydG5lcl9pZD00NDQ4NTk1MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mZDRjYWYxNjhjM2M0OGRlNTJjYmRlZjA1YzY1ZmRjZjk0MTM1Mzc2OnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDQwTkRRNE5UazFNbjUtVkdoMUlFNXZkaUF5T0NBeE5qb3lOVG96TXlCUVUxUWdNakF4TTM0d0xqSTJNREE0TVRFM2ZnJmNyZWF0ZV90aW1lPTEzODU2ODQ3ODYmbm9uY2U9MC4xODQ4MTM0MjQzOTYyNTgyNSZleHBpcmVfdGltZT0xMzg1NzcxMTg1JmNvbm5lY3Rpb25fZGF0YT0=";
+	  var apiKey    = "44594972";
+	  var sessionId = "2_MX40NDU5NDk3Mn5-U3VuIERlYyAyOSAwNDozNTo0MiBQU1QgMjAxM34wLjY2MjY5MDJ-";
+	  var token     = "T1==cGFydG5lcl9pZD00NDU5NDk3MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1kYmFlMGZkNWRhN2U2MzEwMjg4MGM0MDEwYjY3MWE1OWY4MGVhNmVlOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDQwTkRVNU5EazNNbjUtVTNWdUlFUmxZeUF5T1NBd05Eb3pOVG8wTWlCUVUxUWdNakF4TTM0d0xqWTJNalk1TURKLSZjcmVhdGVfdGltZT0xMzg4MzIwNTU5Jm5vbmNlPTAuMzgxNDgyOTgwNDI1NzI0MjYmZXhwaXJlX3RpbWU9MTM4ODQwNjk1OSZjb25uZWN0aW9uX2RhdGE9";
 	 
 	  function sessionConnectedHandler (event) {
 	     session.publish( publisher );
 	     subscribeToStreams(event.streams);
 	  }
+
 	  function subscribeToStreams(streams) {
 	    for (var i = 0; i < streams.length; i++) {
 	        var stream = streams[i];
@@ -37,11 +38,14 @@
 	        }
 	    }
 	  }
+
 	  function streamCreatedHandler(event) {
 	    subscribeToStreams(event.streams);
 	  }
 	 
-	  var publisher = TB.initPublisher(apiKey);
+	  var publisher = TB.initPublisher(apiKey,
+                                 "myPublisher",
+                                 {width: 1900, height:900})
 	  var session   = TB.initSession(sessionId);
 	 
 	  session.connect(apiKey, token);

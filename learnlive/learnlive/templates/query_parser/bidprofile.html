@@ -55,7 +55,7 @@
                 <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
               </div>
 
-              <div class="form-group" id="confirmPassword">
+              <div class="form-group" id="confirmPasswordnew">
                 <label for="confirmPassword1">RE-ENTER PASSWORD</label>
                 <input type="password" class="form-control" id="confirmPassword1" placeholder="">
               </div>
@@ -89,8 +89,8 @@
               <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="{% url 'search' %}">Home</a></li>
+                    <li><a href="{% url 'about-us' %}">About Us</a></li>
                 </ul>
 
                 <form class="navbar-form navbar-right" role="form">
@@ -102,7 +102,7 @@
                     <input type="password" placeholder="Password" class="form-control">
                   </div>
                   <span> </span>
-                  <button type="submit" class="btn btn-success">Sign in</button>
+                  <button type="submit" class="btn btn-danger">Sign in</button>
                 </form>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -197,7 +197,7 @@
           </div>
           <div class="modal-body">
             <h4 class="text-muted">Sign In Please</h4>
-            <input onClick="showOrHide()" type="checkbox" name="options" id="option1">    I don't have an account
+            <input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
             <br>
             <br>
             
@@ -329,7 +329,7 @@
         var show = document.getElementById("confirmPassword");
         var option1 = document.getElementById("option1");
 
-        if (option1.checked)
+        if (option1check.checked)
           show.style.visibility = "visible";
 
         else
