@@ -12,6 +12,10 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
 
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/holder.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -221,8 +225,8 @@
             <br>
             <h4 >Enter Payment Information</h4>
 
-            <form id="paymentinfo">
-            <fieldset>
+      <form id="paymentinfo">
+          <fieldset>
             <div class="form-group">
               <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
             </div>
@@ -323,6 +327,7 @@
       function showOrHide()
       {
         var show = document.getElementById("confirmPassword");
+        var option1 = document.getElementById("option1");
 
         if (option1.checked)
           show.style.visibility = "visible";
@@ -333,20 +338,9 @@
     </script>
 
     <script type="text/javascript">
-      $('.myModalConfirm').on('hidden.bs.modal', function() { 
-        $('.exampleInputEmail').val("");
-        $('.signin').reset(); 
-        $('.paymentinfo').reset(); })
+      $('#myModalConfirm').on('hidden.bs.modal', function() { 
+         $(this).find("input[type=text], input[type=password], input[type=email]").val("");
+      });
     </script>
-
-
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-       <!-- JavaScript plugins (requires jQuery) -->
-       <script src="{% static 'jquery/jquery.js' %}"></script>
-          <script src="{% static 'bootstrap/holder.js' %}"></script>
-          <!-- Include all compiled plugins (below), or include individual files as needed -->
-          <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>

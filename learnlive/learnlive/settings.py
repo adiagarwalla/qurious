@@ -135,7 +135,9 @@ INSTALLED_APPS = (
     'learnlive.bid_platform',
     'learnlive.auth',
     'learnlive.query_parser',
+    'learnlive.inclass',
     'treebeard',
+    'south',
 )
 
 # LOGIN URL DEFAULT
