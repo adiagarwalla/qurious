@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserProfileForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
-    profile_name = forms.CharField(max_length=50)
+    confirm = forms.CharField(widget=forms.PasswordInput())
 
     def clean_email(self):
         new_email = self.cleaned_data.get('email')
@@ -17,3 +17,16 @@ class UserProfileForm(forms.Form):
             raise ValidationError('This user already exists in our system.')
         else:
             return new_email
+
+    def clean(self):
+        """
+        This function will clean the registration form
+        """
+        # check that the passwords are the same
+        password = self.cleaned_data.get('password')
+        confirm = self.cleaned_data.get('confirm')
+        import pdb; pdb.set_trace()
+        if password != confirm:
+            raise ValidationError('The confirmation did not match the password')
+        else:
+            return self.cleaned_data

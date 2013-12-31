@@ -27,11 +27,6 @@ class CreateUserView(View):
     then it will process the request object and craete a UserProfile
     object and a User object associated with it out of it.
     """
-
-    def get(self, request, *args, **kwargs):
-        form = UserProfileForm()
-        return render(request, 'auth/register_user.html', {'form': form})
-
     def post(self, request, *args, **kwargs):
         # check if it is a vlid entry in the form, i.e is the form valid
         # if so, then take the values from the form and use them
@@ -41,7 +36,6 @@ class CreateUserView(View):
             # valid form entry, proceed to create the objects
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            profile_name = form.cleaned_data.get('profile_name')
             username = email
 
             # create the User object
@@ -55,7 +49,8 @@ class CreateUserView(View):
                 skill = Skill(name='learning')
                 skill.save()
 
-            user_profile = UserProfile(user=user, profile_name=profile_name, skills=skill)
+            user_profile = UserProfile(user=user, profile_name='', skills=skill)
             return HttpResponseRedirect(reverse('login'))
         else:
-            return render(request, 'auth/register_user.html', {'form': form})
+            print 'failed login due to form invalidation'
+            return render(request, 'query_parser/LearnLive.html')

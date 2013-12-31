@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/$', login, {'template_name': 'auth/basic_login.html'}, name='login'),
+    url(r'^login/$', login, {'template_name': 'query_parser/LearnLive.html'}, name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', CreateUserView.as_view(), name='register'),
     url(r'^', include('learnlive.query_parser.urls')),

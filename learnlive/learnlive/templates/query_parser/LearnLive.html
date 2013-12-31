@@ -27,31 +27,33 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
           </div>
+        <p>{{ form.errors }}</p>
+        <form id="signin" method="POST" action="{% url 'register' %}">
           <div class="modal-body">
-            <form id="signin">
+              {% csrf_token %}
               <fieldset>
 
               <div class="form-group">
                 <label for="exampleInputEmail">EMAIL ADDRESS</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
               </div>
 
               <div class="form-group">
                 <label for="exampleInputPassoword">PASSWORD</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
               </div>
 
               <div class="form-group" id="confirmPassword">
                 <label for="confirmPassword1">RE-ENTER PASSWORD</label>
-                <input type="password" class="form-control" id="confirmPassword1" placeholder="">
+                <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
               </div>
               
               </fieldset>
-            </form>
           </div>
           <div class="modal-footer">
           <center>
-            <button type="button" class="btn btn-success">Make Account</button>
+            <button type="submit" class="btn btn-success">Make Account</button>
+        </form>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </center>
           </div>
@@ -79,17 +81,26 @@
                     <li><a href="{% url 'about-us' %}">About Us</a></li>
                 </ul>
 
-                <form class="navbar-form navbar-right" role="form">
+              {% if user.is_authenticated %}
+                Hi, {{ user.username }}.
+              {% else %}
+                {% if form.errors %}
+                  <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
                   <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+                    <input type="text" placeholder="Email" class="form-control" name="username">
                   </div>
+                  <!-- WHAT THE HECK IS THIS??? -->
                   <span> </span>
                   <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
                   </div>
                   <span> </span>
                   <button type="submit" class="btn btn-danger">Sign in</button>
                 </form>
+              {% endif %}
 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>

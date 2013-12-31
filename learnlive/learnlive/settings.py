@@ -137,11 +137,11 @@ INSTALLED_APPS = (
     'learnlive.query_parser',
     'learnlive.inclass',
     'treebeard',
-    'south',
+    #'south',
 )
 
 # LOGIN URL DEFAULT
-LOGIN_URL = '/login/'
+LOGIN_URL = '/'
 
 # REDIRECT URL DEFAULT
 LOGIN_REDIRECT_URL = '/'
