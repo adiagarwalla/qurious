@@ -49,7 +49,9 @@ class CreateUserView(View):
                 skill = Skill(name='learning')
                 skill.save()
 
-            user_profile = UserProfile(user=user, profile_name='', skills=skill)
+            user_profile = UserProfile(user=user, profile_name='', active_session='')
+            user_profile.save()
+            user_profile.skills.add(skill)
             return HttpResponseRedirect(reverse('login'))
         else:
             print 'failed login due to form invalidation'

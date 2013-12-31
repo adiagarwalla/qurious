@@ -7,5 +7,6 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
     profile_name = models.CharField(max_length=256)
-    skills = models.ForeignKey(Skill, null=True)
+    skills = models.ManyToManyField(Skill, null=True)
+    active_session = models.CharField(max_length=1024)
 
