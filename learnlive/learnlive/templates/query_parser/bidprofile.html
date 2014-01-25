@@ -41,31 +41,33 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
           </div>
+        <p>{{ form.errors }}</p>
+        <form id="signin" method="POST" action="{% url 'register' %}">
           <div class="modal-body">
-            <form id="signin">
+              {% csrf_token %}
               <fieldset>
 
               <div class="form-group">
                 <label for="exampleInputEmail">EMAIL ADDRESS</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
               </div>
 
               <div class="form-group">
                 <label for="exampleInputPassoword">PASSWORD</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
               </div>
 
-              <div class="form-group" id="confirmPasswordnew">
+              <div class="form-group" id="confirmPassword">
                 <label for="confirmPassword1">RE-ENTER PASSWORD</label>
-                <input type="password" class="form-control" id="confirmPassword1" placeholder="">
+                <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
               </div>
               
               </fieldset>
-            </form>
           </div>
           <div class="modal-footer">
           <center>
-            <button type="button" class="btn btn-success">Make Account</button>
+            <button type="submit" class="btn btn-success">Make Account</button>
+        </form>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </center>
           </div>
@@ -89,21 +91,30 @@
               <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'search' %}">Home</a></li>
+                    <li class="active"><a href="#">Home</a></li>
                     <li><a href="{% url 'about-us' %}">About Us</a></li>
                 </ul>
 
-                <form class="navbar-form navbar-right" role="form">
+              {% if user.is_authenticated %}
+                Hi, {{ user.username }}.
+              {% else %}
+                {% if form.errors %}
+                  <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
                   <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+                    <input type="text" placeholder="Email" class="form-control" name="username">
                   </div>
+                  <!-- WHAT THE HECK IS THIS??? -->
                   <span> </span>
                   <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
                   </div>
                   <span> </span>
                   <button type="submit" class="btn btn-danger">Sign in</button>
                 </form>
+              {% endif %}
 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
@@ -114,7 +125,6 @@
           </div>
         </div>
         </div>
-        
     <!--end of navbar-->
     <div class = "content-container">
 
@@ -196,6 +206,7 @@
             <h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
           </div>
           <div class="modal-body">
+            {% if not user.is_authenticated %}
             <h4 class="text-muted">Sign In Please</h4>
             <input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
             <br>
@@ -221,11 +232,12 @@
               
               </fieldset>
             </form>
+            {% endif %}
 
             <br>
             <h4 >Enter Payment Information</h4>
 
-      <form id="paymentinfo">
+            <form id="paymentinfo" action="{% url 'in-class' %}" method="POST">
           <fieldset>
             <div class="form-group">
               <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
@@ -247,15 +259,16 @@
               <input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
             </div>
           </fieldset>
-      </form>
           </div>
           <div class="modal-footer">
           <center>
+            <input type="hidden" name="id_tutor" value="junk_value" id="id_tutor"/>
             <button type="button" class="btn btn-danger">Start Live Session</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </center>
           </div>
         </div><!-- /.modal-content -->
+      </form>
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
@@ -270,6 +283,7 @@
               </div>
               <div class="col-md-9 caption">
                 <h3>{{ profile.profile_name }}</h3>
+                <input type="hidden" id="profile_id" value="{{ profile.id }}" />
                 <span class="modaltest" data-toggle="modal" data-target="#myModal">
                   <span class="glyphicon glyphicon-star"></span>
                   <span class="glyphicon glyphicon-star"></span>
@@ -278,7 +292,7 @@
                   <span class="glyphicon glyphicon-star"></span>
                 </span>
                 <p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+                <p><a href="#" id="result_select_bid" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
               </div>
             </div>
           </div>
@@ -337,8 +351,14 @@
     </script>
 
     <script type="text/javascript">
+      // TODO: THIS JAVASCRIPT NEEDS TO BE MOVED TOA SEPARATE FILE THIS IS EMBARRASING!!!!!!!!
       $('#myModalConfirm').on('hidden.bs.modal', function() { 
-         $(this).find("input[type=text], input[type=password], input[type=email]").val("");
+         $(this).find("input[type=text], input[type=password], input[type=email], input[type=hidden]").val("");
+      });
+      $("#result_select_bid").click(function() {
+          // you need to copy the hidden value from that input field into the modal's input field
+          val = $("#profile_id").val();
+          $("#id_tutor").val(val);
       });
     </script>
   </body>
