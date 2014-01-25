@@ -9,7 +9,7 @@ class Session(models.Model):
     access to the url that grants entry into the session.
     """
     id_tutor = models.ForeignKey(UserProfile)
-    id_user = models.ForeignKey(UserProfile)
+    id_user = models.ForeignKey(UserProfile, related_name='id_tutee')
     time = models.IntegerField()
     session_key = models.TextField()
 
