@@ -107,11 +107,6 @@ class SearchResults(View):
         warn("TESTING PURPOSE ONLY")
         return render(request, 'query_parser/bidprofile.html')
 
-class InClassView(View):
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/inclass.html')
-
 class AboutUs(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/aboutus.html')
