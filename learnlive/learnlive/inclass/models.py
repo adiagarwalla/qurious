@@ -25,7 +25,7 @@ class InClassNotification(models.Model):
     m_type = models.IntegerField() # This will have to be carefully done
     url_inclass = models.CharField(max_length=512)
 
-def RSA(models.Model):
+class RSA(models.Model):
     """
     BAD SECURITY PRACTICE: Stores the RSAKey in the database for further use
     """

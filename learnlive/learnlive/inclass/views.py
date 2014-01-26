@@ -48,4 +48,3 @@ class InClassView(View):
             # generate a notification object and attach it to the tutor
             notification = InClassNotification(prof_from=user, message="Requesting a tutor session with you!", prof_to=tutor, url_inclass=url)
             notification.save()
-        return

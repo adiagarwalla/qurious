@@ -25,7 +25,6 @@ class UserProfileForm(forms.Form):
         # check that the passwords are the same
         password = self.cleaned_data.get('password')
         confirm = self.cleaned_data.get('confirm')
-        import pdb; pdb.set_trace()
         if password != confirm:
             raise ValidationError('The confirmation did not match the password')
         else:
