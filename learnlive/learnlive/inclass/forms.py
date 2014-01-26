@@ -33,7 +33,7 @@ class CreateSessionForm(forms.Form):
                 user_reg_form = UserProfileForm(self.cleaned_data)
                 if user_reg_form.is_valid():
                     CreateUserView.create_user(user_reg_form)
-                else
+                else:
                     raise ValidationError("Registration error try again")
             else:
                 # just a log in.
