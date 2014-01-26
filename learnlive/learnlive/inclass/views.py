@@ -5,6 +5,7 @@
 from django.views.generic import View
 from Crypto.PublicKey import RSA
 from django.shortcuts import render
+from learnlive.inclass.opentok_utils import generate_token
 
 from learnlive.inclass.forms import CreateSessionForm
 from learnlive.auth.models import UserProfile
@@ -14,7 +15,11 @@ from learnlive.inclass.models import InClassNotification
 class InClassView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/inclass.html')
+        token = generate_token("1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-")
+        data = {
+                 'token': token,
+               }
+        return render(request, 'query_parser/inclass.html', data)
 
     def generate_url(id_tutor, id_user, session_id):
         # generates the signature that will be used to create the proper url
@@ -43,5 +48,4 @@ class InClassView(View):
             # generate a notification object and attach it to the tutor
             notification = InClassNotification(prof_from=user, message="Requesting a tutor session with you!", prof_to=tutor, url_inclass=url)
             notification.save()
-
-
+        return

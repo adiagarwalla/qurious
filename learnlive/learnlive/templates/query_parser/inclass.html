@@ -10,23 +10,53 @@
     <!-- Bootstrap core CSS -->
  	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+
 
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    <script src="{% static 'jquery/jquery.js' %}"></script>    
     <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
-
   </head>
 
   <body>
-
   	<script type="text/javascript">
 	  var apiKey    = "44594972";
-	  var sessionId = "2_MX40NDU5NDk3Mn5-U3VuIERlYyAyOSAwNDozNTo0MiBQU1QgMjAxM34wLjY2MjY5MDJ-";
-	  var token     = "T1==cGFydG5lcl9pZD00NDU5NDk3MiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1kYmFlMGZkNWRhN2U2MzEwMjg4MGM0MDEwYjY3MWE1OWY4MGVhNmVlOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDQwTkRVNU5EazNNbjUtVTNWdUlFUmxZeUF5T1NBd05Eb3pOVG8wTWlCUVUxUWdNakF4TTM0d0xqWTJNalk1TURKLSZjcmVhdGVfdGltZT0xMzg4MzIwNTU5Jm5vbmNlPTAuMzgxNDgyOTgwNDI1NzI0MjYmZXhwaXJlX3RpbWU9MTM4ODQwNjk1OSZjb25uZWN0aW9uX2RhdGE9";
-	 
-	  function sessionConnectedHandler (event) {
-	     session.publish( publisher );
+	  var sessionId = "1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-";
+	  var token     = "{{ token }}";
+
+	  var publisher;
+	  var session;
+
+	  $(document).ready(function() {
+		  publisher = TB.initPublisher(apiKey, "myPublisher");
+
+		  // To check for incompatible browsers
+		  // if (TB.checkSystemRequirements() == 1)
+		  // {
+		  session   = TB.initSession(sessionId);
+
+		  //session.addEventListener("connectionCreated", connectionCreatedHandler);
+		  //session.addEventListener("connectionDestroyed", connectionDestroyedHandler);
+		  //session.connect(apiKey, token);
+		  
+		  // SessionConnected event when client connects to the session
+		  session.addEventListener("sessionConnected", 
+			                           sessionConnectedHandler);
+
+		  session.addEventListener("streamCreated", 
+			                           streamCreatedHandler);
+
+	      session.connect(apiKey, token);
+	  });
+
+      function sessionConnectedHandler (event) {
 	     subscribeToStreams(event.streams);
+	     session.publish(publisher);
+	  }
+
+	  function streamCreatedHandler(event) {
+	    subscribeToStreams(event.streams);
 	  }
 
 	  function subscribeToStreams(streams) {
@@ -34,27 +64,163 @@
 	        var stream = streams[i];
 	        if (stream.connection.connectionId 
 	               != session.connection.connectionId) {
-	            session.subscribe(stream);
+	            session.subscribe(stream, "mySubscriberElement", {width: 500, height: 600});
 	        }
 	    }
 	  }
 
-	  function streamCreatedHandler(event) {
-	    subscribeToStreams(event.streams);
+	  //}
+
+	  // else
+	  // {
+	  // 	TB.log("The client does not support WebRTC.");
+	  // }
+	  	 
+	  // Figure out if required. If yes, then what exactly to do when for some reason connection fails
+	  // TB.addEventListener("execption", exceptionHandler);
+
+	  // Detecting if a user has disconnected
+	  function disconnect() {
+	  		session.addEventListener("sessionDisconnected", sessionDisconnectedHandler);
+	  		session.connect(apiKey, token);
 	  }
-	 
-	  var publisher = TB.initPublisher(apiKey,
-                                 "myPublisher",
-                                 {width: 500, height:500})
-	  var session   = TB.initSession(sessionId);
-	 
-	  session.connect(apiKey, token);
-	  session.addEventListener("sessionConnected", 
-	                           sessionConnectedHandler);
-	 
-	  session.addEventListener("streamCreated", 
-	                           streamCreatedHandler);
+
+	  function sessionDisconnectedHandler(event){
+	  	if (event.reason == "networkDisconnected") {
+	  		alert("Your network connection terminated.")
+	  	}
+	  }
+
+	  // function connectionCreatedHandler(event) {
+   //  	connectionCount += event.connections.length;
+   //  	TB.log(connectionCount);
+	  // }
+ 
+	  // function connectionDestroyedHandler(event) {
+   //  	connectionCount -= event.connections.length;
+   //  	TB.log(connectionCount);
+	  // }	
+
 	</script>
+
+	<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
+          </div>
+        <p>{{ form.errors }}</p>
+        <form id="signin" method="POST" action="{% url 'register' %}">
+          <div class="modal-body">
+              {% csrf_token %}
+              <fieldset>
+
+              <div class="form-group">
+                <label for="exampleInputEmail">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassoword">PASSWORD</label>
+                <input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
+              </div>
+
+              <div class="form-group" id="confirmPassword">
+                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
+                <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
+              </div>
+              
+              </fieldset>
+          </div>
+          <div class="modal-footer">
+          <center>
+            <button type="submit" class="btn btn-success">Make Account</button>
+        </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </center>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+      <div class="navbar-wrapper">
+      <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
+              </div>
+              <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                </ul>
+
+              {% if user.is_authenticated %}
+                Hi, {{ user.username }}.
+              {% else %}
+                {% if form.errors %}
+                  <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control" name="username">
+                  </div>
+                  <!-- WHAT THE HECK IS THIS??? -->
+                  <span> </span>
+                  <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
+                  </div>
+                  <span> </span>
+                  <button type="submit" class="btn btn-danger">Sign in</button>
+                </form>
+              {% endif %}
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
+                </ul>
+
+              </div><!--/.navbar-collapse -->
+            </div>
+          </div>
+        </div>
+        </div>
+        
+<!--     <div class="navbar-wrapper">
+      <div class="container"> -->
+
+      <!-- START THE FEATURETTES -->
+     <div class="container marketing">
+     <div class="featurette">
+      	<div id = "mySubscriberElement"></div>
+      	<div id = "myPublisher"></div>
+
+	 </div>
+     
+     <hr class="featurette-divider">
+        <!-- FOOTER -->
+      <footer>
+        <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
+        <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
+      </footer>
+   </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+       <!-- JavaScript plugins (requires jQuery) -->
+       <script src="{% static 'jquery/jquery.js' %}"></script>
+          <script src="{% static 'bootstrap/holder.js' %}"></script>
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
   </body>
 </html>
