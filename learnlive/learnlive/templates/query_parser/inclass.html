@@ -64,7 +64,7 @@
 	        var stream = streams[i];
 	        if (stream.connection.connectionId 
 	               != session.connection.connectionId) {
-	            session.subscribe(stream, "mySubscriberElement", {width: 500, height: 600});
+	            session.subscribe(stream, "mySubscriberElement", {width: 1200, height: 600});
 	        }
 	    }
 	  }
@@ -201,9 +201,10 @@
       <!-- START THE FEATURETTES -->
      <div class="container marketing">
      <div class="featurette">
-      	<div id = "mySubscriberElement"></div>
-      	<div id = "myPublisher"></div>
-
+      	<div id = "containerfloat">
+      		<div id = "mySubscriberElement"></div>
+      		<div id = "myPublisher"></div>
+      	</div>	
 	 </div>
      
      <hr class="featurette-divider">
