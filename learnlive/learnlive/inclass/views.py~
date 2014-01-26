@@ -9,7 +9,7 @@ from learnlive.inclass.opentok_utils import generate_token
 class InClassView(View):
 
     def get(self, request, *args, **kwargs):
-        token = generate_token("1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-")
+        token = generate_token("2_MX40NDU5NDk3Mn5-U3VuIERlYyAyOSAwNDozNTo0MiBQU1QgMjAxM34wLjY2MjY5MDJ-")
         data = {
                  'token': token,
                }

@@ -1,10 +1,10 @@
-# This is a utility file to handle the basics
+]# This is a utility file to handle the basics
 # of the opentok server side initialization and
 # management.
 import OpenTokSDK
 
-API_KEY='44594972'
-API_SECRET='399c29f1e39b4af29e4445ba1cfc21afda9aa65d'
+API_KEY='44'
+API_SECRET='9233963d604d4d8a944468b1e135aaf213db1285'
 opentok_object = OpenTokSDK.OpenTokSDK(API_KEY, API_SECRET)
 
 def create_session(isEnabled):
