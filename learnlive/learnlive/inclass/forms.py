@@ -5,13 +5,14 @@ from django import forms
 from django.contrib.auth import authenticate
 from learnlive.auth.forms import UserProfileForm
 from learnlive.auth.views import CreateUserView
+from django.core.exceptions import ValidationError
 
 class CreateSessionForm(forms.Form):
     """
     This is a form that preprocesses all the information given
     in the creation of a session
     """
-    id_user = forms.IntegerField(required=False) # hack to allow the clean to be called
+    id_user = forms.CharField(required=False) # hack to allow the clean to be called
     id_tutor = forms.IntegerField()
     email = forms.EmailField(required=False)
     password = forms.CharField(required=False)
@@ -25,8 +26,8 @@ class CreateSessionForm(forms.Form):
 
     def clean(self):
         import pdb; pdb.set_trace()
-        if user.is_authenticated:
-            self.cleaned_data['id_user'] = user.id
+        if self.user.is_authenticated():
+            self.cleaned_data['id_user'] = self.user.username
             if self.cleaned_data.get('id_tutor') < 0:
                 raise ValidationError("Invalid tutor id")
         else:
