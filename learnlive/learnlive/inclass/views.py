@@ -3,11 +3,13 @@
 # Written by Abhinav Khanna
 
 from django.views.generic import View
+from django.contrib.auth.models import User 
 from django.shortcuts import redirect
 from Crypto.PublicKey import RSA
 from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
 from learnlive.inclass.opentok_utils import generate_token
+from learnlive.inclass.opentok_utils import create_session
 
 from learnlive.inclass.forms import CreateSessionForm
 from learnlive.auth.models import UserProfile
@@ -19,32 +21,38 @@ class InClassView(View):
     def get(self, request, *args, **kwargs):
         import pdb; pdb.set_trace()
         id_tutor = self.kwargs['id_tutor']
-        id_user = self.kwargs['id_user']
+        username = self.kwargs['id_user']
         sign = self.kwargs['sign']
         session_id = self.kwargs['session_id']
         rsa = RSA_O.objects.filter()[0]
         rsa_public = RSA.importKey(rsa.public)
-        message = "" + id_tutor + "" + id_user + "" + session_id
-        if not rsa_public.verify(message, (sign, "")):
-            return redirect("/")
+        user = User.objects.get(username=username)
+        message = int(id_tutor) + int(user.id)
+        message_num = int(message)
+        if not rsa_public.verify(message_num, (int(sign), 16)):
+            return redirect('/')
 
         # proceed to ensure that it is still a valid session
-        sess = Session.objects.get(id=session_id)
+        sess = Session.objects.get(session_key=session_id)
         if sess.is_cancelled == True:
-            return redirect("/")
+            return redirect('/')
 
-        token = generate_token("1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-")
+        token = generate_token('1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-')
         data = {
                  'token': token,
                }
         return render(request, 'query_parser/inclass.html', data)
 
-    def generate_url(id_tutor, id_user, session_id):
+    def generate_url(self, id_tutor, id_user, session_id):
         # generates the signature that will be used to create the proper url
         rsa = RSA_O.objects.filter()[0];
         rsa_private = RSA.importKey(rsa.private)
-        (sign, random) = rsa_private.sign("" + id_tutor + "" + id_user + "" + session_id)
-        return "/" + id_tutor + "/" + id_user + "/" + session_id + "/" + sign + "/"
+        user = User.objects.get(username=id_user)
+        message = int(id_tutor) + int(user.id) 
+        message_num = int(message)
+        sign_tuple = rsa_private.sign(message_num, 16)
+        sign = sign_tuple[0]
+        return '/inclass/' + str(id_tutor) + '/' + str(id_user) + '/' + str(session_id) + '/' + str(sign) + '/'
 
 
     def post(self, request, *args, **kwargs):
@@ -56,16 +64,17 @@ class InClassView(View):
         if form.is_valid():
             # we wanna create the session object here
             id_tutor = form.cleaned_data.get('id_tutor')
-            id_user = form.cleaned_data.get('id_user')
+            username = form.cleaned_data.get('id_user')
             # get the UserProfile for these ids
             tutor = UserProfile.objects.get(id=id_tutor)
-            user = UserProfile.objects.get(id=id_user)
+            user_O = User.objects.get(username=username)
+            user = UserProfile.objects.get(user=user_O)
             session_id = create_session('False')
-            sess = Session(prof_tutor=tutor, prof_user=user, session_key=session_id)
+            sess = Session(prof_tutor=tutor, prof_user=user, session_key=session_id, time=15)
             sess.save()
-            url = self.generate_url(id_tutor, id_user, session_id)
+            url = self.generate_url(id_tutor, username, session_id)
             # generate a notification object and attach it to the tutor
-            notification = InClassNotification(prof_from=user, message="Requesting a tutor session with you!", prof_to=tutor, url_inclass=url)
+            notification = InClassNotification(prof_from=user, m_type=1,  message='Requesting a tutor session with you!', prof_to=tutor, url_inclass=url)
             notification.save()
             return redirect(url)
         else:

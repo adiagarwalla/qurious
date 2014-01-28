@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^login/$', login, {'template_name': 'query_parser/LearnLive.html'}, name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', CreateUserView.as_view(), name='register'),
-    url(r'^inclass/$', include('learnlive.inclass.urls')),
+    url(r'^inclass/', include('learnlive.inclass.urls')),
     url(r'^', include('learnlive.query_parser.urls')),
 )
 
