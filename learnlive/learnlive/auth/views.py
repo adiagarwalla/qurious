@@ -27,7 +27,7 @@ class CreateUserView(View):
     then it will process the request object and craete a UserProfile
     object and a User object associated with it out of it.
     """
-    def create_user(form):
+    def sign_up(self, form):
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         username = email
@@ -54,7 +54,7 @@ class CreateUserView(View):
         form = UserProfileForm(request.POST)
         if form.is_valid():
             # valid form entry, proceed to create the objects
-            self.create_user(form)
+            self.sign_up(form)
             return HttpResponseRedirect(reverse('login'))
         else:
             print 'failed login due to form invalidation'

@@ -11,18 +11,20 @@ class CreateSessionForm(forms.Form):
     This is a form that preprocesses all the information given
     in the creation of a session
     """
-    id_user = forms.IntegerField()
+    id_user = forms.IntegerField(required=False) # hack to allow the clean to be called
     id_tutor = forms.IntegerField()
-    email = forms.EmailField()
-    password = forms.CharField()
-    confirm = forms.CharField()
-    is_register = forms.BooleanField()
+    email = forms.EmailField(required=False)
+    password = forms.CharField(required=False)
+    confirm = forms.CharField(required=False)
+    options = forms.BooleanField(required=False)
 
     def __init__(self, user, *args, **kwargs):
-        super(CreateSessionForm, self).__init__(*args, **kwargs)
+        import pdb; pdb.set_trace()
         self.user = user
+        super(CreateSessionForm, self).__init__(*args, **kwargs)
 
     def clean(self):
+        import pdb; pdb.set_trace()
         if user.is_authenticated:
             self.cleaned_data['id_user'] = user.id
             if self.cleaned_data.get('id_tutor') < 0:

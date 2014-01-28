@@ -5,6 +5,7 @@ South==0.8.4
 distribute==0.7.3
 django-treebeard==1.61
 opentok==0.91.2
+pycrypto==2.6.1
 pydot==1.0.28
 pyparsing==2.0.1
 python-graph-core==1.8.2

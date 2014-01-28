@@ -1,365 +1,359 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>BidProfile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+<head>
+	<title>BidProfile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap core CSS -->
+	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+	<link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
 
-    <script src="{% static 'jquery/jquery.js' %}"></script>
-    <script src="{% static 'bootstrap/holder.js' %}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
+	<script src="{% static 'jquery/jquery.js' %}"></script>
+	<script src="{% static 'bootstrap/holder.js' %}"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
 
-  <body>
-    <!-- <div class="panel panel-primary">
-      <div class="panel-heading"><span class = "text">Computer and Electronics Help <span class = "text-muted">by David Su</span></span></div>
-      <div class="panel-body">
-        <img class="img-responsive" alt="Responsive" data-src="../dist/holder.js/240x240" />
-      </div>
-    </div> -->
+<body>
+<!-- <div class="panel panel-primary">
+<div class="panel-heading"><span class = "text">Computer and Electronics Help <span class = "text-muted">by David Su</span></span></div>
+<div class="panel-body">
+<img class="img-responsive" alt="Responsive" data-src="../dist/holder.js/240x240" />
+</div>
+</div> -->
 
-    <!-- NAVBAR
-    ================================================== -->
-      <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
-          </div>
-        <p>{{ form.errors }}</p>
-        <form id="signin" method="POST" action="{% url 'register' %}">
-          <div class="modal-body">
-              {% csrf_token %}
-              <fieldset>
+<!-- NAVBAR
+================================================== -->
+<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
+			</div>
+			<p>{{ form.errors }}</p>
+			<form id="signin" method="POST" action="{% url 'register' %}">
+				<div class="modal-body">
+					{% csrf_token %}
+					<fieldset>
 
-              <div class="form-group">
-                <label for="exampleInputEmail">EMAIL ADDRESS</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
-              </div>
+						<div class="form-group">
+							<label for="exampleInputEmail">EMAIL ADDRESS</label>
+							<input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
+						</div>
 
-              <div class="form-group">
-                <label for="exampleInputPassoword">PASSWORD</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
-              </div>
+						<div class="form-group">
+							<label for="exampleInputPassoword">PASSWORD</label>
+							<input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
+						</div>
 
-              <div class="form-group" id="confirmPassword">
-                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
-                <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
-              </div>
-              
-              </fieldset>
-          </div>
-          <div class="modal-footer">
-          <center>
-            <button type="submit" class="btn btn-success">Make Account</button>
-        </form>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </center>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+						<div class="form-group" id="confirmPassword">
+							<label for="confirmPassword1">RE-ENTER PASSWORD</label>
+							<input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
+						</div>
 
-      <div class="navbar-wrapper">
-      <div class="container">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
-              </div>
-              <div class="navbar-collapse collapse">
+					</fieldset>
+				</div>
+				<div class="modal-footer">
+					<center>
+						<button type="submit" class="btn btn-success">Make Account</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</center>
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="{% url 'about-us' %}">About Us</a></li>
-                </ul>
+<div class="navbar-wrapper">
+	<div class="container">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
+				</div>
+				<div class="navbar-collapse collapse">
 
-              {% if user.is_authenticated %}
-                Hi, {{ user.username }}.
-              {% else %}
-                {% if form.errors %}
-                  <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}
-                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
-                  {% csrf_token %}
-                  <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" name="username">
-                  </div>
-                  <!-- WHAT THE HECK IS THIS??? -->
-                  <span> </span>
-                  <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name="password">
-                  </div>
-                  <span> </span>
-                  <button type="submit" class="btn btn-danger">Sign in</button>
-                </form>
-              {% endif %}
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="{% url 'about-us' %}">About Us</a></li>
+					</ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
-                </ul>
+					{% if user.is_authenticated %}
+						Hi, {{ user.username }}.
+					{% else %}
+					{% if form.errors %}
+						<p>Your username and password didn't match. Please try again.</p>
+					{% endif %}
+					<form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
+						{% csrf_token %}
+						<div class="form-group">
+							<input type="text" placeholder="Email" class="form-control" name="username">
+						</div>
+						<!-- WHAT THE HECK IS THIS??? -->
+						<span> </span>
+						<div class="form-group">
+							<input type="password" placeholder="Password" class="form-control" name="password">
+						</div>
+						<span> </span>
+						<button type="submit" class="btn btn-danger">Sign in</button>
+					</form>
+					{% endif %}
 
-              </div><!--/.navbar-collapse -->
-            </div>
-          </div>
-        </div>
-        </div>
-    <!--end of navbar-->
-    <div class = "content-container">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
+					</ul>
 
-    <div class = "col-md-6 col-md-offset-3">  
-      <h2 class="text-muted">Search Results
-      <p class = "pull-right"><select class="form-control">
-        <option>Relevance</option>
-        <option>Price - Low to High</option>
-        <option>Price - High to Low</option>
-        <option>Reviews - Low to High</option>
-        <option>Reviews - High to Low</option>
-      </select></p></h2>
-    </div>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</div>
+	</div>
+</div>
+<!--end of navbar-->
+<div class = "content-container">
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Reviews for XYZ</h4>
-          </div>
-          <div class="modal-body">
-            <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <br>
-             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <br>
-             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <br>
-             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <br>
-             <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi</p>
-            <br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger">More Reviews</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+	<div class = "col-md-6 col-md-offset-3">  
+		<h2 class="text-muted">Search Results
+			<p class = "pull-right"><select class="form-control">
+				<option>Relevance</option>
+				<option>Price - Low to High</option>
+				<option>Price - High to Low</option>
+				<option>Reviews - Low to High</option>
+				<option>Reviews - High to Low</option>
+			</select>
+			</p>
+		</h2>
+	</div>
 
-    <!-- Modal for bid confirmation (and in the future - payment) -->
-    <div class="modal fade" id="myModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
-          </div>
-          <div class="modal-body">
-            {% if not user.is_authenticated %}
-            <h4 class="text-muted">Sign In Please</h4>
-            <input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
-            <br>
-            <br>
-            
-            <form id="signin">
-              <fieldset>
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Reviews for XYZ</h4>
+				</div>
+				<div class="modal-body">
+					<h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+					<span class="modaltest" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+					<br>
+					<h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+					<span class="modaltest" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+					<br>
+					<h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+					<span class="modaltest" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+					<br>
+					<h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+					<span class="modaltest" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+					<br>
+					<h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
+					<span class="modaltest" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+					</span>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi</p>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-danger">More Reviews</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
-              <div class="form-group">
-                <label for="exampleInputEmail">EMAIL ADDRESS</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
-              </div>
+		<!-- Modal for bid confirmation (and in the future - payment) -->
+	<div class="modal fade" id="myModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<form id="paymentinfo" action="{% url 'in-class-post' %}" method="POST">
+			{% csrf_token %}
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
+					</div>
+					<div class="modal-body">
+						{% if not user.is_authenticated %}
+							<h4 class="text-muted">Sign In Please</h4>
+							<input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
+							<br>
+							<br>
+							<fieldset>
+								<div class="form-group">
+									<label for="exampleInputEmail">EMAIL ADDRESS</label>
+									<input type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassoword">PASSWORD</label>
+									<input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="">
+								</div>
+								<div class="form-group" id="confirmPassword" style="visibility:hidden;">
+									<label for="confirmPassword1">RE-ENTER PASSWORD</label>
+									<input type="password" name="confirm" class="form-control" id="confirmPassword1" placeholder="">
+								</div>
+							</fieldset>
+						{% endif %}
 
-              <div class="form-group">
-                <label for="exampleInputPassoword">PASSWORD</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="">
-              </div>
+						<br>
+						<h4 >Enter Payment Information</h4>
 
-              <div class="form-group" id="confirmPassword" style="visibility:hidden;">
-                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
-                <input type="password" class="form-control" id="confirmPassword1" placeholder="">
-              </div>
-              
-              </fieldset>
-            </form>
-            {% endif %}
-
-            <br>
-            <h4 >Enter Payment Information</h4>
-
-            <form id="paymentinfo" action="{% url 'in-class-post' %}" method="POST">
-          <fieldset>
-            <div class="form-group">
-              <input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
-            </div>
-
-            <div class = "row">
-              <div class="form-group col-lg-4">
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="MM">
-              </div>
-              <div class="form-group col-lg-4">
-                <input type="text" class="form-control" id="exampleInputPassword" placeholder="YYYY">
-              </div>
-              <div class="form-group col-lg-4">
-                <input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
-            </div>
-          </fieldset>
-          </div>
-          <div class="modal-footer">
-          <center>
-            <input type="hidden" name="id_tutor" value="junk_value" id="id_tutor"/>
-            <button type="button" class="btn btn-danger">Start Live Session</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </center>
-          </div>
-        </div><!-- /.modal-content -->
-      </form>
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+						<fieldset>
+							<div class="form-group">
+								<input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
+							</div>
+							<div class = "row">
+								<div class="form-group col-lg-4">
+									<input type="password" class="form-control" id="exampleInputPassword" placeholder="MM">
+								</div>
+								<div class="form-group col-lg-4">
+									<input type="text" class="form-control" id="exampleInputPassword" placeholder="YYYY">
+								</div>
+								<div class="form-group col-lg-4">
+									<input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
+							</div>
+						</fieldset>
+					</div>
+					<div class="modal-footer">
+						<center>
+							<input type="hidden" name="id_tutor" value="junk_value" id="id_tutor"/>
+							<button type="submit" class="btn btn-danger">Start Live Session</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</center>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</form> <!-- /.end of form -->
+	</div><!-- /.modal -->
 
 
-    {% for profile in profiles %}
-      <div class = "row">
-        <div class ="col-md-6 col-md-offset-3">
-          <div class="thumbnail">
-            <div class = "row">
-              <div class="col-md-3">
-                <img class="img1-responsive" src="{% static 'query_parser/profile1.jpg' %}" alt="..." align = "left" height="150px" />
-              </div>
-              <div class="col-md-9 caption">
-                <h3>{{ profile.profile_name }}</h3>
-                <input type="hidden" id="profile_id" value="{{ profile.id }}" />
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a href="#" id="result_select_bid" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  {% endfor %}
+		{% for profile in profiles %}
+		<div class = "row">
+			<div class ="col-md-6 col-md-offset-3">
+				<div class="thumbnail">
+					<div class = "row">
+						<div class="col-md-3">
+							<img class="img1-responsive" src="{% static 'query_parser/profile1.jpg' %}" alt="..." align = "left" height="150px" />
+						</div>
+						<div class="col-md-9 caption">
+							<h3>{{ profile.profile_name }}</h3>
+							<input type="hidden" id="profile_id" value="{{ profile.id }}" />
+							<span class="modaltest" data-toggle="modal" data-target="#myModal">
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+							</span>
+							<p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+							<p><a href="#" id="result_select_bid" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
 
-     <div class = "row">
-      <div class ="col-md-6 col-md-offset-3">
-        <div class="thumbnail">
-          <div class = "row">
-            <div class="col-md-3">
-          <img class="img1-responsive" src="{% static 'query_parser/profile5.jpeg' %}" alt="..." align = "left" height="150px" />
-          </div>
-          <div class="col-md-9 caption">
-            <h3>Thumbnail label</h3>
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-            </span>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p><a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
+		<div class = "row">
+			<div class ="col-md-6 col-md-offset-3">
+				<div class="thumbnail">
+					<div class = "row">
+						<div class="col-md-3">
+							<img class="img1-responsive" src="{% static 'query_parser/profile5.jpeg' %}" alt="..." align = "left" height="150px" />
+						</div>
+						<div class="col-md-9 caption">
+							<h3>Thumbnail label</h3>
+							<span class="modaltest" data-toggle="modal" data-target="#myModal">
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+								<span class="glyphicon glyphicon-star"></span>
+							</span>
+							<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+							<p><a href="#" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container marketing">
+		<div class="container marketing">
 
-      <hr class="featurette-divider">
+			<hr class="featurette-divider">
 
-      <!-- /END THE FEATURETTES -->
+			<!-- /END THE FEATURETTES -->
 
-      <!-- FOOTER -->
-      <footer>
-        <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
-        <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
-      </footer>
-    </div>
+			<!-- FOOTER -->
+			<footer>
+				<p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
+				<p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
+			</footer>
+		</div>
 
-    <script type="text/javascript">
-      function showOrHide()
-      {
-        var show = document.getElementById("confirmPassword");
+		<script type="text/javascript">
+		function showOrHide()
+		{
+			var show = document.getElementById("confirmPassword");
 
-        if (option1check.checked)
-          show.style.visibility = "visible";
+			if (option1check.checked)
+			show.style.visibility = "visible";
 
-        else
-          show.style.visibility = "hidden";
-      }
-    </script>
+			else
+			show.style.visibility = "hidden";
+		}
+		</script>
 
-    <script type="text/javascript">
-      // TODO: THIS JAVASCRIPT NEEDS TO BE MOVED TOA SEPARATE FILE THIS IS EMBARRASING!!!!!!!!
-      $('#myModalConfirm').on('hidden.bs.modal', function() { 
-         $(this).find("input[type=text], input[type=password], input[type=email], input[type=hidden]").val("");
-      });
-      $("#result_select_bid").click(function() {
-          // you need to copy the hidden value from that input field into the modal's input field
-          val = $("#profile_id").val();
-          $("#id_tutor").val(val);
-      });
-    </script>
-  </body>
+		<script type="text/javascript">
+		// TODO: THIS JAVASCRIPT NEEDS TO BE MOVED TOA SEPARATE FILE THIS IS EMBARRASING!!!!!!!!
+		$('#myModalConfirm').on('hidden.bs.modal', function() { 
+			$(this).find("input[type=text], input[type=password], input[type=email], input[type=hidden]").val("");
+		});
+		$("#result_select_bid").click(function() {
+			// you need to copy the hidden value from that input field into the modal's input field
+			val = $("#profile_id").val();
+			$("#id_tutor").val(val);
+		});
+		</script>
+</body>
 </html>

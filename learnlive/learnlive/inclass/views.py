@@ -3,7 +3,9 @@
 # Written by Abhinav Khanna
 
 from django.views.generic import View
+from django.shortcuts import redirect
 from Crypto.PublicKey import RSA
+from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
 from learnlive.inclass.opentok_utils import generate_token
 
@@ -20,7 +22,7 @@ class InClassView(View):
         id_user = self.kwargs['id_user']
         sign = self.kwargs['sign']
         session_id = self.kwargs['session_id']
-        rsa = RSA.objects.filter()[0]
+        rsa = RSA_O.objects.filter()[0]
         rsa_public = RSA.importKey(rsa.public)
         message = "" + id_tutor + "" + id_user + "" + session_id
         if not rsa_public.verify(message, (sign, "")):
@@ -39,7 +41,7 @@ class InClassView(View):
 
     def generate_url(id_tutor, id_user, session_id):
         # generates the signature that will be used to create the proper url
-        rsa = RSA.objects.filter()[0];
+        rsa = RSA_O.objects.filter()[0];
         rsa_private = RSA.importKey(rsa.private)
         (sign, random) = rsa_private.sign("" + id_tutor + "" + id_user + "" + session_id)
         return "/" + id_tutor + "/" + id_user + "/" + session_id + "/" + sign + "/"
@@ -50,7 +52,7 @@ class InClassView(View):
         # it will then generate the notifcation to the tutor and redirect the user to
         # the proper in class page.
         import pdb; pdb.set_trace()
-        form = CreateSessionForm(request.POST)
+        form = CreateSessionForm(request.user, request.POST)
         if form.is_valid():
             # we wanna create the session object here
             id_tutor = form.cleaned_data.get('id_tutor')
