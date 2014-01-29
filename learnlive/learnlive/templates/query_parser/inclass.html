@@ -47,7 +47,9 @@
 		  session.addEventListener("streamCreated", 
 			                           streamCreatedHandler);
 
-	      session.connect(apiKey, token);
+      session.addEventListener("streamDestroyed", streamDestroyedHandler);
+
+	    session.connect(apiKey, token);
 	  });
 
       function sessionConnectedHandler (event) {
@@ -68,6 +70,22 @@
 	        }
 	    }
 	  }
+ 
+    function streamDestroyedHandler(event) {
+        for (var i = 0; i < event.streams.length; i++) {
+            var stream = event.streams[i];
+            if (stream.connection.connectionId 
+                 != session.connection.connectionId) {             
+                $('#myModalInstructor').modal('show')
+        }
+        }
+    }
+
+    function exitSessionNotification() {
+
+      session.unpublish(publisher);
+
+    }
 
 	  //}
 
@@ -260,8 +278,48 @@
             <input type="text" class="form-control" placeholder="Send a message">
           </div>
       	</div>	
+
+          <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Are you sure you want to exit the Live Session?</h3>
+              </div>
+              <div class="modal-body">
+              <p> Once you exit the Live Session, you will not be able to return to it. To have a session with the instructor again, you will need to start a new paid session.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Return to Live Session.</button>
+
+                <!-- Take care of action here -->
+                <button type="button" class="btn btn-danger" onclick="exitSessionNotification();">Yes, exit Live Session.</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <br>
-        <center><button type="button" class="btn btn-danger">Exit Live Session</button></center>
+        
+          <!-- Modal -->
+        <div class="modal fade" id="myModalInstructor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Live Session has been ended by NAME.</h3>
+              </div>
+              <div class="modal-body">
+              <p> The session is over. You will now be directed to your dashboard page in 10 seconds.</p>
+              </div>
+              <div class="modal-footer">
+                <!-- Take care of action here to return to dashboard-->
+                <button type="button" class="btn btn-danger">Return to dashboard.</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <span class="modaltest" data-toggle="modal" data-target="#myModal"><center><button type="button" class="btn btn-danger">Exit Live Session</button></center></span>
 	 </div>
      
      <hr class="featurette-divider">
