@@ -61,7 +61,6 @@ class InClassView(View):
         # This method will generate the session object corresponding to this session
         # it will then generate the notifcation to the tutor and redirect the user to
         # the proper in class page.
-        import pdb; pdb.set_trace()
         form = CreateSessionForm(request.user, request.POST)
         if form.is_valid():
             # we wanna create the session object here
@@ -81,3 +80,12 @@ class InClassView(View):
             return redirect(url)
         else:
             return redirect('/')
+
+class MessageChatView(View):
+    """
+    This is the view that acts as an endpoint for the chat service that we are establishing
+    """
+
+    def get(self, request, *args, **kwargs):
+        return
+

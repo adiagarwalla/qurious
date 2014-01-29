@@ -20,12 +20,10 @@ class CreateSessionForm(forms.Form):
     options = forms.BooleanField(required=False)
 
     def __init__(self, user, *args, **kwargs):
-        import pdb; pdb.set_trace()
         self.user = user
         super(CreateSessionForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        import pdb; pdb.set_trace()
         if self.user.is_authenticated():
             self.cleaned_data['id_user'] = self.user.username
             if self.cleaned_data.get('id_tutor') < 0:

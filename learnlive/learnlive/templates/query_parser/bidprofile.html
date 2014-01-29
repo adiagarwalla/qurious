@@ -277,7 +277,7 @@
 						</div>
 						<div class="col-md-9 caption">
 							<h3>{{ profile.profile_name }}</h3>
-							<input type="hidden" id="profile_id" value="{{ profile.id }}" />
+							<input type="hidden" class="profile_id" value="{{ profile.id }}" />
 							<span class="modaltest" data-toggle="modal" data-target="#myModal">
 								<span class="glyphicon glyphicon-star"></span>
 								<span class="glyphicon glyphicon-star"></span>
@@ -286,7 +286,7 @@
 								<span class="glyphicon glyphicon-star"></span>
 							</span>
 							<p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-							<p><a href="#" id="result_select_bid" class="btn btn-danger" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
+							<p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - $7/30 minute session</a> <a href="#" class="btn btn-default" role="button">Select appointment time</a></p>
 						</div>
 					</div>
 				</div>
@@ -349,9 +349,9 @@
 		$('#myModalConfirm').on('hidden.bs.modal', function() { 
 			$(this).find("input[type=text], input[type=password], input[type=email], input[type=hidden]").val("");
 		});
-		$("#result_select_bid").click(function() {
+		$(".result_select_bid").click(function() {
 			// you need to copy the hidden value from that input field into the modal's input field
-			val = $("#profile_id").val();
+			val = $(this).parent().parent().find(".profile_id").val();
 			$("#id_tutor").val(val);
 		});
 		</script>
