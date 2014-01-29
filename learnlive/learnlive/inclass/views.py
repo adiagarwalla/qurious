@@ -3,6 +3,8 @@
 # Written by Abhinav Khanna
 
 from django.views.generic import View
+from django.utils import simplejson
+from django.http import HttpResponse
 from django.contrib.auth.models import User 
 from django.shortcuts import redirect
 from Crypto.PublicKey import RSA
@@ -87,5 +89,20 @@ class MessageChatView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        return
+        session_id = self.kwargs['session_id']
+        message_num = self.kwargs['message_num']
+        # the messages after message_num
+
+        messages = []
+        sess = Session.objects.get(session_key=session_id)
+        for message in sess.message_set.all():
+            if message.seq_number > message_num:
+                messages.append(message)
+
+        data = simplejson.dumps({'messages': messages})
+        return HttpResponse(data, mimetype='application/json')
+
+    def post(self, request, *args, **kwargs):
+        data = simplejson.dumps({})
+        return HttpResponse(data, mimetype='application/json')
 

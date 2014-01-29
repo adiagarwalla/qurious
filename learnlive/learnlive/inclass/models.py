@@ -25,6 +25,15 @@ class InClassNotification(models.Model):
     m_type = models.IntegerField() # This will have to be carefully done
     url_inclass = models.CharField(max_length=512)
 
+class Message(models.Model):
+    """
+    This is a messages model
+    """
+    user_from = models.ForeignKey(UserProfile)
+    seq_number = models.IntegerField()
+    content = models.TextField()
+    session = models.ForeignKey(Session)
+
 class RSA(models.Model):
     """
     BAD SECURITY PRACTICE: Stores the RSAKey in the database for further use
