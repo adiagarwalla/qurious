@@ -117,7 +117,7 @@
 			{% endif %}
 			</a></li>
 			{% if user.is_authenticated %}
-			    <li><a href="{% url 'logout' %}" data-toggle="modal" data-target="#myModalNew">Logout</a></li>
+			    <li><a href="{% url 'logout' %}">Logout</a></li>
 			{% else %}
 			    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
 			{% endif %}
