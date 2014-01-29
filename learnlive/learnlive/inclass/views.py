@@ -10,6 +10,7 @@ from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
 from learnlive.inclass.opentok_utils import generate_token
 from learnlive.inclass.opentok_utils import create_session
+from learnlive.inclass.opentok_utils import API_KEY
 
 from learnlive.inclass.forms import CreateSessionForm
 from learnlive.auth.models import UserProfile
@@ -19,7 +20,6 @@ from learnlive.inclass.models import InClassNotification
 class InClassView(View):
 
     def get(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
         id_tutor = self.kwargs['id_tutor']
         username = self.kwargs['id_user']
         sign = self.kwargs['sign']
@@ -37,9 +37,11 @@ class InClassView(View):
         if sess.is_cancelled == True:
             return redirect('/')
 
-        token = generate_token('1_MX40NDU5NDk3Mn5-U2F0IEphbiAyNSAxNDozMDo1OCBQU1QgMjAxNH4wLjM3OTI0ODJ-')
+        token = generate_token(session_id)
         data = {
                  'token': token,
+                 'session_id': session_id,
+                 'api_key': API_KEY,
                }
         return render(request, 'query_parser/inclass.html', data)
 
@@ -69,7 +71,7 @@ class InClassView(View):
             tutor = UserProfile.objects.get(id=id_tutor)
             user_O = User.objects.get(username=username)
             user = UserProfile.objects.get(user=user_O)
-            session_id = create_session('False')
+            session_id = create_session('True')
             sess = Session(prof_tutor=tutor, prof_user=user, session_key=session_id, time=15)
             sess.save()
             url = self.generate_url(id_tutor, username, session_id)
