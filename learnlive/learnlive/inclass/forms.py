@@ -43,5 +43,9 @@ class CreateSessionForm(forms.Form):
                     raise ValidationError('Incorrect login')
         return self.cleaned_data
 
-
-
+class MessageForm(forms.Form):
+    """
+    This is the message form, cleans the content and message information
+    """
+    content = forms.TextField()
+    session_id = forms.TextField()

@@ -103,6 +103,16 @@ class MessageChatView(View):
         return HttpResponse(data, mimetype='application/json')
 
     def post(self, request, *args, **kwargs):
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data.get('content')
+            session_id = form.cleaned_data.get('session_id')
+            sess = Session.objects.get(session_key=session_id)
+            username = request.user.username
+            user = User(username=username)
+            seq_number = sess.message_set.all()[-1]
+            m = Message(content=content, 
+
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
 
