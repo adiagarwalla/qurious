@@ -101,6 +101,30 @@
    //  	TB.log(connectionCount);
 	  // }	
 
+
+    // Toggle stuff for chat window
+    function toggle_visibility(id, id2) {
+       var e = document.getElementById(id);
+       var e2 = document.getElementById(id2);
+       if(e.style.display == 'block')
+       {
+          e.style.display = 'none';
+          e2.style.marginRight = "30px";
+       }
+       else
+       {
+          e.style.display = 'block';
+          e2.style.marginRight = "294px";
+       }
+    }
+
+    // function publisher_change(id) {
+    //    var e = document.getElementById(id);
+    //    if(e.style.marginRight == 'block')
+    //       e.style.display = 'none';
+    //    else
+    //       e.style.display = 'block';
+    // }
 	</script>
 
 	<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -204,6 +228,37 @@
       	<div id = "containerfloat">
       		<div id = "mySubscriberElement"></div>
       		<div id = "myPublisher"></div>
+          <div id = "toggle"><a href="#" onclick="toggle_visibility('chatWindow','myPublisher');"><font color="gray">Chat</font></a></div>
+          <div id = "chatWindow" style="background-color:white;height:600px;width:264px;">
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <b> Aditya: </b> Isn't this amazing? <br>
+            <b> Abhi: </b> GG <br>
+            <b> Tong: </b> Yes Yes Yes <br>
+            <input type="text" class="form-control" placeholder="Send a message">
+          </div>
       	</div>	
 	 </div>
      
