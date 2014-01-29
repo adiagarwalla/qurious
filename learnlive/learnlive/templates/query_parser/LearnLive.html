@@ -77,17 +77,21 @@
               <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a href="{% url 'search' %}">Home</a></li>
                     <li><a href="{% url 'about-us' %}">About Us</a></li>
                 </ul>
 
+	      <!--
               {% if user.is_authenticated %}
-                Hi, {{ user.username }}.
+                Welcome back, {{ user.username }}.
               {% else %}
                 {% if form.errors %}
                   <p>Your username and password didn't match. Please try again.</p>
                 {% endif %}
-                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
+	      {% endif %}              
+              -->
+	      {% if not user.is_authenticated %}
+		<form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
                   {% csrf_token %}
                   <div class="form-group">
                     <input type="text" placeholder="Email" class="form-control" name="username">
@@ -103,7 +107,20 @@
               {% endif %}
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
+                    	<li><a>
+			    {% if user.is_authenticated %}
+                	        Welcome back, {{ user.username }}.
+              		    {% else %}
+               		    {% if form.errors %}
+               		        <p>Your username and password didn't match. Please try again.</p>
+               		    {% endif %}
+			{% endif %}
+			</a></li>
+			{% if user.is_authenticated %}
+			    <li><a href="{% url 'logout' %}" data-toggle="modal" data-target="#myModalNew">Logout</a></li>
+			{% else %}
+			    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
+			{% endif %}
                 </ul>
 
               </div><!--/.navbar-collapse -->
