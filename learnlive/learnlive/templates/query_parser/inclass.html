@@ -50,6 +50,9 @@
 			                           streamCreatedHandler);
 
 	      session.connect(apiKey, token);
+        session.addEventListener("streamDestroyed", streamDestroyedHandler);
+
+	      session.connect(apiKey, token);
       // need to put the sessionId into the hidden input element so the post can work effectively
         $("#session_id_hidden").val(sessionId);
         get_chat_message();
@@ -64,97 +67,7 @@
 	  });
 	</script>
 
-	<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
-          </div>
-        <p>{{ form.errors }}</p>
-        <form id="signin" method="POST" action="{% url 'register' %}">
-          <div class="modal-body">
-              {% csrf_token %}
-              <fieldset>
-
-              <div class="form-group">
-                <label for="exampleInputEmail">EMAIL ADDRESS</label>
-                <input type="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com" name="email">
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputPassoword">PASSWORD</label>
-                <input type="password" class="form-control" id="exampleInputPassword" placeholder="" name="password">
-              </div>
-
-              <div class="form-group" id="confirmPassword">
-                <label for="confirmPassword1">RE-ENTER PASSWORD</label>
-                <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
-              </div>
-              
-              </fieldset>
-          </div>
-          <div class="modal-footer">
-          <center>
-            <button type="submit" class="btn btn-success">Make Account</button>
-        </form>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </center>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-      <div class="navbar-wrapper">
-      <div class="container">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'search' %}">Qurious</a>
-              </div>
-              <div class="navbar-collapse collapse">
-
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="{% url 'about-us' %}">About Us</a></li>
-                </ul>
-
-              {% if user.is_authenticated %}
-                Hi, {{ user.username }}.
-              {% else %}
-                {% if form.errors %}
-                  <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}
-                <form class="navbar-form navbar-right" role="form" action="{% url 'login' %}" method="POST">
-                  {% csrf_token %}
-                  <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" name="username">
-                  </div>
-                  <!-- WHAT THE HECK IS THIS??? -->
-                  <span> </span>
-                  <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name="password">
-                  </div>
-                  <span> </span>
-                  <button type="submit" class="btn btn-danger">Sign in</button>
-                </form>
-              {% endif %}
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal" data-target="#myModalNew">New User?</a></li>
-                </ul>
-
-              </div><!--/.navbar-collapse -->
-            </div>
-          </div>
-        </div>
-        </div>
+	{% include "query_parser/navbar.html" %}
         
 <!--     <div class="navbar-wrapper">
       <div class="container"> -->
@@ -165,7 +78,7 @@
       	<div id = "containerfloat">
       		<div id = "mySubscriberElement"></div>
       		<div id = "myPublisher"></div>
-          <div id = "toggle"><a href="#" onclick="toggle_visibility('chatWindow','myPublisher');"><font color="gray">Chat</font></a></div>
+          <div id = "toggle"><button type="button" class="btn btn-danger" onclick="toggle_visibility('chatWindow','myPublisher');">Chat</button></div>
           <div id = "chatWindow" style="background-color:white;height:600px;width:264px;">
             <div id="chatWindowContent"></div>
             <form action="{% url 'chat-message-post' %}" method="POST" id="chat_message_form">
@@ -175,8 +88,48 @@
             </form>
           </div>
       	</div>	
+
+          <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Are you sure you want to exit the Live Session?</h3>
+              </div>
+              <div class="modal-body">
+              <p> Once you exit the Live Session, you will not be able to return to it. To have a session with the instructor again, you will need to start a new paid session.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Return to Live Session.</button>
+
+                <!-- Take care of action here -->
+                <button type="button" class="btn btn-danger" onclick="exitSessionNotification();">Yes, exit Live Session.</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <br>
-        <center><button type="button" class="btn btn-danger">Exit Live Session</button></center>
+        
+          <!-- Modal -->
+        <div class="modal fade" id="myModalInstructor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Live Session has been ended by NAME.</h3>
+              </div>
+              <div class="modal-body">
+              <p> The session is over. You will now be directed to your dashboard page in 10 seconds.</p>
+              </div>
+              <div class="modal-footer">
+                <!-- Take care of action here to return to dashboard-->
+                <button type="button" class="btn btn-danger">Return to dashboard.</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <span class="modaltest" data-toggle="modal" data-target="#myModal"><center><button type="button" class="btn btn-danger">Exit Live Session</button></center></span>
 	 </div>
      
      <hr class="featurette-divider">
