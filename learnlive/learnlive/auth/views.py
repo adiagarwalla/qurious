@@ -35,6 +35,7 @@ class CreateUserView(View):
         # create the User object
         # we will leave it to the form logic to ensure that no
         # other user has this username
+        import pdb; pdb.set_trace()
         user = User.objects.create_user(username, email, password)
         skill = Skill.objects.filter(name='learning')
         if len(skill) > 0:

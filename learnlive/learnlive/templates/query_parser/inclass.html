@@ -17,6 +17,7 @@
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
     <script src="{% static 'jquery/jquery.js' %}"></script>    
     <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
+    <script src="{% static 'inclass/inclass.js' %}"></script>
   </head>
 
   <body>
@@ -24,6 +25,7 @@
     var apiKey    = "{{ api_key }}";
     var sessionId = "{{ session_id }}";
 	  var token     = "{{ token }}";
+    var message_num = 0;
 
 	  var publisher;
 	  var session;
@@ -48,83 +50,18 @@
 			                           streamCreatedHandler);
 
 	      session.connect(apiKey, token);
+      // need to put the sessionId into the hidden input element so the post can work effectively
+        $("#session_id_hidden").val(sessionId);
+        get_chat_message();
+        $("#post_message").keypress(function(e) {
+            if (e.which == 13) {
+              var csrf = $("#csrf").val();
+              var content = $("#post_message").val();
+              $.post("/inclass/chat/", $("#chat_message_form").serialize());
+              return false;
+            }
+        });
 	  });
-
-      function sessionConnectedHandler (event) {
-	     subscribeToStreams(event.streams);
-	     session.publish(publisher);
-	  }
-
-	  function streamCreatedHandler(event) {
-	    subscribeToStreams(event.streams);
-	  }
-
-	  function subscribeToStreams(streams) {
-	    for (var i = 0; i < streams.length; i++) {
-	        var stream = streams[i];
-	        if (stream.connection.connectionId 
-	               != session.connection.connectionId) {
-	            session.subscribe(stream, "mySubscriberElement", {width: 1200, height: 600});
-	        }
-	    }
-	  }
-
-	  //}
-
-	  // else
-	  // {
-	  // 	TB.log("The client does not support WebRTC.");
-	  // }
-	  	 
-	  // Figure out if required. If yes, then what exactly to do when for some reason connection fails
-	  // TB.addEventListener("execption", exceptionHandler);
-
-	  // Detecting if a user has disconnected
-	  function disconnect() {
-	  		session.addEventListener("sessionDisconnected", sessionDisconnectedHandler);
-	  		session.connect(apiKey, token);
-	  }
-
-	  function sessionDisconnectedHandler(event){
-	  	if (event.reason == "networkDisconnected") {
-	  		alert("Your network connection terminated.")
-	  	}
-	  }
-
-	  // function connectionCreatedHandler(event) {
-   //  	connectionCount += event.connections.length;
-   //  	TB.log(connectionCount);
-	  // }
- 
-	  // function connectionDestroyedHandler(event) {
-   //  	connectionCount -= event.connections.length;
-   //  	TB.log(connectionCount);
-	  // }	
-
-
-    // Toggle stuff for chat window
-    function toggle_visibility(id, id2) {
-       var e = document.getElementById(id);
-       var e2 = document.getElementById(id2);
-       if(e.style.display == 'block')
-       {
-          e.style.display = 'none';
-          e2.style.marginRight = "30px";
-       }
-       else
-       {
-          e.style.display = 'block';
-          e2.style.marginRight = "294px";
-       }
-    }
-
-    // function publisher_change(id) {
-    //    var e = document.getElementById(id);
-    //    if(e.style.marginRight == 'block')
-    //       e.style.display = 'none';
-    //    else
-    //       e.style.display = 'block';
-    // }
 	</script>
 
 	<div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -230,34 +167,12 @@
       		<div id = "myPublisher"></div>
           <div id = "toggle"><a href="#" onclick="toggle_visibility('chatWindow','myPublisher');"><font color="gray">Chat</font></a></div>
           <div id = "chatWindow" style="background-color:white;height:600px;width:264px;">
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <b> Aditya: </b> Isn't this amazing? <br>
-            <b> Abhi: </b> GG <br>
-            <b> Tong: </b> Yes Yes Yes <br>
-            <input type="text" class="form-control" placeholder="Send a message">
+            <div id="chatWindowContent"></div>
+            <form action="{% url 'chat-message-post' %}" method="POST" id="chat_message_form">
+              {% csrf_token %}
+              <input type="hidden" value="junk_value" id="session_id_hidden" name="session_id" />
+              <input type="text" name="content" id="post_message" class="form-control" placeholder="Send a message">
+            </form>
           </div>
       	</div>	
         <br>

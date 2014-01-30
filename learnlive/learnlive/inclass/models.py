@@ -30,6 +30,7 @@ class Message(models.Model):
     This is a messages model
     """
     user_from = models.ForeignKey(UserProfile)
+    user_from_name = models.CharField(max_length=512)
     seq_number = models.IntegerField()
     content = models.TextField()
     session = models.ForeignKey(Session)

@@ -47,5 +47,5 @@ class MessageForm(forms.Form):
     """
     This is the message form, cleans the content and message information
     """
-    content = forms.TextField()
-    session_id = forms.TextField()
+    content = forms.CharField()
+    session_id = forms.CharField()

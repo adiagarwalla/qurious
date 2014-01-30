@@ -6,17 +6,21 @@ from django.views.generic import View
 from django.utils import simplejson
 from django.http import HttpResponse
 from django.contrib.auth.models import User 
+from django.core import serializers
 from django.shortcuts import redirect
 from Crypto.PublicKey import RSA
 from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
+
 from learnlive.inclass.opentok_utils import generate_token
 from learnlive.inclass.opentok_utils import create_session
 from learnlive.inclass.opentok_utils import API_KEY
 
 from learnlive.inclass.forms import CreateSessionForm
+from learnlive.inclass.forms import MessageForm
 from learnlive.auth.models import UserProfile
 from learnlive.inclass.models import Session
+from learnlive.inclass.models import Message
 from learnlive.inclass.models import InClassNotification
 
 class InClassView(View):
@@ -96,10 +100,10 @@ class MessageChatView(View):
         messages = []
         sess = Session.objects.get(session_key=session_id)
         for message in sess.message_set.all():
-            if message.seq_number > message_num:
+            if message.seq_number > int(message_num):
                 messages.append(message)
 
-        data = simplejson.dumps({'messages': messages})
+        data = serializers.serialize('json', messages)
         return HttpResponse(data, mimetype='application/json')
 
     def post(self, request, *args, **kwargs):
@@ -109,9 +113,16 @@ class MessageChatView(View):
             session_id = form.cleaned_data.get('session_id')
             sess = Session.objects.get(session_key=session_id)
             username = request.user.username
-            user = User(username=username)
-            seq_number = sess.message_set.all()[-1]
-            m = Message(content=content, 
+            user = User.objects.get(username=username)
+            user_prof = user.userprofile
+            message_length = len(sess.message_set.all());
+            if message_length == 0:
+                seq_number = 1;
+            else:
+                seq_number = sess.message_set.all()[message_length - 1].seq_number + 1
+            m = Message(content=content, seq_number=seq_number, user_from=user_prof, user_from_name=user_prof.user.username, session=sess)
+            sess.message_set.add(m)
+            sess.save()
 
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
