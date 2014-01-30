@@ -114,3 +114,7 @@ class AboutUs(View):
 class Confirm(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/confirmation.html')
+
+class Dashboard(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/dashboard.html')

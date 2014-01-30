@@ -5,6 +5,7 @@
 from django.views.generic import View
 from django.shortcuts import render
 from warnings import warn
+from learnlive.inclass.opentok_utils import create_session, generate_token
 from learnlive.query_parser.query_utils import get_category_for_verb
 from learnlive.query_parser.query_utils import get_entity_list
 from learnlive.bid_platform.skill_utils import get_profile_for_entity
@@ -106,11 +107,14 @@ class SearchResults(View):
         warn("TESTING PURPOSE ONLY")
         return render(request, 'query_parser/bidprofile.html')
 
-class InClassView(View):
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/inclass.html')
-
 class AboutUs(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/aboutus.html')
+
+class Confirm(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_parser/confirmation.html')
+
+class Dashboard(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'query_result/dashboard.html')
