@@ -1,0 +1,65 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qurious">
+    <meta name="author" content="Abhinav Khanna Aditya Agarwalla">
+
+    <title>Qurious - My Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
+    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    {% include "query_parser/navbar.html" %}
+    <!--end of navbar-->
+
+    <div class="container marketing">
+      <div class="featurette1">
+
+      <div class = "row">
+        <div class = "col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a target="hreflink" href="{% url 'profile' %}">My Profile</a></li>
+                <li><a href="#">Marketplace</a></li>
+                <li><a href="#">Notifications</a></li>
+            </ul>
+        </div>
+        
+        <div class = "col-md-9">
+        <iframe src="{% url 'profile' %}" name="hreflink" width="100%" seamless="" height="700"></iframe>
+        </div>
+      </div>
+    
+      </div>
+
+      <hr class="featurette-divider">
+
+      <footer>
+        <p><center><a href = "https://www.facebook.com/IntegratedDigitalSystems" target="_blank"><i class="icon-facebook icon-large"></i></a> | <a href = "http://www.linkedin.com/company/2875040?trk=prof-exp-company-name" target="_blank"><i class="icon-linkedin icon-large"></i></a></center></p>
+        <p><center>Copyright &copy; 2013, Qurious. All Rights Reserved.</center></p>
+      </footer>
+    </div>
+
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+       <!-- JavaScript plugins (requires jQuery) -->
+       <script src="{% static 'jquery/jquery.js' %}"></script>
+       <script src="{% static 'bootstrap/holder.js' %}"></script>
+          
+       <!-- Include all compiled plugins (below), or include individual files as needed -->
+       <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
