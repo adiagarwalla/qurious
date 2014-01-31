@@ -23,7 +23,6 @@
        <!-- JavaScript plugins (requires jQuery) -->
        <script src="{% static 'jquery/jquery.js' %}"></script>
        <script src="{% static 'bootstrap/holder.js' %}"></script>
-          
        <!-- Include all compiled plugins (below), or include individual files as needed -->
        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
        <script src="{% static 'dashboard/dashboard.js' %}"></script>
@@ -65,9 +64,32 @@
             get_user_skills();
             $("#new_skill").keypress(function(e) {
                 if (e.which == 13) {
-                  $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(get_user_skills());
+                $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(function ( data ) {
+                  get_user_skills();
+                });
+                  $("#new_skill").val('');
                   return false;
                 }
+            });
+
+            $("#edit_confirm").click(function() {
+                if ($("#Price").val() == "") {
+                  $("#Price").val(0);
+                  $("#Price").attr("disabled", false);
+                }
+
+                $.ajax({ url: '/dashboard/skills/edit/', type: 'POST', data: $("#edit_skill_form").serialize() }).done(function ( data ) {
+                  get_user_skills();
+                });
+
+                $("#myModal").modal('hide');
+            });
+
+            $("ul.nav").on("click", "li.active", function() {
+                val = $(this).find("input").val();
+                $("#modal_skill_id").val(val);
+            });
+
             $("#optionsRadios2").click(function() {
                 document.getElementById("Price").disabled = true;
             });
@@ -157,17 +179,19 @@
                       </div>
 
                       <div class="modal-body">
+                        <form id="edit_skill_form">
+                          {% csrf_token %}
                         <p> Would you like to appear in search results as an instructor for this skill?
                             <div class="radio">
                             <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                              <input type="radio" id="optionsRadios1" value="1" name="is_marketable">
                                 Yes
                             </label>
                             </div>
                             <div class="radio">
                             <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked>
-                                No    
+                              <input type="radio" id="optionsRadios2" value="0" name="is_marketable" checked>
+                                No
                             </label>
                             </div>
                         </p>
@@ -175,12 +199,10 @@
                         <br>
 
                         <p> What price would you like to set for the skill for a 15 minute session?
-                            <form class="form-inline" role="form">
                               <div class="form-group">
                                 <label class="sr-only" for="Price">Price</label>
-                                <input type="text" class="form-control" id="Price" placeholder="In US dollars" disabled>
+                                <input type="text" class="form-control" id="Price" name="price" placeholder="In US dollars" disabled>
                               </div>
-                            </form>
                         </p>
 
                         <br>
@@ -195,13 +217,15 @@
                               <option>5</option>
                             </select>
                         </p>
+                        <input type="hidden" id="modal_skill_id" name="skill_id" value="junk_value" />
 
                       </div>
                       
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Confirm changes</button>
+                        <button type="button" class="btn btn-success" id="edit_confirm">Confirm changes</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Discard changes</button>
                       </div>
+                     </form>
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
