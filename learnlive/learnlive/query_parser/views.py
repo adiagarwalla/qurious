@@ -67,6 +67,7 @@ class AskSearchView(View):
         # It needs to execute the basic query handling
         # This includes: Preprocessing, verb extraction
         # Tree traversal, and search result posting
+        import pdb; pdb.set_trace()
         form = QueryRequestForm(request.POST)
         if form.is_valid():
             # now you can extract the cleaned query

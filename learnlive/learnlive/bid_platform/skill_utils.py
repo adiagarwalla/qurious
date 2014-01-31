@@ -11,7 +11,9 @@ def get_profile_for_entity(entity, start, limit):
     skills
     limit - is the max number of profiles we want to return
     """
-    skills = Skill.objects.filter(name=entity.name) # there is a way to put a limit straight into the filter function, but I do not remember how to do this....
+    import pdb; pdb.set_trace()
+    name = entity.name.replace('_', ' ')
+    skills = Skill.objects.filter(name=name) # there is a way to put a limit straight into the filter function, but I do not remember how to do this....
     retlist = []
 
     # there should only be on e skill that is ever returned, because our db should not be clutterecd
