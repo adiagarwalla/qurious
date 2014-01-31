@@ -89,6 +89,57 @@
           </div>
       	</div>	
 
+        <!-- Review modal -->
+        <div class="modal fade" id="myModalReview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Please review your Live Session experience</h3>
+              </div>
+              <div class="modal-body">
+                <p> How would you rate the instructor? (where 1 is bad and 5 is excellent)
+                  <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </p>
+
+                <br>
+                <p> Would you endorse XYZ for ABC? 
+                    <div class="radio">
+                      <label>
+                        <input type="radio" id="optionsRadios1" value="1" name="is_good">
+                          Yes
+                      </label>
+                    </div>
+                    
+                    <div class="radio">
+                      <label>
+                        <input type="radio" id="optionsRadios2" value="0" name="is_good">
+                          No
+                      </label>
+                    </div>
+                </p>
+
+                <br>
+                <p>
+                  <div class="form-group">
+                      <label for="Desc">Enter a short description about your Live Session experience with the insturctor</label> 
+                      <textarea class="form-control" rows="3" id="Desc" name="bio" maxlength="400"></textarea>
+                  </div>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <!-- Action reqd: Store review -->
+                <a href="{% url 'dashboard' %}"><button type="button" class="btn btn-success">Submit Review</button></a>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
           <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
