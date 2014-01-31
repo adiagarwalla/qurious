@@ -3,6 +3,7 @@
 # This class was written by Abhinav Khanna
 from django import forms
 from django.contrib.auth import authenticate
+from django.contrib.auth import login
 from learnlive.auth.forms import UserProfileForm
 from learnlive.auth.views import CreateUserView
 from django.core.exceptions import ValidationError
@@ -19,13 +20,13 @@ class CreateSessionForm(forms.Form):
     confirm = forms.CharField(required=False)
     options = forms.BooleanField(required=False)
 
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
+    def __init__(self, request, *args, **kwargs):
+        self.request = request 
         super(CreateSessionForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        if self.user.is_authenticated():
-            self.cleaned_data['id_user'] = self.user.username
+        if self.request.user.is_authenticated():
+            self.cleaned_data['id_user'] = self.request.user.username
             if self.cleaned_data.get('id_tutor') < 0:
                 raise ValidationError("Invalid tutor id")
         else:
@@ -38,9 +39,12 @@ class CreateSessionForm(forms.Form):
                     raise ValidationError("Registration error try again")
             else:
                 # just a log in.
-                user_log = authenticate(username=email, password=password)
+                import pdb; pdb.set_trace()
+                user_log = authenticate(username=self.cleaned_data.get('email'), password=self.cleaned_data.get('password'))
                 if user_log is None:
                     raise ValidationError('Incorrect login')
+                self.cleaned_data['id_user'] = user_log.username
+                login(self.request, user_log)
         return self.cleaned_data
 
 class MessageForm(forms.Form):
