@@ -72,6 +72,13 @@
                 }
             });
 
+            get_profile();
+            $("#submit_profile").click(function() {
+                $.ajax({ url: '/dashboard/profile/', type: 'POST', data: $("#profile_form").serialize() }).done(function ( data ) {
+                  get_profile();
+                });
+            });
+
             $("#edit_confirm").click(function() {
                 if ($("#Price").val() == "") {
                   $("#Price").val(0);
@@ -133,17 +140,18 @@
             <div id = "profileedit" class="hiddendiv">
                 <h2 class="tabheading">Edit Profile</h2>
 
-                <form role="form">
+                <form role="form" id="profile_form">
+                  {% csrf_token %}
                   <div class="form-group">
                     <label for="Name">Edit profile name</label>
                       <!-- Abhi put in placeholder the current profile name -->
-                      <input type="text" class="form-control" id="Name" placeholder="Profile Name">
+                      <input type="text" class="form-control" id="profile_name" placeholder="Profile Name">
                       <span class="help-block">Proper names have a higher chance of appearing in search results.</span>
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="Desc">Enter short description about yourself, your interests and main skill set.</label>    
-                    <textarea class="form-control" rows="3" id="Desc" maxlength="400"></textarea>
+                    <textarea class="form-control" rows="3" id="Desc" name="bio" maxlength="400"></textarea>
                   </div>
                   <br>
                   <div class="form-group">
@@ -161,7 +169,7 @@
                   </div>
                   <br>
                   <center>
-                    <button type="button" class="btn btn-success">Confirm changes</button>
+                    <button type="button" id="submit_profile" class="btn btn-success">Confirm changes</button>
                     <button type="button" class="btn btn-danger">Discard changes</button>
                   </center>
                 </form>

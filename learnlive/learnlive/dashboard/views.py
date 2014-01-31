@@ -12,6 +12,7 @@ from django.shortcuts import render
 from learnlive.bid_platform.models import Skill
 from learnlive.dashboard.forms import AddSkillForm
 from learnlive.dashboard.forms import EditSkillForm
+from learnlive.dashboard.forms import EditProfileForm
 
 class MarketableSkillView(View):
     """
@@ -67,6 +68,36 @@ class EditSkillView(View):
 
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
+
+class EditProfileView(View):
+    """
+    This ivew edits the profile, allowing you to update it with stuff.
+    """
+    def post(self, request, *args, **kwargs):
+        import pdb; pdb.set_trace()
+        form = EditProfileForm(request.POST)
+        if form.is_valid():
+            username = request.user.username
+            user = User.objects.get(username=username)
+            user_prof = user.userprofile
+            user_prof.profile_name = form.cleaned_data.get('profile_name')
+            user_prof.bio = form.cleaned_data.get('bio')
+            user_prof.save()
+
+        data = simplejson.dumps({})
+        return HttpResponse(data, mimetype='application/json')
+
+    def get(self, request, *args, **kwargs):
+        """
+        Gets the basic profile for the user currently logged in
+        """
+        username = request.user.username
+        user = User.objects.get(username=username)
+        user_prof = user.userprofile
+
+        data = serializers.serialize('json', [user_prof])
+        return HttpResponse(data, mimetype='application/json')
+
 
 class Dashboard(View):
     def get(self, request, *args, **kwargs):

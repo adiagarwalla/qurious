@@ -16,3 +16,15 @@ function get_user_skills() {
         }
     });
 }
+
+function get_profile() {
+    // gets the profile of the person and autopopulates the values
+    // of the input fields
+    $.get('/dashboard/profile/', function(data) {
+        for (i = 0; i < data.length; i++) {
+            $("#profile_name").val(data[i].fields.profile_name);
+            $("#Desc").val(data[i].fields.bio);
+        }
+    });
+}
+
