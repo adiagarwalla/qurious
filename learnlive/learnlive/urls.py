@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', CreateUserView.as_view(), name='register'),
     url(r'^inclass/', include('learnlive.inclass.urls')),
+    url(r'dashboard/', include('learnlive.dashboard.urls')),
     url(r'^', include('learnlive.query_parser.urls')),
 )
 

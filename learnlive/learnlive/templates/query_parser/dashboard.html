@@ -26,6 +26,7 @@
           
        <!-- Include all compiled plugins (below), or include individual files as needed -->
        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+       <script src="{% static 'dashboard/dashboard.js' %}"></script>
 
        <script type="text/javascript">
         $(document).ready(function() {
@@ -60,6 +61,14 @@
                 $(".hiddendiv").hide();
                 $("#notification").show();
             });
+
+            get_user_skills();
+            $("#new_skill").keypress(function(e) {
+                if (e.which == 13) {
+                  $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(get_user_skills());
+                  return false;
+                }
+            });
         });
     </script>
   </head>
@@ -87,131 +96,26 @@
             
             <div id = "marketplace" class="hiddendiv">
                 <h2>Add Skill</h2>
-                <input type="text" class="form-control" placeholder="New Skill">
+                <form id="add_skill_form">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" id="new_skill" name="new_skill" placeholder="New Skill">
+                </form>
 
                 <br><br>
 
                 <div class="row">
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set0" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set1" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set2" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 

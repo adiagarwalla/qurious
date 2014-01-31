@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'learnlive.auth',
     'learnlive.query_parser',
     'learnlive.inclass',
+    'learnlive.dashboard',
     'treebeard',
     'south',
 )

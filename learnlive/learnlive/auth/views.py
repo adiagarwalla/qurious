@@ -41,7 +41,7 @@ class CreateUserView(View):
         if len(skill) > 0:
             skill = skill[0]
         else:
-            skill = Skill(name='learning')
+            skill = Skill(name='learning', is_marketable=False, num_endorsements=0, price=0)
             skill.save()
 
         user_profile = UserProfile(user=user, profile_name='', active_session='')
@@ -58,5 +58,4 @@ class CreateUserView(View):
             self.sign_up(form)
             return HttpResponseRedirect(reverse('login'))
         else:
-            print 'failed login due to form invalidation'
             return render(request, 'query_parser/LearnLive.html')

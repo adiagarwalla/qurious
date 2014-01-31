@@ -5,4 +5,6 @@ from django.db import models
 class Skill(models.Model):
 
     name = models.CharField(max_length=512)
-    #is_marketable = models.BooleanField()
+    is_marketable = models.BooleanField()
+    num_endorsements = models.IntegerField()
+    price = models.IntegerField()
