@@ -92,8 +92,45 @@
         </div>
         
         <div class = "col-md-9">
-            <div id = "homepage" class="hiddendiv">Hello</div>
-            <div id = "profileedit" class="hiddendiv">Edit profile</div>
+            <div id = "homepage" class="hiddendiv">
+                <h2>My Recent Acitivity</h2>
+            </div>
+            <div id = "profileedit" class="hiddendiv">
+                <h2>Edit Profile</h2>
+
+                <form role="form">
+                  <div class="form-group">
+                    <label for="Name">Edit profile name</label>
+                      <!-- Abhi put in placeholder the current profile name -->
+                      <input type="text" class="form-control" id="Name" placeholder="Profile Name">
+                      <span class="help-block">Proper names have a higher chance of appearing in search results.</span>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="Desc">Enter short description about yourself, your interests and main skill set.</label>    
+                    <textarea class="form-control" rows="3" id="Desc" maxlength="400"></textarea>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="ProfileInputFile">Profile Picture</label>
+                    <input type="file" id="ProfileInputFile">
+                    <p class="help-block">Standard image formats accepted.</p>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="CarouselInputFile">Three cover pictures</label>
+                    <input type="file" id="CarouselexampleInputFile">
+                    <input type="file" id="CarouselexampleInputFile1">
+                    <input type="file" id="CarouselexampleInputFile2">
+                    <p class="help-block">Standard image formats accepted.</p>
+                  </div>
+                  <br>
+                  <center>
+                    <button type="button" class="btn btn-success">Confirm changes</button>
+                    <button type="button" class="btn btn-danger">Discard changes</button>
+                  </center>
+                </form>
+            </div>
             
             <div id = "marketplace" class="hiddendiv">
                 <h2>Add Skill</h2>
@@ -287,7 +324,9 @@
               </div>    
             </div>
             
-            <div id = "notification" class="hiddendiv">Notifications</div>
+            <div id = "notification" class="hiddendiv">
+                <h2>Notifications</h2>
+            </div>
         </div>
       </div>
     
