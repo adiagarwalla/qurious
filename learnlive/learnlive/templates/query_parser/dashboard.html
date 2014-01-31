@@ -60,6 +60,14 @@
                 $(".hiddendiv").hide();
                 $("#notification").show();
             });
+
+            $("#optionsRadios2").click(function() {
+                document.getElementById("Price").disabled = true;
+            });
+
+            $("#optionsRadios1").click(function() {
+                document.getElementById("Price").disabled = false;
+            });
         });
     </script>
   </head>
@@ -91,15 +99,74 @@
 
                 <br><br>
 
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="myModalLabel">Edit Skill</h3>
+                      </div>
+
+                      <div class="modal-body">
+                        <p> Would you like to appear in search results as an instructor for this skill?
+                            <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                Yes
+                            </label>
+                            </div>
+                            <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                                No    
+                            </label>
+                            </div>
+                        </p>
+
+                        <br>
+                        
+                        <p> What price would you like to set for the skill for a 15 minute session?
+                            <form class="form-inline" role="form">
+                              <div class="form-group">
+                                <label class="sr-only" for="Price">Price</label>
+                                <input type="text" class="form-control" id="Price" placeholder="In US dollars" disabled>
+                              </div>
+                            </form>
+                        </p>
+
+                        <br>
+
+                        <!-- Abhi, fill these with the other skills -->
+                        <p> Set the same setting and price to the following skills:
+                            <select multiple class="form-control">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                        </p>
+
+                      </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Confirm changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Discard changes</button>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
                 <div class="row">
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
+                  <ul class="nav nav-pills nav-stacked"> 
                     <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
+                      <a href="#" data-toggle="modal" data-target="#myModal">
+                        <span class="badge pull-right">0</span>
+                        Singing
+                      </a>
                     </li>
+
                     <li class="active">
                       <a>
                       <span class="badge pull-right">10</span>
