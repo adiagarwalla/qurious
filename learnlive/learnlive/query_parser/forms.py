@@ -46,5 +46,5 @@ class LeaveMessageForm(forms.Form):
     name = forms.CharField()
     email = forms.EmailField()
     phone = forms.IntegerField()
-    message = forms.TextField()
+    message = forms.CharField()
 
