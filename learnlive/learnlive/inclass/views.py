@@ -67,7 +67,7 @@ class InClassView(View):
         # This method will generate the session object corresponding to this session
         # it will then generate the notifcation to the tutor and redirect the user to
         # the proper in class page.
-        form = CreateSessionForm(request.user, request.POST)
+        form = CreateSessionForm(request, request.POST)
         if form.is_valid():
             # we wanna create the session object here
             id_tutor = form.cleaned_data.get('id_tutor')

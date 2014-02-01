@@ -23,9 +23,9 @@
        <!-- JavaScript plugins (requires jQuery) -->
        <script src="{% static 'jquery/jquery.js' %}"></script>
        <script src="{% static 'bootstrap/holder.js' %}"></script>
-          
        <!-- Include all compiled plugins (below), or include individual files as needed -->
        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+       <script src="{% static 'dashboard/dashboard.js' %}"></script>
 
        <script type="text/javascript">
         $(document).ready(function() {
@@ -60,6 +60,50 @@
                 $(".hiddendiv").hide();
                 $("#notification").show();
             });
+
+            get_user_skills();
+            $("#new_skill").keypress(function(e) {
+                if (e.which == 13) {
+                $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(function ( data ) {
+                  get_user_skills();
+                });
+                  $("#new_skill").val('');
+                  return false;
+                }
+            });
+
+            get_profile();
+            $("#submit_profile").click(function() {
+                $.ajax({ url: '/dashboard/profile/', type: 'POST', data: $("#profile_form").serialize() }).done(function ( data ) {
+                  get_profile();
+                });
+            });
+
+            $("#edit_confirm").click(function() {
+                if ($("#Price").val() == "") {
+                  $("#Price").val(0);
+                  $("#Price").attr("disabled", false);
+                }
+
+                $.ajax({ url: '/dashboard/skills/edit/', type: 'POST', data: $("#edit_skill_form").serialize() }).done(function ( data ) {
+                  get_user_skills();
+                });
+
+                $("#myModal").modal('hide');
+            });
+
+            $("ul.nav").on("click", "li.active", function() {
+                val = $(this).find("input").val();
+                $("#modal_skill_id").val(val);
+            });
+
+            $("#optionsRadios2").click(function() {
+                document.getElementById("Price").disabled = true;
+            });
+
+            $("#optionsRadios1").click(function() {
+                document.getElementById("Price").disabled = false;
+            });
         });
     </script>
   </head>
@@ -70,6 +114,8 @@
 
     <div class="container marketing">
       <div class="featurette1">
+
+      <h2>My Dashboard</h2>
 
       <div class = "row">
         <div class = "col-md-3">
@@ -82,143 +128,147 @@
         </div>
         
         <div class = "col-md-9">
-            <div id = "homepage" class="hiddendiv">Hello</div>
-            <div id = "profileedit" class="hiddendiv">Edit profile</div>
+            <div id = "homepage" class="hiddendiv">
+                <h2 class = "tabheading">My Recent Activity</h2>
+
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+            </div>
+            <div id = "profileedit" class="hiddendiv">
+                <h2 class="tabheading">Edit Profile</h2>
+
+                <form role="form" id="profile_form">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="Name">Edit profile name</label>
+                      <!-- Abhi put in placeholder the current profile name -->
+                      <input type="text" class="form-control" id="profile_name" name="profile_name" placeholder="Profile Name">
+                      <span class="help-block">Proper names have a higher chance of appearing in search results.</span>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="Desc">Enter short description about yourself, your interests and main skill set.</label>    
+                    <textarea class="form-control" rows="3" id="Desc" name="bio" maxlength="400"></textarea>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="ProfileInputFile">Profile Picture</label>
+                    <input type="file" id="ProfileInputFile">
+                    <p class="help-block">Standard image formats accepted.</p>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="CarouselInputFile">Three cover pictures</label>
+                    <input type="file" id="CarouselexampleInputFile">
+                    <input type="file" id="CarouselexampleInputFile1">
+                    <input type="file" id="CarouselexampleInputFile2">
+                    <p class="help-block">Standard image formats accepted.</p>
+                  </div>
+                  <br>
+                  <center>
+                    <button type="button" id="submit_profile" class="btn btn-success">Confirm changes</button>
+                    <button type="button" class="btn btn-danger">Discard changes</button>
+                  </center>
+                </form>
+            </div>
             
             <div id = "marketplace" class="hiddendiv">
                 <h2>Add Skill</h2>
-                <input type="text" class="form-control" placeholder="New Skill">
+                <form id="add_skill_form">
+                  {% csrf_token %}
+                  <input type="text" class="form-control" id="new_skill" name="new_skill" placeholder="New Skill">
+                </form>
+                <br>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="myModalLabel">Edit Skill</h3>
+                      </div>
 
-                <br><br>
+                      <div class="modal-body">
+                        <form id="edit_skill_form">
+                          {% csrf_token %}
+                        <p> Would you like to appear in search results as an instructor for this skill?
+                            <div class="radio">
+                            <label>
+                              <input type="radio" id="optionsRadios1" value="1" name="is_marketable">
+                                Yes
+                            </label>
+                            </div>
+                            <div class="radio">
+                            <label>
+                              <input type="radio" id="optionsRadios2" value="0" name="is_marketable" checked>
+                                No
+                            </label>
+                            </div>
+                        </p>
+
+                        <br>
+
+                        <p> What price would you like to set for the skill for a 15 minute session?
+                              <div class="form-group">
+                                <label class="sr-only" for="Price">Price</label>
+                                <input type="text" class="form-control" id="Price" name="price" placeholder="In US dollars" disabled>
+                              </div>
+                        </p>
+
+                        <br>
+
+                        <!-- Abhi, fill these with the other skills -->
+                        <p> Set the same setting and price to the following skills:
+                            <select multiple class="form-control">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                        </p>
+                        <input type="hidden" id="modal_skill_id" name="skill_id" value="junk_value" />
+
+                      </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="edit_confirm">Confirm changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Discard changes</button>
+                      </div>
+                     </form>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
                 <div class="row">
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set0" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set1" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 
                 <div class="col-md-4">
-                  <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">0</span>
-                      Singing
-                    </a>
-                    </li>
-                    <li class="active">
-                      <a>
-                      <span class="badge pull-right">10</span>
-                      Dancing
-                    </a>
-                    </li>
+                  <ul id="skill_set2" class="nav nav-pills nav-stacked">
                   </ul>
                 </div>
 
               </div>    
             </div>
             
-            <div id = "notification" class="hiddendiv">Notifications</div>
+            <div id = "notification" class="hiddendiv">
+                <h2 class="tabheading">Notifications</h2>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+                <div class="alert alert-info">His cat is actually a dog.</div>
+            </div>
         </div>
       </div>
     
