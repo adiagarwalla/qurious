@@ -115,12 +115,7 @@ class NotificationView(View):
         data = serializers.serialize('json', notifications)
         return HttpResponse(data, mimetype='application/json')
 
-
 class Dashboard(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/dashboard.html')
 
-class Notification(View):
-
-    def get(self, request, *args, **kwargs):
-	
