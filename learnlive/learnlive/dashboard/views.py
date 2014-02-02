@@ -48,6 +48,7 @@ class MarketableSkillView(View):
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
 
+
 class EditSkillView(View):
 
     def post(self, request, *args, **kwargs):
@@ -68,6 +69,7 @@ class EditSkillView(View):
 
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
+
 
 class EditProfileView(View):
     """
@@ -96,6 +98,21 @@ class EditProfileView(View):
         user_prof = user.userprofile
 
         data = serializers.serialize('json', [user_prof])
+        return HttpResponse(data, mimetype='application/json')
+
+
+class NotificationView(View):
+
+    def get(self, request, *args, **kwargs):
+        """
+        This view will return the notification objects back to the end user.
+        """
+        username = request.user.username
+        user = User.objects.get(username=username)
+        user_prof = user.userprofile
+        notifications = user_prof.id_to.all()
+
+        data = serializers.serialize('json', notifications)
         return HttpResponse(data, mimetype='application/json')
 
 
