@@ -119,3 +119,8 @@ class NotificationView(View):
 class Dashboard(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/dashboard.html')
+
+class Notification(View):
+
+    def get(self, request, *args, **kwargs):
+	

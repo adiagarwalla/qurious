@@ -123,7 +123,7 @@
 					</div>
 					<div class="modal-body">
 						{% if not user.is_authenticated %}
-							<h4 class="text-muted">Sign In Please</h4>
+							<h4>Sign In Please</h4>
 							<input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
 							<br>
 							<br>
@@ -143,8 +143,19 @@
 							</fieldset>
 						{% endif %}
 
+						<h4>Enter Session Details</h4>
+						<p> Price of 15 minute Live Session <span class="pull-right"> $10</p></p>
+						<p> <form class="form-inline" role="form">
+							  <div class="form-group">
+							    <label for="exampleInputMin">Duration of session</label>
+							    <input type="text" class="form-control" id="exampleInputMin" placeholder="In minutes">
+							  </div>
+							</form>
+						</p>
+						<p> Total cost of Live Session <span class="pull-right"> $30</p></p>
+
 						<br>
-						<h4 >Enter Payment Information</h4>
+						<h4>Enter Payment Information</h4>
 
 						<fieldset>
 							<div class="form-group">

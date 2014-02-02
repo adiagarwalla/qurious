@@ -11,7 +11,8 @@ from learnlive.query_parser.query_utils import get_entity_list
 from learnlive.bid_platform.skill_utils import get_profile_for_entity
 
 from learnlive.query_parser.forms import QueryRequestForm
-
+from learnlive.query_parser.forms import LeaveMessageForm
+from learnlive.query_parser.models import LeaveMessage
 
 class AskQueryView(View):
     """
@@ -108,8 +109,22 @@ class SearchResults(View):
         return render(request, 'query_parser/bidprofile.html')
 
 class AboutUs(View):
+    
     def get(self, request, *args, **kwargs):
         return render(request, 'query_parser/aboutus.html')
+
+    def post(self, request, *args, **kwargs):
+        form = LeaveMessageForm(request.POST)
+        if form.is_valid():
+	    name = form.cleaned_data.get('name')
+            email = form.cleaned_data.get('email')
+	    phone = form.cleaned_data.get('phone')
+            message = form.cleaned_data.get('message')
+
+	    lm = LeaveMessage(name=name, email=email, phone=phone, message=message)
+	    lm.save()
+	
+	return render(request, 'query_parser/aboutus.html')
 
 class Confirm(View):
     def get(self, request, *args, **kwargs):

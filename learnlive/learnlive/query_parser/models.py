@@ -30,3 +30,14 @@ class Entity(MP_Node):
 
     def __unicode__(self):
         return 'Entity: %s' % self.name
+
+class LeaveMessage(models.Model):
+    """
+    This is the leave message class. It stores the user feedback from the form
+    on the about us page.
+    """
+    
+    name = models.CharField(max_length=512)
+    email = models.EmailField(max_length=512)
+    phone = models.IntegerField()
+    message = models.TextField()

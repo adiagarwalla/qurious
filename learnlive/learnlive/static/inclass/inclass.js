@@ -31,6 +31,8 @@
     function exitSessionNotification() {
 
       session.unpublish(publisher);
+      $('#myModal').modal('hide')
+      $('#myModalReview').modal('show')
 
     }
 

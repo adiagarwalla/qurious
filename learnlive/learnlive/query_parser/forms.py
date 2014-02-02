@@ -42,3 +42,9 @@ class QueryRequestForm(forms.Form):
 
         return query
 
+class LeaveMessageForm(forms.Form):
+    name = forms.CharField()
+    email = forms.EmailField()
+    phone = forms.IntegerField()
+    message = forms.CharField()
+
