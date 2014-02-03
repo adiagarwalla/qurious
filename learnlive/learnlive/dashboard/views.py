@@ -76,7 +76,6 @@ class EditProfileView(View):
     This ivew edits the profile, allowing you to update it with stuff.
     """
     def post(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
         form = EditProfileForm(request.POST)
         if form.is_valid():
             username = request.user.username
