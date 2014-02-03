@@ -53,11 +53,11 @@ def create_sample_profs():
     """
 
     warn('This function is only for testing purposes: create_sample_profs')
-    u1 = User(username='ai1999', password='1234')
-    u2 = User(username='ai2000', password='1234')
-    u3 = User(username='ai2001', password='1234')
-    u4 = User(username='ai2002', password='1234')
-    u5 = User(username='ai2003', password='1234')
+    u1 = User(username='ai3999', password='1234')
+    u2 = User(username='ai3000', password='1234')
+    u3 = User(username='ai3001', password='1234')
+    u4 = User(username='ai3002', password='1234')
+    u5 = User(username='ai3003', password='1234')
 
     u1.save()
     u2.save()
@@ -66,11 +66,11 @@ def create_sample_profs():
     u5.save()
 
     # now add skills
-    s1 = Skill(name='paneer')
-    s2 = Skill(name='roasting_pan')
-    s3 = Skill(name='indian_cuisine')
-    s4 = Skill(name='french_cuisine')
-    s5 = Skill(name='paneer')
+    s1 = Skill(name='paneer', is_marketable=True, num_endorsements=0, price=0)
+    s2 = Skill(name='roasting pan', is_marketable=True, num_endorsements=0, price=0)
+    s3 = Skill(name='indian cuisine', is_marketable=True, num_endorsements=0, price=0)
+    s4 = Skill(name='french cuisine', is_marketable=True, num_endorsements=0, price=0)
+    s5 = Skill(name='saag paneer', is_marketable=True, num_endorsements=0, price=0)
 
     s1.save()
     s2.save()
