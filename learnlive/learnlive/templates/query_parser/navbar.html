@@ -59,8 +59,11 @@
         
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'search' %}">Home</a></li>
+            <li><a href="{% url 'search' %}">Home</a></li>
             <li><a href="{% url 'about-us' %}">About Us</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'dashboard' %}">Dashbaord</a></li>
+            {% endif %}
           </ul>
 
 	      {% if not user.is_authenticated %}

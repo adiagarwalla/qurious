@@ -21,6 +21,7 @@ class InClassNotification(models.Model):
     """
     prof_from = models.ForeignKey(UserProfile)
     prof_to = models.ForeignKey(UserProfile, related_name="id_to")
+    prof_from_username = models.CharField(max_length=512);
     message = models.TextField()
     m_type = models.IntegerField() # This will have to be carefully done
     url_inclass = models.CharField(max_length=512)

@@ -75,13 +75,13 @@ class InClassView(View):
             # get the UserProfile for these ids
             tutor = UserProfile.objects.get(id=id_tutor)
             user_O = User.objects.get(username=username)
-            user = UserProfile.objects.get(user=user_O)
+            user = user_O.userprofile 
             session_id = create_session('True')
             sess = Session(prof_tutor=tutor, prof_user=user, session_key=session_id, time=15)
             sess.save()
             url = self.generate_url(id_tutor, username, session_id)
             # generate a notification object and attach it to the tutor
-            notification = InClassNotification(prof_from=user, m_type=1,  message='Requesting a tutor session with you!', prof_to=tutor, url_inclass=url)
+            notification = InClassNotification(prof_from=user, m_type=1,  message='Requesting a tutor session with you!', prof_to=tutor, prof_from_username=username, url_inclass=url)
             notification.save()
             return redirect(url)
         else:
