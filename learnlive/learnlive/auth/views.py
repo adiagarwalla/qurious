@@ -43,7 +43,7 @@ class CreateUserView(View):
             skill = Skill(name='learning', is_marketable=False, num_endorsements=0, price=0)
             skill.save()
 
-        user_profile = UserProfile(user=user, profile_name='', active_session='')
+        user_profile = UserProfile(user=user, profile_name='', bio='')
         user_profile.save()
         user_profile.skills.add(skill)
 
