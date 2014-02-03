@@ -85,6 +85,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -128,6 +129,7 @@ INSTALLED_APPS = (
     # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

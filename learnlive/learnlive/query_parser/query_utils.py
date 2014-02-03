@@ -105,23 +105,23 @@ def get_entity_list(query):
     search_query = query;
     final_list = []
     pos_list = TextBlob(query).tags
-    query = TextBlob(query).noun_phrases
+#    query = TextBlob(query).noun_phrases
     # we now have a valid query object that does not have a verb in it :D begin
     # the longest prefix matching process!!!
     # for now just do the direct matching program....
     # and if that returns null, just do the noun and see if that comes up
-    if len(query) != 0:
-        for item in query:
-            # normalize the item
-            item = item.replace(' ', '_')
-            entity_list = Entity.objects.filter(name=item)
-            if len(entity_list) == 0:
-                final_list = get_entities_by_permute(item, pos_list, final_list)
-            else:
-                for e in entity_list:
-                    final_list.append(e)
-    else:
-        final_list = get_entities_by_permute(search_query, pos_list, final_list)
+#    if len(query) != 0:
+#        for item in query:
+#            # normalize the item
+#            item = item.replace(' ', '_')
+#            entity_list = Entity.objects.filter(name=item)
+#            if len(entity_list) == 0:
+#                final_list = get_entities_by_permute(item, pos_list, final_list)
+#            else:
+#                for e in entity_list:
+#                    final_list.append(e)
+#    else:
+    final_list = get_entities_by_permute(search_query, pos_list, final_list)
 
     return final_list
 
