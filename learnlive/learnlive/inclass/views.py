@@ -75,7 +75,7 @@ class InClassView(View):
             # get the UserProfile for these ids
             tutor = UserProfile.objects.get(id=id_tutor)
             user_O = User.objects.get(username=username)
-            user = UserProfile.objects.get(user=user_O)
+            user = user_O.userprofile 
             session_id = create_session('True')
             sess = Session(prof_tutor=tutor, prof_user=user, session_key=session_id, time=15)
             sess.save()
