@@ -35,7 +35,7 @@ class InClassView(View):
         user = User.objects.get(username=username)
         message = int(id_tutor) + int(user.id)
         message_num = int(message)
-        if not rsa_public.verify(message_num, (int(sign), 16)):
+        if not rsa_public.verify(long(message_num), (int(sign), 16)):
             return redirect('/')
 
         # proceed to ensure that it is still a valid session
@@ -58,7 +58,7 @@ class InClassView(View):
         user = User.objects.get(username=id_user)
         message = int(id_tutor) + int(user.id) 
         message_num = int(message)
-        sign_tuple = rsa_private.sign(message_num, 16)
+        sign_tuple = rsa_private.sign(long(message_num), 16)
         sign = sign_tuple[0]
         return '/inclass/' + str(id_tutor) + '/' + str(id_user) + '/' + str(session_id) + '/' + str(sign) + '/'
 
