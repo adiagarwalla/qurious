@@ -35,7 +35,6 @@
       $('#myModalReview').modal('show')
 
     }
-
 	  //}
 
 	  // else
