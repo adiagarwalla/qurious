@@ -2,6 +2,7 @@
 import os.path
 import os
 
+
 DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
 
