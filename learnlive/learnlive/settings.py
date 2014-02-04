@@ -4,6 +4,7 @@ import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+PIPELINE_ENABLED = True
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -26,6 +27,35 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
+
+######## PIPELINE STUFF ######################
+PIPELINE_CSS = {
+        'css': {
+            'source_filenames': (
+                'bootstrap/css/*.css',
+                'dashboard/*.css',
+                'inclass/*.css',
+                'query_parser/*.css',
+                'query_parser/font-awesome/css/*.*.css',
+                'jquery/*.css'
+            ),
+            'output_filename': 'bundle.css',
+        },
+}
+
+PIPELINE_JS = {
+        'js': {
+            'source_filenames': (
+                'bootstrap/js/*.js',
+                'bootstrap/js/*.*.js',
+                'bootstrap/*.js',
+                'dashboard/*.js',
+                'inclass/*.js',
+                'jquery/*.js'
+            ),
+            'output_filename': 'bundle.js',
+        },
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -63,11 +93,13 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/Users/abhinavkhanna/Documents/Zipidat/OpenComStudyProject/LearnLive/learnlive/staticfiles'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -85,7 +117,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -126,10 +157,9 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -141,6 +171,7 @@ INSTALLED_APPS = (
     'learnlive.dashboard',
     'treebeard',
     'south',
+    'pipeline',
 )
 
 # LOGIN URL DEFAULT
