@@ -8,16 +8,13 @@
     <title>Qurious</title>
 
     <!-- Bootstrap core CSS -->
- 	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
-
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
-    <script src="{% static 'jquery/jquery.js' %}"></script>    
-    <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
+    {% load compressed %}
+    {% compressed_css 'css' %}
+    {% compressed_js 'js' %}
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'inclass/inclass.js' %}"></script>
+
+    <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
   </head>
 
   <body>

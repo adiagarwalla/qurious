@@ -33,10 +33,9 @@ PIPELINE_CSS = {
         'css': {
             'source_filenames': (
                 'bootstrap/css/*.css',
-                'dashboard/*.css',
-                'inclass/*.css',
                 'query_parser/*.css',
                 'query_parser/font-awesome/css/*.*.css',
+                'query_parser/*-*.css',
                 'jquery/*.css'
             ),
             'output_filename': 'bundle.css',
@@ -46,12 +45,8 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
         'js': {
             'source_filenames': (
-                'bootstrap/js/*.js',
-                'bootstrap/js/*.*.js',
                 'bootstrap/*.js',
-                'dashboard/*.js',
-                'inclass/*.js',
-                'jquery/*.js'
+                'jquery/*.js',
             ),
             'output_filename': 'bundle.js',
         },
