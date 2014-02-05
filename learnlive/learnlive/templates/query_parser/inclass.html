@@ -52,15 +52,15 @@
 	      session.connect(apiKey, token);
       // need to put the sessionId into the hidden input element so the post can work effectively
         $("#session_id_hidden").val(sessionId);
-        get_chat_message();
-        $("#post_message").keypress(function(e) {
-            if (e.which == 13) {
-              var csrf = $("#csrf").val();
-              var content = $("#post_message").val();
-              $.post("/inclass/chat/", $("#chat_message_form").serialize());
-              return false;
-            }
-        });
+//        get_chat_message();
+ //       $("#post_message").keypress(function(e) {
+  //          if (e.which == 13) {
+   //           var csrf = $("#csrf").val();
+    //          var content = $("#post_message").val();
+     //         $.post("/inclass/chat/", $("#chat_message_form").serialize());
+      //        return false;
+       //     }
+       // });
 	  });
 	</script>
 
