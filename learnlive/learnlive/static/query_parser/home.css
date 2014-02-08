@@ -91,3 +91,11 @@
 .who-we-are {
 	font-size: 18px;
 }
+
+#chatWindowContent {
+	height: 93.5%;
+}
+
+#chatWindow {
+	padding-left: 20px;
+}

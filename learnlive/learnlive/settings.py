@@ -5,7 +5,7 @@ import os
 
 DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
-PIPELINE_ENABLED = True
+PIPELINE_ENABLED = False
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

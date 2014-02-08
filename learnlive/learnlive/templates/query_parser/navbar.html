@@ -6,7 +6,6 @@
         <h2 class="modal-title" id="myModalLabel"><strong>Create my Qurious Account</strong></h2>
       </div>
       
-      <p>{{ form.errors }}</p>
       <form id="signin" method="POST" action="{% url 'register' %}">
           
       <div class="modal-body">
@@ -63,6 +62,7 @@
             <li><a href="{% url 'about-us' %}">About Us</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'dashboard' %}">Dashbaord</a></li>
+	    <li><a href="{% url 'profile' %}">Profile</a></li>
             {% endif %}
           </ul>
 
@@ -90,7 +90,11 @@
                 	        Welcome back, {{ user.username }}.
               		    {% else %}
                		    {% if form.errors %}
-               		        <p>Your username and password didn't match. Please try again.</p>
+				<script>
+				bootbox.alert("Hello world!", function() {
+  				    Example.show("Hello world callback");
+				});
+				</script>
                		    {% endif %}
 			    {% endif %}
 			    </a></li>

@@ -186,13 +186,13 @@
 
 		{% for profile in profiles %}
 		<div class = "row">
-			<div class ="col-md-6 col-md-offset-3">
+			<div class ="col-md-8 col-md-offset-2">
 				<div class="thumbnail">
 					<div class = "row">
 						<div class="col-md-3">
-							<img class="img1-responsive" src="{% static 'query_parser/profile1.jpg' %}" alt="..." align = "left" height="150px" />
+							<img class="img1-responsive" src="{% static 'query_parser/profile1.jpg' %}" alt="..." align = "left" height="150px" weight="100px" />
 						</div>
-						<div class="col-md-9 caption">
+						<div class="col-md-9 caption" weigth="450px">
 							<h3>{{ profile.profile_name }}</h3>
 							<input type="hidden" class="profile_id" value="{{ profile.id }}" />
 							<span class="modaltest" data-toggle="modal" data-target="#myModal">
