@@ -28,3 +28,9 @@ class EditProfileForm(forms.Form):
     """
     profile_name = forms.CharField()
     bio = forms.CharField(required=False)
+
+class NotificationUpdateForm(forms.Form):
+    """
+    This is the form that handles the notification updates
+    """
+    notification_url = forms.CharField()

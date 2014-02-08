@@ -33,7 +33,7 @@ function get_notifications() {
     $.get('/dashboard/notifications/', function(data) {
         $("#notification").empty();
         for (i = 0; i < data.length; i++) {
-            $("#notification").prepend("<div class=\"alert alert-info\">" + data[i].fields.message + " - " + data[i].fields.prof_from_username + "<a href=\"" + data[i].fields.url_inclass + "\" class=\"btn btn-primary active\" role=\"button\" style=\" float: right; margin-top: -7px;\">Enter into session</a></div>");
+            $("#notification").prepend("<div class=\"alert alert-info\">" + data[i].fields.message + " - " + data[i].fields.prof_from_username + "<a href=\"" + data[i].fields.url_inclass + "\" class=\"notif_button btn btn-primary active\" role=\"button\" style=\" float: right; margin-top: -7px;\">Enter into session</a></div>");
         }
         $("#notification").prepend("<h2 class=\"tabheading\">Notification</h2>");
     });

@@ -20,6 +20,8 @@ def get_profile_for_entity(entity, start, limit):
     # given this skill, we want to pull the profiles that have this skill listed.
     profile = []
     for skill in skills:
+        if not skill.is_marketable:
+            continue
         profiles = skill.userprofile_set.all()
         for prof in profiles:
             if prof not in profile:

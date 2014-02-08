@@ -4,6 +4,7 @@
 
 from django.views.generic import View
 from django.shortcuts import render
+from django.shortcuts import redirect
 from warnings import warn
 from learnlive.inclass.opentok_utils import create_session, generate_token
 from learnlive.query_parser.query_utils import get_category_for_verb
@@ -68,6 +69,7 @@ class AskSearchView(View):
         # It needs to execute the basic query handling
         # This includes: Preprocessing, verb extraction
         # Tree traversal, and search result posting
+        """
         form = QueryRequestForm(request.POST)
         if form.is_valid():
             # now you can extract the cleaned query
@@ -96,6 +98,45 @@ class AskSearchView(View):
             return render(request, 'query_parser/bidprofile.html', data)
 
         return render(request, 'query_parser/LearnLive.html')
+        """
+        return redirect("/search?query=" + request.POST.get('query'));
+
+
+class ProcessSearchView(View):
+
+    def get(self, request, *args, **kwargs):
+        # It needs to execute the basic query handling
+        # This includes: Preprocessing, verb extraction
+        # Tree traversal, and search result posting
+        form = QueryRequestForm(request.GET)
+        if form.is_valid():
+            # now you can extract the cleaned query
+            # I.E the query without any short unnecessary words
+            query = form.cleaned_data.get('query')
+            #category = get_category_for_verb(query)
+            entity_list = get_entity_list(query)
+            profile_list = []
+            page_limit = 10
+            if len(entity_list) > 0:
+                i = 0
+                while (len(profile_list) < page_limit and i < len(entity_list)):
+                    tmp_profile_list = get_profile_for_entity(entity_list[i], 0, page_limit - len(profile_list))
+                    for item in tmp_profile_list:
+                        if item not in profile_list:
+                            profile_list.append(item)
+                    i = i + 1
+            data = {
+                     'query': query,
+                     'profiles': profile_list,
+                     #'category': category,
+                     'entity_list': entity_list,
+            }
+
+            # Temporarily just return the simple query cleaned
+            return render(request, 'query_parser/bidprofile.html', data)
+
+        return render(request, 'query_parser/LearnLive.html')
+
 
 class ProfileView(View):
 
@@ -116,15 +157,14 @@ class AboutUs(View):
     def post(self, request, *args, **kwargs):
         form = LeaveMessageForm(request.POST)
         if form.is_valid():
-	    name = form.cleaned_data.get('name')
+            name = form.cleaned_data.get('name')
             email = form.cleaned_data.get('email')
-	    phone = form.cleaned_data.get('phone')
+            phone = form.cleaned_data.get('phone')
             message = form.cleaned_data.get('message')
+            lm = LeaveMessage(name=name, email=email, phone=phone, message=message)
+            lm.save()
 
-	    lm = LeaveMessage(name=name, email=email, phone=phone, message=message)
-	    lm.save()
-	
-	return render(request, 'query_parser/aboutus.html')
+        return render(request, 'query_parser/aboutus.html')
 
 class Confirm(View):
     def get(self, request, *args, **kwargs):

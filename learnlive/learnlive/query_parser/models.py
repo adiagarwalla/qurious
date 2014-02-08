@@ -39,5 +39,5 @@ class LeaveMessage(models.Model):
     
     name = models.CharField(max_length=512)
     email = models.EmailField(max_length=512)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=128)
     message = models.TextField()

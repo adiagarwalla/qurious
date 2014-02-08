@@ -13,7 +13,14 @@
     {% compressed_js 'js' %}
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'inclass/inclass.js' %}"></script>
-
+    <script>
+      var chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()); 
+      if (!chrome) {
+        $("head").append("<script src=\"http://static.opentok.com/v1.1/js/TB.min.js\" ></script\>");
+      } else {
+        $("head").append("<script src=\"http://static.opentok.com/webrtc/v2.0/js/TB.min.js\" ></script\>");
+      }
+    </script>
     <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
   </head>
 
@@ -31,8 +38,6 @@
 		  publisher = TB.initPublisher(apiKey, "myPublisher");
 
 		  // To check for incompatible browsers
-		  // if (TB.checkSystemRequirements() == 1)
-		  // {
 		  session   = TB.initSession(sessionId);
 
 		  //session.addEventListener("connectionCreated", connectionCreatedHandler);
@@ -177,7 +182,9 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        {% if not is_tutor %}
         <span class="modaltest" data-toggle="modal" data-target="#myModal"><center><button type="button" class="btn btn-danger">Exit Live Session</button></center></span>
+        {% endif %}
 	 </div>
      
      <hr class="featurette-divider">

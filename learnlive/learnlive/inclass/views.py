@@ -40,6 +40,9 @@ class InClassView(View):
 
         # proceed to ensure that it is still a valid session
         sess = Session.objects.get(session_key=session_id)
+        is_tutor = False
+        if sess.prof_tutor.user.username == request.user.username:
+            is_tutor = True
         if sess.is_cancelled == True:
             return redirect('/')
 
@@ -48,6 +51,7 @@ class InClassView(View):
                  'token': token,
                  'session_id': session_id,
                  'api_key': API_KEY,
+                 'is_tutor': is_tutor,
                }
         return render(request, 'query_parser/inclass.html', data)
 

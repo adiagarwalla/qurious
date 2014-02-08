@@ -10,6 +10,8 @@ from django.core import serializers
 from django.shortcuts import render
 
 from learnlive.bid_platform.models import Skill
+from learnlive.inclass.models import InClassNotification
+
 from learnlive.dashboard.forms import AddSkillForm
 from learnlive.dashboard.forms import EditSkillForm
 from learnlive.dashboard.forms import EditProfileForm
@@ -112,6 +114,19 @@ class NotificationView(View):
         notifications = user_prof.id_to.all()
 
         data = serializers.serialize('json', notifications)
+        return HttpResponse(data, mimetype='application/json')
+
+    def post(self, request, *args, **kwargs):
+        """
+        This is what allows a notification to be marked as read
+        """
+        form = NotificationUpdateForm(request.POST)
+        if form.is_valid():
+            notification_url = form.cleaned_data.get('notification_url')
+            notification = InClassNotification(url_inclass=notification_url)
+            notification.delete()
+
+        data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
 
 class Dashboard(View):
