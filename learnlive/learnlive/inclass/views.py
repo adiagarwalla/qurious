@@ -26,6 +26,10 @@ from learnlive.inclass.models import InClassNotification
 class InClassView(View):
 
     def get(self, request, *args, **kwargs):
+        user_agent = request.META['HTTP_USER_AGENT']
+        is_chrome = False
+        if 'Chrome' in user_agent:
+            is_chrome = True
         id_tutor = self.kwargs['id_tutor']
         username = self.kwargs['id_user']
         sign = self.kwargs['sign']
@@ -52,6 +56,7 @@ class InClassView(View):
                  'session_id': session_id,
                  'api_key': API_KEY,
                  'is_tutor': is_tutor,
+                 'is_chrome': is_chrome,
                }
         return render(request, 'query_parser/inclass.html', data)
 
