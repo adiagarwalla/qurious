@@ -23,8 +23,8 @@
             var stream = event.streams[i];
             if (stream.connection.connectionId 
                  != session.connection.connectionId) {             
-                $('#myModalInstructor').modal('show')
-        }
+                $('#myModalInstructor').modal({ backdrop: 'static', keyboard: false, show: true });
+            }
         }
     }
 
