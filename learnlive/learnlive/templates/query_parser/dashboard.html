@@ -56,6 +56,7 @@
             });
 
             get_user_skills();
+            get_notifications();
             setInterval(function() { get_notifications() }, 5000);
             $("#new_skill").keypress(function(e) {
                 if (e.which == 13) {
@@ -71,6 +72,16 @@
             $("#submit_profile").click(function() {
                 $.ajax({ url: '/dashboard/profile/', type: 'POST', data: $("#profile_form").serialize() }).done(function ( data ) {
                   get_profile();
+                });
+            });
+
+            $("#notification").on("click", ".notif_button", function() {
+                var url = $(this).attr("link_name");
+                $("#notification_url").val(url);
+                $.ajax({ url: '/dashboard/notifications/', type: 'POST', data: $("#notification_form").serialize() }).done(function ( data ) {
+                  get_notifications();
+                  window.location = url;
+                  return false;
                 });
             });
 
@@ -280,7 +291,12 @@
             
             <div id = "notification" class="hiddendiv">
                 <h2 class="tabheading">Notifications</h2>
+                <!-- hidden div used to mark notifications as read -->
             </div>
+            <form id="notification_form">
+              <input type="hidden" name="notification_url" id="notification_url" value="junk" />
+              {% csrf_token %}
+            </form>
         </div>
       </div>
     
