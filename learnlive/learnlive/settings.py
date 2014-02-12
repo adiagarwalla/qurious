@@ -37,6 +37,7 @@ PIPELINE_CSS = {
                 'bootstrap/css/*.css',
                 'query_parser/*.css',
                 'query_parser/font-awesome/css/*.*.css',
+		'query_parser/font-awesome/css/font-awesome.min.css',
                 'query_parser/*-*.css',
                 'jquery/*.css'
             ),
