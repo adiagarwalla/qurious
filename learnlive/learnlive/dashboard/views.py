@@ -15,6 +15,7 @@ from learnlive.inclass.models import InClassNotification
 from learnlive.dashboard.forms import AddSkillForm
 from learnlive.dashboard.forms import EditSkillForm
 from learnlive.dashboard.forms import EditProfileForm
+from learnlive.dashboard.forms import NotificationUpdateForm
 
 class MarketableSkillView(View):
     """
@@ -123,7 +124,7 @@ class NotificationView(View):
         form = NotificationUpdateForm(request.POST)
         if form.is_valid():
             notification_url = form.cleaned_data.get('notification_url')
-            notification = InClassNotification(url_inclass=notification_url)
+            notification = InClassNotification.objects.get(url_inclass=notification_url)
             notification.delete()
 
         data = simplejson.dumps({})

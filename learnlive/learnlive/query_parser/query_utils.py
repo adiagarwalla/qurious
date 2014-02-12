@@ -4,7 +4,7 @@
 from textblob import TextBlob
 from textblob import Word
 from textblob.wordnet import VERB
-from text.wordnet import Synset
+from textblob.wordnet import Synset
 
 from learnlive.query_parser.models import Verb
 from learnlive.query_parser.models import Entity
