@@ -10,12 +10,11 @@
     <title>Qurious - One Stop Learning Portal</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/home.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    {% load compressed %}
+    {% compressed_css 'css' %}
   </head>
 
   <body>

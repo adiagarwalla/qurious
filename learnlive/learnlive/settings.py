@@ -5,10 +5,11 @@ import os
 
 DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
-PIPELINE_ENABLED = False
+PIPELINE_ENABLED = True 
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+      ('Abhinav Khanna', 'abhi1994@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -27,7 +28,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.qurious.info']
 
 ######## PIPELINE STUFF ######################
 PIPELINE_CSS = {
