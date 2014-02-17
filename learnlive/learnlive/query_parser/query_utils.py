@@ -1,12 +1,15 @@
 # This file is the property of Qurious Inc.
 # By Abhinav Khanna
 # Purpose: this is a utility file for handling the parsing of queries.
+import nltk;
 from textblob import TextBlob
 from textblob import Word
 from textblob.wordnet import VERB
 from textblob.wordnet import Synset
+from nltk.stem.wordnet import WordNetLemmatizer
 
 from learnlive.query_parser.models import Verb
+from learnlive.bid_platform.models import Skill
 from learnlive.query_parser.models import Entity
 
 def get_category_for_verb(query):
@@ -187,3 +190,112 @@ def get_entities_with_nouns(search_query, pos_list, final_list):
                     db_n.add_child(name=search_query)
 
         return final_list
+
+def tokenize_query(query):
+    """
+    This function will produce the tokenizations of the query:
+    POS tags the query
+    Tokenizes single word the query
+    Multi word (2) tokenizes the query
+    """
+    tokens = nltk.word_tokenize(query)
+    pos_tokens = nltk.pos_tag(tokens)
+    multi_word_tokens = []
+
+    # make the multi word tokens now
+    past_word = '' 
+    for (word, pos) in pos_tokens:
+        if past_word == '':
+            past_word = word
+        else:
+            combined_word = (past_word + ' ' + word, '')
+            multi_word_tokens.append(combined_word)
+            past_word = word
+
+    merged_token_list = pos_tokens + multi_word_tokens
+    return merged_token_list
+
+def get_NE(query):
+    """
+    This function returns a list of named entity tuples of the form (named_entity, POS)
+    """
+    import pdb; pdb.set_trace()
+    tokens = nltk.word_tokenize(query)
+    NE_tokens = nltk.ne_chunk(tokens, binary=True)
+    ne_list = []
+
+    for token in NE_tokens:
+        if hasattr(token, 'node') and token.node:
+            if token.node == 'NE':
+                profiles = UserProfile.objects.filter(profile_name=token[0][0])
+                ne_list = ne_list + profiles
+
+    return ne_list
+
+def get_entities_for_skill(skill_name):
+    """
+    Returns an entity for the given skill object or null
+    """
+    name = skill_name.replace(' ', '_')
+    entity_list = Entity.objects.filter(name=name)
+    return entity_list
+
+def get_skill_for_entity(entity_name):
+
+    lmtzr = WordNetLemmatizer()
+    name = entity_name.replace('_', ' ')
+    lemma = lmtzr.lemmatize(name)
+    skills = Skill.objects.filter(lemma_name=lemma)
+    return skills
+
+
+def get_skills(tokens):
+    """
+    Takes in a complete list of tokens and finds the skills that match, and scores them
+    the tuple that it presents is (score, skill)
+    """
+    lmtzr = WordNetLemmatizer()
+    skill_list = []
+    for token in tokens:
+        lemma = lmtzr.lemmatize(token[0])
+        skills = Skill.objects.filter(lemma_name=lemma)
+        score = 0
+        if 'NN' in token[1]:
+            score = 5
+        elif 'VB' in token[1]:
+            score = 2
+        elif 'JJ' in token[1]:
+            score = 4
+        elif token[1] == '':
+            # compound word
+            score = 6
+        else:
+            score = 1
+        for skill in skills:
+            skill_list.append((score, skill))
+
+        # time to check the children and parents
+        if len(skills) == 0:
+            continue
+
+        entity_list = get_entities_for_skill(skills[0].name)
+        for entity in entity_list:
+            children = entity.get_children()
+            for child in children:
+                child_skills = get_skill_for_entity(child.name)
+                for skill in child_skills:
+                    if (score, skill) not in skill_list:
+                        skill_list.append((score * 0.75, skill))
+
+            parent = entity.get_parent()
+            parent_skills = get_skill_for_entity(parent.name)
+            for skill in parent_skills:
+                if (score, skill) not in skill_list:
+                    skill_list.append((score * 0.5, skill))
+
+    skill_list = sorted(skill_list, reverse=True)
+    return skill_list
+
+
+
+

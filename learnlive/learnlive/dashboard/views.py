@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User 
 from django.core import serializers
 from django.shortcuts import render
+import nltk
+from nltk.stem.wordnet import WordNetLemmatizer
 
 from learnlive.bid_platform.models import Skill
 from learnlive.inclass.models import InClassNotification
@@ -38,13 +40,15 @@ class MarketableSkillView(View):
 
     def post(self, request, *args, **kwargs):
         # allows you to post a new skill to your profile
+        lmtzr = WordNetLemmatizer()
         form = AddSkillForm(request.POST)
         if form.is_valid():
             skill_name = form.cleaned_data.get('new_skill')
+            skill_lemma = lmtzer.lemmatize(skill_name)
             username = request.user.username
             user = User.objects.get(username=username)
             user_prof = user.userprofile
-            skill = Skill(name=skill_name, is_marketable=False, num_endorsements=0, price=0)
+            skill = Skill(name=skill_name, is_marketable=False, num_endorsements=0, price=0, lemma_name=skill_lemma)
             skill.save()
             user_prof.skills.add(skill)
 
