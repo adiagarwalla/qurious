@@ -186,7 +186,11 @@
               <h3>{{ profile.profile_name }} - Teaching {{ skill.name }}</h3>
 							<input type="hidden" class="profile_id" value="{{ profile.id }}" />
               <p>{{ skill.desc }}</p>
+              {% if user.username != profile.user.username %}
               <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Enter a free session</a></p>
+              {% else %}
+              <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm" disabled>Enter a free session</a></p>
+              {% endif %}
 						</div>
 					</div>
 				</div>
