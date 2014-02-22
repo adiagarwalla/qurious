@@ -23,6 +23,7 @@ function get_profile() {
     $.get('/dashboard/profile/', function(data) {
         for (i = 0; i < data.length; i++) {
             $("#profile_name").val(data[i].fields.profile_name);
+            $("#phone_number").val(data[i].fields.phone_number);
             $("#Desc").val(data[i].fields.bio);
         }
     });

@@ -91,7 +91,8 @@ class EditProfileView(View):
             user = User.objects.get(username=username)
             user_prof = user.userprofile
             user_prof.profile_name = form.cleaned_data.get('profile_name')
-            user_prof.bio = form.cleaned_data.get('bio')
+            user_prof.phone_number = form.cleaned_data['phone_number']
+            user_prof.bio = form.cleaned_data['bio']
             user_prof.save()
 
         data = simplejson.dumps({})
