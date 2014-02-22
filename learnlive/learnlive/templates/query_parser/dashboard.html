@@ -25,14 +25,8 @@
         $(document).ready(function() {
 
             $(".hiddendiv").hide();
-            $("#homepage").show();
-            $("#home").addClass("active");
-            $("#homeclick").click(function(){
-                $(".nonactive").removeClass("active");
-                $("#home").addClass("active");
-                $(".hiddendiv").hide();
-                $("#homepage").show();
-            });
+            $("#notification").show();
+            $("#notification").addClass("active");
 
             $("#profileclick").click(function(){
                 $(".nonactive").removeClass("active");
@@ -67,6 +61,14 @@
                   return false;
                 }
             });
+
+	    $("#add_new_skill").click(function() {
+               $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(function ( data ) {
+                 get_user_skills();
+               });
+	       $("#new_skill").val('');
+            });
+
 
             get_profile();
             $("#submit_profile").click(function() {
@@ -126,10 +128,9 @@
       <div class = "row">
         <div class = "col-md-3">
             <ul class="nav nav-pills nav-stacked">
-                <li id="home" class="nonactive"><a id = "homeclick" href="#">Home</a></li>
+                <li id="notif" class="nonactive"><a id="notifclick" href="#">Notifications</a></li>
                 <li id="prof" class="nonactive"><a id="profileclick" href="#">My Profile</a></li>
                 <li id="market" class="nonactive"><a id="marketclick" href="#">Marketplace</a></li>
-                <li id="notif" class="nonactive"><a id="notifclick" href="#">Notifications</a></li>
             </ul>
         </div>
         
@@ -207,7 +208,7 @@
                   <div class = "form-group" id="skilltext">
                   <input type="text" class="form-control" id="new_skill" name="new_skill" placeholder="New Skill">
                   </div>
-                  <button type="button" class="btn btn-default">Add</button>
+                  <button type="button" id="add_new_skill" class="btn btn-default">Add</button>
                 </form>
                 <br>
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
