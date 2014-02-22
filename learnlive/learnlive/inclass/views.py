@@ -12,6 +12,7 @@ from Crypto.PublicKey import RSA
 from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from twilio.rest import TwilioRestClient
 
 
 from learnlive.inclass.opentok_utils import generate_token
@@ -94,6 +95,14 @@ class InClassView(View):
             # generate a notification object and attach it to the tutor
             notification = InClassNotification(prof_from=user, m_type=1,  message='Requesting a tutor session with you!', prof_to=tutor, prof_from_username=username, url_inclass=url)
             notification.save()
+            # Your Account Sid and Auth Token from twilio.com/user/account
+            account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
+            auth_token  = "0b81c57e9ba3d60130829910db94200a"
+            client = TwilioRestClient(account_sid, auth_token)
+            message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
+                      to=tutor.phone_number,    # Replace with your phone number
+                          from_="+16505219069") # Replace with your Twilio number
+
             return redirect(url)
         else:
             return redirect('/')

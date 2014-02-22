@@ -25,6 +25,7 @@ class InClassNotification(models.Model):
     message = models.TextField()
     m_type = models.IntegerField() # This will have to be carefully done
     url_inclass = models.CharField(max_length=512)
+    seen = models.BooleanField()
 
 class Message(models.Model):
     """
