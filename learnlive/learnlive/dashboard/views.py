@@ -44,7 +44,7 @@ class MarketableSkillView(View):
         form = AddSkillForm(request.POST)
         if form.is_valid():
             skill_name = form.cleaned_data.get('new_skill')
-            skill_lemma = lmtzer.lemmatize(skill_name)
+            skill_lemma = lmtzr.lemmatize(skill_name)
             username = request.user.username
             user = User.objects.get(username=username)
             user_prof = user.userprofile

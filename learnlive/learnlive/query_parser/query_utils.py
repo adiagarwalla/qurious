@@ -219,7 +219,6 @@ def get_NE(query):
     """
     This function returns a list of named entity tuples of the form (named_entity, POS)
     """
-    import pdb; pdb.set_trace()
     tokens = nltk.word_tokenize(query)
     NE_tokens = nltk.ne_chunk(tokens, binary=True)
     ne_list = []
@@ -272,7 +271,8 @@ def get_skills(tokens):
         else:
             score = 1
         for skill in skills:
-            skill_list.append((score, skill))
+            if skill.is_marketable:
+                skill_list.append((score, skill))
 
         # time to check the children and parents
         if len(skills) == 0:
@@ -285,13 +285,15 @@ def get_skills(tokens):
                 child_skills = get_skill_for_entity(child.name)
                 for skill in child_skills:
                     if (score, skill) not in skill_list:
-                        skill_list.append((score * 0.75, skill))
+                        if skill.is_marketable:
+                            skill_list.append((score * 0.75, skill))
 
             parent = entity.get_parent()
             parent_skills = get_skill_for_entity(parent.name)
             for skill in parent_skills:
                 if (score, skill) not in skill_list:
-                    skill_list.append((score * 0.5, skill))
+                    if skill.is_marketable:
+                        skill_list.append((score * 0.5, skill))
 
     skill_list = sorted(skill_list, reverse=True)
     return skill_list
