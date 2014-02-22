@@ -21,6 +21,7 @@ class EditSkillForm(forms.Form):
     skill_id = forms.IntegerField()
     price = forms.IntegerField()
     is_marketable = forms.IntegerField()
+    desc = forms.CharField()
 
 class EditProfileForm(forms.Form):
     """

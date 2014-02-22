@@ -67,11 +67,13 @@ class EditSkillView(View):
             skill = Skill.objects.get(id=form.cleaned_data.get('skill_id'))
             price = form.cleaned_data.get('price')
             marketable = form.cleaned_data.get('is_marketable')
+            desc = form.cleaned_data.get('desc')
             if marketable == 0:
                 skill.is_marketable = False
             else:
                 skill.is_marketable = True
             skill.price = price
+            skill.desc = desc
             skill.save()
 
         data = simplejson.dumps({})

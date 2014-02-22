@@ -9,3 +9,4 @@ class Skill(models.Model):
     is_marketable = models.BooleanField()
     num_endorsements = models.IntegerField()
     price = models.IntegerField()
+    desc = models.TextField()
