@@ -36,14 +36,6 @@
       <div class="featurette2">
 
 		<h2 class="text-muted">Search Results
-			<p class = "pull-right"><select class="form-control">
-				<option>Relevance</option>
-				<option>Price - Low to High</option>
-				<option>Price - High to Low</option>
-				<option>Reviews - Low to High</option>
-				<option>Reviews - High to Low</option>
-			</select>
-			</p>
 		</h2>
 
 		<!-- Modal -->
@@ -138,12 +130,11 @@
 
 						<h4>Enter Session Details</h4>
             <p> Price of 15 minute Live Session <span class="pull-right" id="session_price"></span></p></p>
-						<p> <form class="form-inline" role="form">
+						<p>
 							  <div class="form-group">
 							    <label for="exampleInputMin">Duration of session</label>
 							    <input type="text" class="form-control" id="exampleInputMin" placeholder="In minutes">
 							  </div>
-							</form>
 						</p>
             <p> Total cost of Live Session <span class="pull-right"> $10</span></p></p>
 
@@ -194,15 +185,8 @@
 						<div class="col-md-9 caption" weigth="450px">
               <h3>{{ profile.profile_name }} - Teaching {{ skill.name }}</h3>
 							<input type="hidden" class="profile_id" value="{{ profile.id }}" />
-							<span class="modaltest" data-toggle="modal" data-target="#myModal">
-								<span class="glyphicon glyphicon-star"></span>
-								<span class="glyphicon glyphicon-star"></span>
-								<span class="glyphicon glyphicon-star"></span>
-								<span class="glyphicon glyphicon-star"></span>
-								<span class="glyphicon glyphicon-star"></span>
-							</span>
-							<p>in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Select Bid - ${{ skill.price }}/15 minute session</a></p>
+              <p>{{ skill.desc }}</p>
+              <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Enter a free session</a></p>
 						</div>
 					</div>
 				</div>

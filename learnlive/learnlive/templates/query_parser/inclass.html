@@ -76,7 +76,6 @@
       	<div id = "containerfloat">
       		<div id = "mySubscriberElement"></div>
       		<div id = "myPublisher"></div>
-          <div id = "toggle"><button type="button" class="btn btn-danger" onclick="toggle_visibility('chatWindow','myPublisher');">Chat</button></div>
           <div id = "chatWindow" style="background-color:white;height:600px;width:264px;">
             <div id="chatWindowContent"></div>
             <form action="{% url 'chat-message-post' %}" method="POST" id="chat_message_form">

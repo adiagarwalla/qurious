@@ -7,7 +7,6 @@
       </div>
       
       <form id="signin" method="POST" action="{% url 'register' %}">
-          
       <div class="modal-body">
         {% csrf_token %}
         <fieldset>
@@ -26,7 +25,6 @@
             <label for="confirmPassword1">RE-ENTER PASSWORD</label>
             <input type="password" class="form-control" id="confirmPassword1" placeholder="" name="confirm">
           </div>
-              
         </fieldset>
       </div>
           
@@ -80,6 +78,11 @@
               
             <span> </span>
             <button type="submit" class="btn btn-danger">Sign in</button>
+            {% if form.errors %}
+              <script>
+                alert("Error occured while trying to login");
+              </script>
+            {% endif %}
         </form>
         
         {% endif %}

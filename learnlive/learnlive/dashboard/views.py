@@ -10,6 +10,7 @@ from django.core import serializers
 from django.shortcuts import render
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
+from django.contrib.auth.decorators import login_required
 
 from learnlive.bid_platform.models import Skill
 from learnlive.inclass.models import InClassNotification
@@ -27,6 +28,7 @@ class MarketableSkillView(View):
     them based on marketablility
     """
 
+    @login_required
     def get(self, request, *args, **kwargs):
         # return the list of skills for the logged in user
         # assumes that hte person is logged in.
@@ -38,6 +40,7 @@ class MarketableSkillView(View):
         data = serializers.serialize('json', skills)
         return HttpResponse(data, mimetype='application/json')
 
+    @login_required
     def post(self, request, *args, **kwargs):
         # allows you to post a new skill to your profile
         lmtzr = WordNetLemmatizer()
@@ -58,6 +61,7 @@ class MarketableSkillView(View):
 
 class EditSkillView(View):
 
+    @login_required
     def post(self, request, *args, **kwargs):
         """
         Allows you to modify an existing skill that you have, maybe to make it marketable and add a price
@@ -67,11 +71,13 @@ class EditSkillView(View):
             skill = Skill.objects.get(id=form.cleaned_data.get('skill_id'))
             price = form.cleaned_data.get('price')
             marketable = form.cleaned_data.get('is_marketable')
+            desc = form.cleaned_data.get('desc')
             if marketable == 0:
                 skill.is_marketable = False
             else:
                 skill.is_marketable = True
             skill.price = price
+            skill.desc = desc
             skill.save()
 
         data = simplejson.dumps({})
@@ -82,6 +88,7 @@ class EditProfileView(View):
     """
     This ivew edits the profile, allowing you to update it with stuff.
     """
+    @login_required
     def post(self, request, *args, **kwargs):
         form = EditProfileForm(request.POST)
         if form.is_valid():
@@ -95,6 +102,7 @@ class EditProfileView(View):
         data = simplejson.dumps({})
         return HttpResponse(data, mimetype='application/json')
 
+    @login_required
     def get(self, request, *args, **kwargs):
         """
         Gets the basic profile for the user currently logged in
@@ -109,6 +117,7 @@ class EditProfileView(View):
 
 class NotificationView(View):
 
+    @login_required
     def get(self, request, *args, **kwargs):
         """
         This view will return the notification objects back to the end user.
@@ -121,6 +130,7 @@ class NotificationView(View):
         data = serializers.serialize('json', notifications)
         return HttpResponse(data, mimetype='application/json')
 
+    @login_required
     def post(self, request, *args, **kwargs):
         """
         This is what allows a notification to be marked as read
