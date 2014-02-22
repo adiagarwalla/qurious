@@ -28,6 +28,7 @@ class EditProfileForm(forms.Form):
     This is the form for processing the profile information
     """
     profile_name = forms.CharField()
+    phone_number = forms.CharField(required=False)
     bio = forms.CharField(required=False)
 
 class NotificationUpdateForm(forms.Form):
