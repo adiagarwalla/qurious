@@ -129,41 +129,21 @@
 						{% endif %}
 
 						<h4>Enter Session Details</h4>
-            <p> Price of 15 minute Live Session <span class="pull-right" id="session_price"></span></p></p>
 						<p>
 							  <div class="form-group">
 							    <label for="exampleInputMin">Duration of session</label>
-							    <input type="text" class="form-control" id="exampleInputMin" placeholder="In minutes">
+							    <input type="text" class="form-control" id="exampleInputMin" name="minutes" placeholder="In minutes">
 							  </div>
 						</p>
-            <p> Total cost of Live Session <span class="pull-right"> $10</span></p></p>
+            <p> Total cost of Live Session <span class="pull-right"> Free!</span></p></p>
 
 						<br>
-						<h4>Enter Payment Information</h4>
-
-						<fieldset>
-							<div class="form-group">
-								<input type="text" class="form-control" id="exampleInputEmail" placeholder="CREDIT CARD NUMBER - VISA, MASTERCARD, AMEX, DISCOVER">
-							</div>
-							<div class = "row">
-								<div class="form-group col-lg-4">
-									<input type="password" class="form-control" id="exampleInputPassword" placeholder="MM">
-								</div>
-								<div class="form-group col-lg-4">
-									<input type="text" class="form-control" id="exampleInputPassword" placeholder="YYYY">
-								</div>
-								<div class="form-group col-lg-4">
-									<input type="text" class="form-control" id="exampleInputPassword" placeholder="CVC">
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="exampleInputPassword" placeholder="BILLING ZIP CODE">
-							</div>
-						</fieldset>
+            <div> Hope you enjoy your session! </div>
 					</div>
 					<div class="modal-footer">
 						<center>
 							<input type="hidden" name="id_tutor" value="junk_value" id="id_tutor"/>
+              <input type="hidden" name="skill_price" value="junk_value" id="sess_skill_price" />
 							<button type="submit" class="btn btn-danger">Start Live Session</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						</center>
@@ -186,6 +166,7 @@
               <h3>{{ profile.profile_name }} - Teaching {{ skill.name }}</h3>
 							<input type="hidden" class="profile_id" value="{{ profile.id }}" />
               <p>{{ skill.desc }}</p>
+              <input type="hidden" class="skill_price" value="{{ skill.price }}" />
               {% if user.username != profile.user.username %}
               <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Enter a free session</a></p>
               {% else %}
@@ -222,7 +203,6 @@
 		</script>
 
 		<script type="text/javascript">
-		// TODO: THIS JAVASCRIPT NEEDS TO BE MOVED TOA SEPARATE FILE THIS IS EMBARRASING!!!!!!!!
 		$('#myModalConfirm').on('hidden.bs.modal', function() { 
 			$(this).find("input[type=text], input[type=password], input[type=email], input[type=hidden]").val("");
 		});
@@ -230,6 +210,8 @@
 			// you need to copy the hidden value from that input field into the modal's input field
 			val = $(this).parent().parent().find(".profile_id").val();
 			$("#id_tutor").val(val);
+      val2 = $(this).parent().parent().find(".skill_price").val();
+      $("#sess_skill_price").val(val2);
 		});
 		</script>
 </body>

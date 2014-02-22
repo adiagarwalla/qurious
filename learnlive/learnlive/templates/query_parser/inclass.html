@@ -12,6 +12,10 @@
     {% compressed_css 'css' %}
     {% compressed_js 'js' %}
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'inclass/countdown_v3.1/countdown.js' %}"></script>
+    <script>
+      var time = {{ time }}
+    </script>
     <script src="{% static 'inclass/inclass.js' %}"></script>
     {% if not is_chrome %}
     <script src="http://static.opentok.com/v1.1/js/TB.min.js" ></script>
@@ -87,6 +91,9 @@
       	</div>	
 
         <!-- Review modal -->
+      <form action="{% url 'review-inclass' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="tutor" value="{{ tutor }}" />
         <div class="modal fade" id="myModalReview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -95,7 +102,7 @@
               </div>
               <div class="modal-body">
                 <p> How would you rate the instructor? (where 1 is bad and 5 is excellent)
-                  <select class="form-control">
+                  <select class="form-control" name="rev_stars">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -105,37 +112,21 @@
                 </p>
 
                 <br>
-                <p> Would you endorse XYZ for ABC? 
-                    <div class="radio">
-                      <label>
-                        <input type="radio" id="optionsRadios1" value="1" name="is_good">
-                          Yes
-                      </label>
-                    </div>
-                    
-                    <div class="radio">
-                      <label>
-                        <input type="radio" id="optionsRadios2" value="0" name="is_good">
-                          No
-                      </label>
-                    </div>
-                </p>
-
-                <br>
                 <p>
                   <div class="form-group">
-                      <label for="Desc">Enter a short description about your Live Session experience with the insturctor</label> 
-                      <textarea class="form-control" rows="3" id="Desc" name="bio" maxlength="400"></textarea>
+                      <label for="rev_desc">Enter a short description about your Live Session experience with the insturctor</label> 
+                      <textarea class="form-control" rows="3" id="rev_desc" name="rev_desc" maxlength="400"></textarea>
                   </div>
                 </p>
               </div>
               <div class="modal-footer">
                 <!-- Action reqd: Store review -->
-                <a href="{% url 'dashboard' %}"><button type="button" class="btn btn-success">Submit Review</button></a>
+                <button type="submit" class="btn btn-success">Submit Review</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+      </form>
 
           <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -176,6 +167,8 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+        <div id="countdown_timer"></div>
 
         {% if not is_tutor %}
         <span class="modaltest" data-toggle="modal" data-target="#myModal"><center><button type="button" class="btn btn-danger">Exit Live Session</button></center></span>

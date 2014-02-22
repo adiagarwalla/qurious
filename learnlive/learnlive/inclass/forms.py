@@ -15,6 +15,8 @@ class CreateSessionForm(forms.Form):
     """
     id_user = forms.CharField(required=False) # hack to allow the clean to be called
     id_tutor = forms.IntegerField()
+    skill_price = forms.IntegerField()
+    minutes = forms.IntegerField()
     email = forms.EmailField(required=False)
     password = forms.CharField(required=False)
     confirm = forms.CharField(required=False)
@@ -53,3 +55,11 @@ class MessageForm(forms.Form):
     """
     content = forms.CharField()
     session_id = forms.CharField()
+
+class ReviewForm(forms.Form):
+    """
+    This is a review form
+    """
+    rev_desc = forms.CharField(required=False)
+    rev_stars = forms.IntegerField()
+    tutor = forms.CharField()

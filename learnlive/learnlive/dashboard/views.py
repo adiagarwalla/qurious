@@ -10,7 +10,6 @@ from django.core import serializers
 from django.shortcuts import render
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
-from twilio.rest import TwilioRestClient
 
 from learnlive.bid_platform.models import Skill
 from learnlive.inclass.models import InClassNotification
@@ -126,14 +125,6 @@ class NotificationView(View):
             if notification.seen == False:
                 notification.seen = True
                 notification.save()
-                # twilio time
-                # Your Account Sid and Auth Token from twilio.com/user/account
-                account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
-                auth_token  = "0b81c57e9ba3d60130829910db94200a"
-                client = TwilioRestClient(account_sid, auth_token)
-                message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
-                      to=user_prof.phone_number,    # Replace with your phone number
-                          from_="+16505219069") # Replace with your Twilio number
 
         data = serializers.serialize('json', notifications)
         return HttpResponse(data, mimetype='application/json')

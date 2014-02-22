@@ -11,6 +11,7 @@ class Session(models.Model):
     prof_tutor = models.ForeignKey(UserProfile)
     prof_user = models.ForeignKey(UserProfile, related_name='prof_tutee')
     time = models.IntegerField()
+    skill_price = models.IntegerField()
     session_key = models.TextField()
     is_cancelled = models.BooleanField()
 
@@ -43,3 +44,11 @@ class RSA(models.Model):
     """
     public = models.TextField()
     private = models.TextField()
+
+class Review(models.Model):
+    """
+    Model for a review object
+    """
+    rev_desc = models.TextField()
+    rev_stars = models.IntegerField()
+    tutor = models.ForeignKey(UserProfile)
