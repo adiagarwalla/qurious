@@ -27,7 +27,6 @@ from learnlive.inclass.models import InClassNotification
 
 class InClassView(View):
 
-    @login_required
     def get(self, request, *args, **kwargs):
         user_agent = request.META['HTTP_USER_AGENT']
         is_chrome = False
@@ -75,7 +74,6 @@ class InClassView(View):
         return '/inclass/' + str(id_tutor) + '/' + str(id_user) + '/' + str(session_id) + '/' + str(sign) + '/'
 
 
-    @login_required
     def post(self, request, *args, **kwargs):
         # This method will generate the session object corresponding to this session
         # it will then generate the notifcation to the tutor and redirect the user to
@@ -105,7 +103,6 @@ class MessageChatView(View):
     This is the view that acts as an endpoint for the chat service that we are establishing
     """
 
-    @login_required
     def get(self, request, *args, **kwargs):
         session_id = self.kwargs['session_id']
         message_num = self.kwargs['message_num']
@@ -120,7 +117,6 @@ class MessageChatView(View):
         data = serializers.serialize('json', messages)
         return HttpResponse(data, mimetype='application/json')
 
-    @login_required
     def post(self, request, *args, **kwargs):
         form = MessageForm(request.POST)
         if form.is_valid():
