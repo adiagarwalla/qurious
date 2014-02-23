@@ -19,9 +19,9 @@ class EditSkillForm(forms.Form):
     Form for cleaning edit / put input for Skills
     """
     skill_id = forms.IntegerField()
-    price = forms.IntegerField()
+    price = forms.IntegerField(required=False)
     is_marketable = forms.IntegerField()
-    desc = forms.CharField()
+    desc = forms.CharField(required=False)
 
 class EditProfileForm(forms.Form):
     """

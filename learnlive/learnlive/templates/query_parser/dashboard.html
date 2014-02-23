@@ -62,11 +62,11 @@
                 }
             });
 
-	    $("#add_new_skill").click(function() {
-               $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(function ( data ) {
-                 get_user_skills();
-               });
-	       $("#new_skill").val('');
+	          $("#add_new_skill").click(function() {
+                $.post("/dashboard/skills/", $("#add_skill_form").serialize()).done(function ( data ) {
+                    get_user_skills();
+                });
+	              $("#new_skill").val('');
             });
 
 
@@ -100,9 +100,14 @@
                 $("#myModal").modal('hide');
             });
 
-            $("ul.nav").on("click", "li.active", function() {
+            $("ul.nav").on("click", "li.skill_click", function() {
                 val = $(this).find("input").val();
-                $("#modal_skill_id").val(val);
+                $.get('/dashboard/skills/edit?skill_id=' + val, function(data) {
+                    desc = data[i].fields.desc;
+                    $("#desc").val(desc);
+                    $("#Price").val(data[i].fields.price);
+                    $("#modal_skill_id").val(val);
+                });
             });
 
             $("#optionsRadios2").click(function() {

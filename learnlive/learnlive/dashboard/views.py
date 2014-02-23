@@ -65,18 +65,29 @@ class EditSkillView(View):
         form = EditSkillForm(request.POST)
         if form.is_valid():
             skill = Skill.objects.get(id=form.cleaned_data.get('skill_id'))
-            price = form.cleaned_data.get('price')
+            price = form.cleaned_data['price']
             marketable = form.cleaned_data.get('is_marketable')
-            desc = form.cleaned_data.get('desc')
+            desc = form.cleaned_data['desc']
             if marketable == 0:
                 skill.is_marketable = False
             else:
                 skill.is_marketable = True
+            if price is None:
+                price = 0
             skill.price = price
             skill.desc = desc
             skill.save()
 
         data = simplejson.dumps({})
+        return HttpResponse(data, mimetype='application/json')
+
+    def get(self, request, *args, **kwargs):
+        """
+        Get the current skill information given a skill ID
+        """
+        skills = Skill.objects.filter(id=request.GET.get('skill_id'))
+
+        data = serializers.serialize('json', skills)
         return HttpResponse(data, mimetype='application/json')
 
 
