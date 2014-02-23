@@ -144,7 +144,7 @@
 						<center>
 							<input type="hidden" name="id_tutor" value="junk_value" id="id_tutor"/>
               <input type="hidden" name="skill_price" value="junk_value" id="sess_skill_price" />
-							<button type="submit" class="btn btn-danger">Start Live Session</button>
+							<button type="submit" id="startSession" class="btn btn-danger" disabled>Start Live Session</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						</center>
 					</div>
@@ -212,6 +212,15 @@
 			$("#id_tutor").val(val);
       val2 = $(this).parent().parent().find(".skill_price").val();
       $("#sess_skill_price").val(val2);
+		});
+
+		$('#exampleInputMin').keyup(function() {
+			if ($.isNumeric($('#exampleInputMin').val())) {
+			    $('#startSession').attr("disabled", false);
+			}
+			else {
+			    $('#startSession').attr("disabled", true);
+			}
 		});
 		</script>
 </body>

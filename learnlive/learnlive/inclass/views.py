@@ -103,13 +103,15 @@ class InClassView(View):
             notification.save()
             # Your Account Sid and Auth Token from twilio.com/user/account
             if tutor.phone_number:
-                account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
-                auth_token  = "0b81c57e9ba3d60130829910db94200a"
-                client = TwilioRestClient(account_sid, auth_token)
-                message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
+                try:
+		    account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
+                    auth_token  = "0b81c57e9ba3d60130829910db94200a"
+                    client = TwilioRestClient(account_sid, auth_token)
+                    message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
                       to=tutor.phone_number,    # Replace with your phone number
                           from_="+16505219069") # Replace with your Twilio number
-
+		except:
+		    print "Invalid phone number"
             return redirect(url)
         else:
             return redirect('/')
