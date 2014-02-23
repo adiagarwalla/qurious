@@ -103,9 +103,9 @@
             $("ul.nav").on("click", "li.skill_click", function() {
                 val = $(this).find("input").val();
                 $.get('/dashboard/skills/edit?skill_id=' + val, function(data) {
-                    desc = data[i].fields.desc;
+                    desc = data[0].fields.desc;
                     $("#desc").val(desc);
-                    $("#Price").val(data[i].fields.price);
+                    $("#Price").val(data[0].fields.price);
                     $("#modal_skill_id").val(val);
                 });
             });

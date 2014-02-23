@@ -3,6 +3,7 @@ from django.contrib.auth.views import login
 from learnlive.auth.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from learnlive.auth.views import CreateUserView
+from django.views.decorators.cache import cache_page
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -19,8 +20,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', login, {'template_name': 'query_parser/LearnLive.html'}, name='login'),
-    url(r'^logout/$', LogoutView.as_view(), name='logout'),
-    url(r'^register/$', CreateUserView.as_view(), name='register'),
+    url(r'^logout/$', cache_page(60 * 60)(LogoutView.as_view()), name='logout'),
+    url(r'^register/$', cache_page(60 * 60)(CreateUserView.as_view()), name='register'),
     url(r'^inclass/', include('learnlive.inclass.urls')),
     url(r'dashboard/', include('learnlive.dashboard.urls')),
     url(r'^', include('learnlive.query_parser.urls')),
