@@ -13,6 +13,7 @@ from learnlive.inclass.models import RSA as RSA_O
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from twilio.rest import TwilioRestClient
+from django.core.mail import send_mail
 
 
 from learnlive.inclass.opentok_utils import generate_token
@@ -104,12 +105,14 @@ class InClassView(View):
             # Your Account Sid and Auth Token from twilio.com/user/account
             if tutor.phone_number:
                 try:
-		    account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
+                    account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
                     auth_token  = "0b81c57e9ba3d60130829910db94200a"
                     client = TwilioRestClient(account_sid, auth_token)
                     message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
                       to=tutor.phone_number,    # Replace with your phone number
                           from_="+16505219069") # Replace with your Twilio number
+                    # mail them a message
+                    send_mail('Someone wants to have a session with you!', 'A user is waiting to have a one on one session with you! Come quickly, or else he may leave. The link to the session is http://localhost:8000' + url, 'quriousinc@gmail.com', [tutor.user.username], fail_silently=True)
 		except:
 		    print "Invalid phone number"
             return redirect(url)
@@ -162,7 +165,6 @@ class ReviewPersonView(View):
     """
 
     def post(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
         form = ReviewForm(request.POST)
         if form.is_valid():
             rev_desc = form.cleaned_data['rev_desc']

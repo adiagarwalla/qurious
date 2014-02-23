@@ -14,7 +14,6 @@
 	        if (stream.connection.connectionId 
 	               != session.connection.connectionId) {
 	            session.subscribe(stream, "mySubscriberElement", {width: 1200, height: 600});
-                var myCountdown2 = new Countdown({time: 60 * time, width:200, height:80, rangeHi:"hour", target:"countdown_timer"});
 	        }
 	    }
 	  }
