@@ -5,7 +5,7 @@ import os
 
 DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
-PIPELINE_ENABLED = False
+PIPELINE_ENABLED = True
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'quriousinc@gmail.com'
