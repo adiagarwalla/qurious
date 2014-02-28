@@ -288,12 +288,14 @@ def get_skills(tokens):
                         if skill.is_marketable:
                             skill_list.append((score * 0.75, skill))
 
+        """
             parent = entity.get_parent()
             parent_skills = get_skill_for_entity(parent.name)
             for skill in parent_skills:
                 if (score, skill) not in skill_list:
                     if skill.is_marketable:
                         skill_list.append((score * 0.5, skill))
+        """
 
     skill_list = sorted(skill_list, reverse=True)
     return skill_list
