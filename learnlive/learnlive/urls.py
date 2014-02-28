@@ -4,6 +4,7 @@ from learnlive.auth.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from learnlive.auth.views import CreateUserView
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -28,3 +29,6 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += staticfiles_urlpatterns()
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += patterns('', url(r'^debug/', include(debug_toolbar.urls)),)

@@ -3,8 +3,8 @@
 # management.
 import OpenTokSDK
 
-API_KEY='44630442'
-API_SECRET='4fa3d7fd9c26426fa2ab650394f2108a2e92cff6'
+API_KEY='44671872'
+API_SECRET='622a661e86054c9cae82f02fbcf5644b3d188ff3'
 opentok_object = OpenTokSDK.OpenTokSDK(API_KEY, API_SECRET)
 
 def create_session(isEnabled):

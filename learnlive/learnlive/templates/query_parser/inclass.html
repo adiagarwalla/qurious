@@ -35,10 +35,16 @@
 	  var session;
 
 	  $(document).ready(function() {
-		  publisher = TB.initPublisher(apiKey, "myPublisher");
-
 		  // To check for incompatible browsers
 		  session   = TB.initSession(sessionId);
+
+      var publisherProps = {width: 600, height: 400};
+      {% if is_chrome %}
+		    publisher = TB.initPublisher(apiKey, "myPublisher", publisherProps);
+        session.publish(publisher);
+      {% else %}
+        publisher = TB.initPublisher(apiKey, "myPublisher");
+      {% endif %}
 
 		  //session.addEventListener("connectionCreated", connectionCreatedHandler);
 		  //session.addEventListener("connectionDestroyed", connectionDestroyedHandler);
@@ -85,7 +91,7 @@
             <form action="{% url 'chat-message-post' %}" method="POST" id="chat_message_form">
               {% csrf_token %}
               <input type="hidden" value="junk_value" id="session_id_hidden" name="session_id" />
-              <input type="text" name="content" id="post_message" class="form-control" placeholder="Send a message">
+              <input type="hidden" name="content" id="post_message" class="form-control" placeholder="Send a message">
             </form>
           </div>
       	</div>	

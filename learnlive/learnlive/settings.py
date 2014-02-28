@@ -11,7 +11,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'quriousinc@gmail.com'
 EMAIL_HOST_PASSWORD = 'LearnLive14'
 EMAIL_PORT = 587
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
+INTERNAL_IPS = ('127.0.0.1', )
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -147,6 +149,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'pipeline.middleware.MinifyHTMLMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -187,6 +190,7 @@ INSTALLED_APPS = (
     'treebeard',
     'south',
     'pipeline',
+    'debug_toolbar',
 )
 
 # LOGIN URL DEFAULT
