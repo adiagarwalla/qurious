@@ -11,3 +11,4 @@ class UserProfile(models.Model):
     bio = models.TextField()
     skills = models.ManyToManyField(Skill, null=True)
 
+

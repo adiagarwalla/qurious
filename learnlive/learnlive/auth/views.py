@@ -10,6 +10,7 @@ from learnlive.auth.models import UserProfile
 from learnlive.auth.forms import UserProfileForm
 from learnlive.bid_platform.models import Skill
 from django.shortcuts import render
+from django.contrib import messages
 
 class LogoutView(View):
 
@@ -55,6 +56,7 @@ class CreateUserView(View):
         if form.is_valid():
             # valid form entry, proceed to create the objects
             self.sign_up(form)
+	    messages.add_message(request, messages.INFO, 'Hello world.')
             return HttpResponseRedirect(reverse('login'))
         else:
             return render(request, 'query_parser/LearnLive.html')

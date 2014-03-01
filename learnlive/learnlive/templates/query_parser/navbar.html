@@ -83,6 +83,16 @@
                 alert("Error occured while trying to login");
               </script>
             {% endif %}
+	    {% if messages %}
+		<ul class="messages">
+    		{% for message in messages %}
+    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        	    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        	    {{ abcde }}
+    		</li>
+    	    	{% endfor %}
+		</ul>
+	    {% endif %}
         </form>
         
         {% endif %}
