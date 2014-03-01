@@ -13,6 +13,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    <script src="{% static 'dashboard/dashboard.js' %}" rel="stylesheet"></script>
 
   </head>
 
@@ -73,140 +74,33 @@
               <span class="glyphicon glyphicon-star"></span>              
             </h3>
           </center>
-          <p><center><a href="#" class="btn btn-danger" role="button">Select Bid - $30/30 minute session</a> <br><br><a href="#" class="btn btn-default" role="button">Select appointment time</a></center></p>
         </div>
 
         <div class="col-md-9">
     
-       	<h1>Aditya Agarwalla</h1>
+          {% if profile.profile_name %}
+          <h1>{{ profile.profile_name }}</h1>
+          {% else %}
+          <h1>{{ profile.user.username }}</h1>
+          {% endif %}
         <p>
-        Experienced with programming, bathroom singing, listenting to songs and not understanding a word and for making this stupid paragraph.
-        Experienced with programming, bathroom singing, listenting to songs and not understanding a word and for making this stupid paragraph.
-        Experienced with programming, bathroom singing, listenting to songs and not understanding a word and for making this stupid paragraph.
+        {{ profile.bio }}
         </p>
 
         <br><br>
         <div class="row">
         <div class="col-md-4">
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
+          <ul class="nav nav-pills nav-stacked" id="skill_set0">
           </ul>
         </div>
 
         <div class="col-md-4">
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
+          <ul class="nav nav-pills nav-stacked" id="skill_set1">
           </ul>
         </div>
 
         <div class="col-md-4">
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">0</span>
-              Singing
-            </a>
-            </li>
-            <li class="active">
-              <a>
-              <span class="badge pull-right">10</span>
-              Dancing
-            </a>
-            </li>
+          <ul class="nav nav-pills nav-stacked" id="skill_set2">
           </ul>
         </div>
 
@@ -216,153 +110,6 @@
 
     <br><br>
       <div class ="col-md-offset-3">
-
-        <div class="panel panel-danger">
-          <div class="panel-body">
-            Reviews
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-          5 Stars 
-          </div>
-          
-          <div class="col-md-10">
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-            <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-            <span class="sr-only">80% Complete</span>
-            </div>
-            </div>
-          </span>
-          </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Reviews for XYZ</h4>
-              </div>
-              <div class="modal-body">
-                <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <br>
-                 <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <br>
-                 <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <br>
-                 <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <br>
-                 <h4><b>Thumbnail label</b><span class="text-muted"> November 29, 2012</span></h4>
-                <span class="modaltest" data-toggle="modal" data-target="#myModal">
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                </span>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi</p>
-                <br>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">More Reviews</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-        <div class="row">
-          <div class="col-md-2">
-          4 Stars 
-          </div>
-          
-          <div class="col-md-10">
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-            <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-            <span class="sr-only">80% Complete</span>
-            </div>
-            </div>
-          </span>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-          3 Stars 
-          </div>
-          
-          <div class="col-md-10">
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-            <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-            <span class="sr-only">80% Complete</span>
-            </div>
-            </div>
-          </span>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-          2 Stars 
-          </div>
-          
-          <div class="col-md-10">
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-            <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-            <span class="sr-only">80% Complete</span>
-            </div>
-            </div>
-          </span>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-          1 Star 
-          </div>
-          
-          <div class="col-md-10">
-            <span class="modaltest" data-toggle="modal" data-target="#myModal">
-            <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
-            <span class="sr-only">80% Complete</span>
-            </div>
-            </div>
-          </div>
-        </span>
-        </div>
-      </div>
-
-
 
     <div class="container marketing">
 
@@ -390,6 +137,7 @@
     <script>
     	$(document).ready(function(){
       	$('.carousel').carousel();
+        get_user_skills();
     	});
 	</script>
   </body>
