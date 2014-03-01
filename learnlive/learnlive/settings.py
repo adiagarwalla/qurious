@@ -5,7 +5,7 @@ import os
 
 DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
-PIPELINE_ENABLED = True
+PIPELINE_ENABLED = False
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'quriousinc@gmail.com'
@@ -37,7 +37,7 @@ DATABASES = {
 CACHES = {
          'default': {
             'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-            'LOCATION': 'cache_table',
+            'LOCATION': 'cache_table1',
           }
 }
 
