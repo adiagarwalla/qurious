@@ -10,6 +10,7 @@ from learnlive.inclass.opentok_utils import create_session, generate_token
 from learnlive.query_parser.query_utils import get_category_for_verb
 from learnlive.query_parser.query_utils import get_entity_list
 from learnlive.bid_platform.skill_utils import get_profile_for_entity
+from django.contrib.auth.models import User 
 
 from learnlive.query_parser.forms import QueryRequestForm
 from learnlive.query_parser.forms import LeaveMessageForm
@@ -149,7 +150,13 @@ class AlternateSearchView(View):
 class ProfileView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'query_parser/instructorprofile.html')
+        username = request.GET.get('username')
+        user = User.objects.get(username=username)
+        user_prof = user.userprofile
+        data = {
+                'profile': user_prof
+        }
+        return render(request, 'query_parser/instructorprofile.html', data)
 
 class SearchResults(View):
 

@@ -9,6 +9,6 @@ urlpatterns = patterns('',
         url(r'^search/$', views.ProcessSearchView.as_view(), name='process-search'),
         url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
         url(r'^results/$', views.SearchResults.as_view(), name='search-results'),
-        url(r'^aboutus/$', cache_page(300 * 60)(views.AboutUs.as_view()), name='about-us'),
+        url(r'^aboutus/$', cache_page(10)(views.AboutUs.as_view()), name='about-us'),
         url(r'^confirmation/$', views.Confirm.as_view(), name='confirm'),               
    )
