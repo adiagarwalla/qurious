@@ -17,11 +17,8 @@
       var time = {{ time }}
     </script>
     <script src="{% static 'inclass/inclass.js' %}"></script>
-    {% if not is_chrome %}
-    <script src="http://static.opentok.com/v1.1/js/TB.min.js" ></script>
-    {% else %}
     <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
-    {% endif %}
+    {% include 'query_parser/tracking.html' %}
   </head>
 
   <body>
@@ -38,13 +35,7 @@
 		  // To check for incompatible browsers
 		  session   = TB.initSession(sessionId);
 
-      var publisherProps = {width: 600, height: 400};
-      {% if is_chrome %}
-		    publisher = TB.initPublisher(apiKey, "myPublisher", publisherProps);
-        session.publish(publisher);
-      {% else %}
-        publisher = TB.initPublisher(apiKey, "myPublisher");
-      {% endif %}
+      publisher = TB.initPublisher(apiKey, "myPublisher");
 
 		  //session.addEventListener("connectionCreated", connectionCreatedHandler);
 		  //session.addEventListener("connectionDestroyed", connectionDestroyedHandler);

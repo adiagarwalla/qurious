@@ -14,6 +14,7 @@
     {% compressed_css 'css' %}
   
     <script src="{% static 'bootstrap/bootbox.min.js' %}"></script>
+    {% include 'query_parser/tracking.html' %}
   </head>
 
   <body>
@@ -27,7 +28,8 @@
       <div class="featurette">
         <form action="{% url 'search' %}" method="POST" >
           {% csrf_token %}
-          <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center>
+          <center><iframe width="760" height="415" src="//www.youtube.com/embed/T3ve3XXC6F4" frameborder="0" allowfullscreen></iframe></center>
+          <!-- <center><img class = "img-responsive" src="{% static 'query_parser/home.jpg' %}" alt="..." /></center > -->
           <h5 class="featurette-heading text-danger" align="center">Qurious</h2>
           <center><div class="row"><div class="col-md-6 col-md-offset-3"><input class="form-control input-lg" id="focusedInput" type="text" placeholder="Ask any Question" name="query"></div></div>
           <button type="submit" class="btn btn-danger btn-lg">Ask</button></center>
