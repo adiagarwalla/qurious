@@ -104,7 +104,7 @@ class InClassView(View):
             notification.save()
             # Your Account Sid and Auth Token from twilio.com/user/account
             # mail them a message
-            send_mail('Someone wants to have a session with you!', 'A user is waiting to have a one on one session with you! Come quickly, or else he may leave. The link to the session is http://localhost:8000' + url, 'quriousinc@gmail.com', [tutor.user.username], fail_silently=True)
+            send_mail('Someone wants to have a session with you!', 'A user is waiting to have a one on one session with you! Come quickly, or else he may leave. The link to the session is http://qurious.info/dashboard/', 'quriousinc@gmail.com', [tutor.user.username], fail_silently=True)
             if tutor.phone_number:
                 try:
                     account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"

@@ -9,7 +9,7 @@ PIPELINE_ENABLED = False
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'quriousinc@gmail.com'
-EMAIL_HOST_PASSWORD = 'LearnLive14'
+EMAIL_HOST_PASSWORD = 'LearnLive07'
 EMAIL_PORT = 587
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
