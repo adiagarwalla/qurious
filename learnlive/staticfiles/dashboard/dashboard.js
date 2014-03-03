@@ -1,6 +1,6 @@
 function get_user_skills() {
     // this function gets the user skills
-    $.get('/dashboard/skills/', function(data) {
+    $.get('/dashboard/skills/?username=' + logged_in_username, function(data) {
         // alert the data for now
         $("#skill_set0").empty();
         $("#skill_set1").empty();
