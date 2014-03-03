@@ -103,6 +103,8 @@ class InClassView(View):
             notification = InClassNotification(prof_from=user, m_type=1,  message='Requesting a tutor session with you!', prof_to=tutor, prof_from_username=username, url_inclass=url)
             notification.save()
             # Your Account Sid and Auth Token from twilio.com/user/account
+            # mail them a message
+            send_mail('Someone wants to have a session with you!', 'A user is waiting to have a one on one session with you! Come quickly, or else he may leave. The link to the session is http://localhost:8000' + url, 'quriousinc@gmail.com', [tutor.user.username], fail_silently=True)
             if tutor.phone_number:
                 try:
                     account_sid = "ACca04b88e42ffc740570c9270dbb46ec4"
@@ -111,8 +113,6 @@ class InClassView(View):
                     message = client.sms.messages.create(body="Someone wants to have a session with you! Come online quickly!",
                       to=tutor.phone_number,    # Replace with your phone number
                           from_="+16505219069") # Replace with your Twilio number
-                    # mail them a message
-                    send_mail('Someone wants to have a session with you!', 'A user is waiting to have a one on one session with you! Come quickly, or else he may leave. The link to the session is http://localhost:8000' + url, 'quriousinc@gmail.com', [tutor.user.username], fail_silently=True)
 		except:
 		    print "Invalid phone number"
             return redirect(url)
