@@ -28,9 +28,9 @@ class MarketableSkillView(View):
     """
 
     def get(self, request, *args, **kwargs):
-        # return the list of skills for the logged in user
+        # return the list of skills for the user supplied
         # assumes that hte person is logged in.
-        username = request.user.username
+        username = request.GET.get('username')
         user = User.objects.get(username=username)
         user_prof = user.userprofile
         skills = user_prof.skills.all()

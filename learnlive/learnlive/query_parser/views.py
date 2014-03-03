@@ -156,6 +156,7 @@ class ProfileView(View):
         data = {
                 'profile': user_prof,
                 'tutor_id': user_prof.id,
+                'username': username,
         }
         return render(request, 'query_parser/instructorprofile.html', data)
 

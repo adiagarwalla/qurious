@@ -12,6 +12,7 @@
     {% compressed_js 'js' %}
     <script src="{% static 'dashboard/dashboard.js' %}" rel="stylesheet"></script>
     <script>
+      var logged_in_username = "{{ username }}";
       $(document).ready(function() {
 		    $('#exampleInputMin').keyup(function() {
 			    if ($.isNumeric($('#exampleInputMin').val())) {
