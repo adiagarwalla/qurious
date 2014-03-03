@@ -154,7 +154,8 @@ class ProfileView(View):
         user = User.objects.get(username=username)
         user_prof = user.userprofile
         data = {
-                'profile': user_prof
+                'profile': user_prof,
+                'tutor_id': user_prof.id,
         }
         return render(request, 'query_parser/instructorprofile.html', data)
 

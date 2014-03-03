@@ -7,13 +7,22 @@
 
     <title>Qurious</title>
 
-    <!-- Bootstrap core CSS -->
- 	<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'query_parser/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'query_parser/starter-template.css' %}" rel="stylesheet">
+    {% load compressed %}
+    {% compressed_css 'css' %}
+    {% compressed_js 'js' %}
     <script src="{% static 'dashboard/dashboard.js' %}" rel="stylesheet"></script>
+    <script>
+      $(document).ready(function() {
+		    $('#exampleInputMin').keyup(function() {
+			    if ($.isNumeric($('#exampleInputMin').val())) {
+			        $('#startSession').attr("disabled", false);
+			    }
+			    else {
+			        $('#startSession').attr("disabled", true);
+			    }
+		    });
+      });
+    </script>
 
   </head>
 
@@ -23,6 +32,62 @@
     <!-- NAVBAR
     ================================================== -->
     {% include "query_parser/navbar.html" %}
+		<!-- Modal for bid confirmation (and in the future - payment) -->
+	<div class="modal fade" id="myModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<form id="paymentinfo" action="{% url 'in-class-post' %}" method="POST">
+			{% csrf_token %}
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h2 class="modal-title" id="myModalLabel"><strong>Confirmation Page</strong></h2>
+					</div>
+					<div class="modal-body">
+						{% if not user.is_authenticated %}
+							<h4>Sign In Please</h4>
+							<input onClick="showOrHide()" type="checkbox" name="options" id="option1check">    I don't have an account
+							<br>
+							<br>
+							<fieldset>
+								<div class="form-group">
+									<label for="exampleInputEmail">EMAIL ADDRESS</label>
+									<input type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="xyz@gmail.com">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassoword">PASSWORD</label>
+									<input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="">
+								</div>
+								<div class="form-group" id="confirmPassword" style="visibility:hidden;">
+									<label for="confirmPassword1">RE-ENTER PASSWORD</label>
+									<input type="password" name="confirm" class="form-control" id="confirmPassword1" placeholder="">
+								</div>
+							</fieldset>
+						{% endif %}
+
+						<h4>Enter Session Details</h4>
+						<p>
+							  <div class="form-group">
+							    <label for="exampleInputMin">Duration of session</label>
+							    <input type="text" class="form-control" id="exampleInputMin" name="minutes" placeholder="In minutes">
+							  </div>
+						</p>
+            <p> Total cost of Live Session <span class="pull-right"> Free!</span></p></p>
+
+						<br>
+            <div> Hope you enjoy your session! </div>
+					</div>
+					<div class="modal-footer">
+						<center>
+              <input type="hidden" name="id_tutor" value="{{ tutor_id }}" id="id_tutor"/>
+              <input type="hidden" name="skill_price" value="10" id="sess_skill_price" />
+							<button type="submit" id="startSession" class="btn btn-danger" disabled>Start Live Session</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</center>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</form> <!-- /.end of form -->
+	</div><!-- /.modal -->
 
 
     <!-- Carousel
@@ -65,14 +130,8 @@
     	<div class = "row">
         <div class="col-md-3">
       		<center>
-          <img class = "featurette-image img-responsive img-circle" src="{% static 'query_parser/profile4.jpeg' %}" alt="..." />
-          <h3>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>              
-            </h3>
+          <img class="img1-responsive" src="{% static 'query_parser/profile1.jpg' %}" alt="..." height="150px" weight="100px" />
+          <p><a href="#" class="btn btn-danger result_select_bid" role="button" data-toggle="modal" data-target="#myModalConfirm">Enter a free session</a></p>
           </center>
         </div>
 
