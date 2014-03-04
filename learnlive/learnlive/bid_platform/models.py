@@ -10,3 +10,5 @@ class Skill(models.Model):
     num_endorsements = models.IntegerField()
     price = models.IntegerField()
     desc = models.TextField()
+    visible = models.BooleanField(default=True)
+    first_time = models.BooleanField(default=True)

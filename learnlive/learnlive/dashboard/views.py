@@ -13,6 +13,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 from learnlive.bid_platform.models import Skill
 from learnlive.inclass.models import InClassNotification
+from learnlive.query_parser.query_utils import tokenize_query
 
 from learnlive.dashboard.forms import AddSkillForm
 from learnlive.dashboard.forms import EditSkillForm
@@ -33,7 +34,7 @@ class MarketableSkillView(View):
         username = request.GET.get('username')
         user = User.objects.get(username=username)
         user_prof = user.userprofile
-        skills = user_prof.skills.all()
+        skills = user_prof.skills.filter(visible=True)
 
         data = serializers.serialize('json', skills)
         return HttpResponse(data, mimetype='application/json')
@@ -48,7 +49,7 @@ class MarketableSkillView(View):
             username = request.user.username
             user = User.objects.get(username=username)
             user_prof = user.userprofile
-            skill = Skill(name=skill_name, is_marketable=False, num_endorsements=0, price=0, lemma_name=skill_lemma)
+            skill = Skill(name=skill_name, is_marketable=False, num_endorsements=0, price=0, lemma_name=skill_lemma, visible=True)
             skill.save()
             user_prof.skills.add(skill)
 
@@ -62,6 +63,7 @@ class EditSkillView(View):
         """
         Allows you to modify an existing skill that you have, maybe to make it marketable and add a price
         """
+        lmtzr = WordNetLemmatizer()
         form = EditSkillForm(request.POST)
         if form.is_valid():
             skill = Skill.objects.get(id=form.cleaned_data.get('skill_id'))
@@ -72,6 +74,19 @@ class EditSkillView(View):
                 skill.is_marketable = False
             else:
                 skill.is_marketable = True
+                if skill.first_time:
+                    skill_name = skill.name
+                    skills = tokenize_query(skill_name)
+                    for s in skills:
+                        skill_lemma = lmtzr.lemmatize(s[0])
+                        username = request.user.username
+                        user = User.objects.get(username=username)
+                        user_prof = user.userprofile
+                        s_obj = Skill(name=skill_name, is_marketable=True, num_endorsements=0, price=price, lemma_name=skill_lemma, visible=False, desc=desc)
+                        s_obj.save()
+                        user_prof.skills.add(s_obj)
+                    skill.first_time = False
+
             if price is None:
                 price = 0
             skill.price = price
