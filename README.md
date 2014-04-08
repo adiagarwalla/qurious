@@ -1,1 +1,1 @@
-# This is my README
+Check it out at www.qurious.info
